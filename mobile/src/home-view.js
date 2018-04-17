@@ -21,7 +21,7 @@ import ReactNative, {
 import client, { TitleBar } from '@doubledutch/rn-client'
 import FirebaseConnector from '@doubledutch/firebase-connector'
 import { ConfigurableScroll } from '@doubledutch/rn-components'
-const fbc = FirebaseConnector(client, 'customskins')
+const fbc = FirebaseConnector(client, 'customexperiences')
 fbc.initializeAppWithSimpleBackend()
 
 export default class HomeView extends Component {

@@ -17,8 +17,8 @@
 import React, { Component } from 'react'
 import './App.css'
 import client from '@doubledutch/admin-client'
-import FirebaseConnector from '@doubledutch/firebase-connector'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import FirebaseConnector from '@doubledutch/firebase-connector'
 import CellSelectView from './CellSelect.js'
 import FormView from './FormView.js'
 import AppView from './AppView.js'
@@ -26,7 +26,7 @@ import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
 import Modal  from 'react-modal'
 import CustomModal from './Modal.js'
-const fbc = FirebaseConnector(client, 'customskins')
+const fbc = FirebaseConnector(client, 'customexperiences')
 fbc.initializeAppWithSimpleBackend()
 const { currentEvent, currentUser, primaryColor } = client
 const reorder = (list, startIndex, endIndex) => {
