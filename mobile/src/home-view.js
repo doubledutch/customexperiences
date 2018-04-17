@@ -39,8 +39,7 @@ export default class HomeView extends Component {
   }
 
   componentDidMount() {
-    fbc.signinAdmin()
-    .then(user => {
+    this.signin.then(() => {
       const templateRef = fbc.database.public.adminRef('templates')
       templateRef.on('child_added', data => {
         this.setState({ templates: [...this.state.templates, {...data.val(), key: data.key }]})
