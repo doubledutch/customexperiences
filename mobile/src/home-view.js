@@ -96,7 +96,7 @@ export default class HomeView extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <TitleBar title={client.currentEvent.name} client={client} />
+        <TitleBar title={client.currentEvent.name} client={client} signin={this.signin} />
         <ConfigurableScroll componentConfigs={this.state.componentConfigs} />
       </View>
     )
