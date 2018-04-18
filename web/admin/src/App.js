@@ -236,12 +236,12 @@ export default class App extends Component {
 
   handleNewSpeaker = () => {
     const newSpeaker =  [{
-      name: "Lawrence Coburn",
-      image: 'https://dt5uaguduaqch.cloudfront.net/d8648303-28a3-450c-9bcd-99e2ca960896-S110x110.jpg',
-      title: "Chief Executive Officer",
-      company: "DoubleDutch",
-      des: "Lawrence Coburn is the CEO and Co-Founder of DoubleDutch, the leader in Live Engagement Marketing software for events, conferences, and tradeshows. Lawrence founded DoubleDutch with the dream of bringing the magic of software and technology to the physical world of live events.",
-      URL: 'http://doubledutch.me/company/contact-us/',
+      name: "",
+      image: '',
+      title: "",
+      company: "",
+      des: "",
+      URL: '',
     }]
     var newCell = this.state.newCell
     newCell.speakerInfo = newCell.speakerInfo.concat(newSpeaker)

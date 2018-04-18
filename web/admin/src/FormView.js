@@ -150,7 +150,7 @@ export default class FormView extends Component {
     return (
       <div>
         <label className="boxTitle">
-          Speaker Name:
+          Speaker {i+1} Name:
           <input
           className="box"
             name = {name}

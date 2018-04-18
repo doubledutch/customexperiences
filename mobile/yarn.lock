@@ -3860,6 +3860,13 @@ react-devtools-core@2.3.1:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
+react-mixin@^3.0.5:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/react-mixin/-/react-mixin-3.1.1.tgz#68749756bfe32699e561372a4aeecb926db72b7f"
+  dependencies:
+    object-assign "^4.0.1"
+    smart-mixin "^2.0.0"
+
 react-native-cached-image@^1.3.5:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/react-native-cached-image/-/react-native-cached-image-1.4.3.tgz#0942e2cd078284a1f0438de8dfe17f2b36a89752"
@@ -3877,6 +3884,13 @@ react-native-camera@^0.13.0:
   dependencies:
     lodash "^4.17.4"
     prop-types "^15.5.10"
+
+react-native-carousel-view@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-carousel-view/-/react-native-carousel-view-0.5.1.tgz#2b0d64d32d71be09ff7555aa8c19b1dac98c5969"
+  dependencies:
+    react-mixin "^3.0.5"
+    react-timer-mixin "^0.13.3"
 
 react-native-carousel@^0.11.0:
   version "0.11.0"
@@ -4568,6 +4582,10 @@ slash@^1.0.0:
 slide@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/slide/-/slide-1.1.6.tgz#56eb027d65b4d2dce6cb2e2d32c4d4afc9e1d707"
+
+smart-mixin@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/smart-mixin/-/smart-mixin-2.0.0.tgz#a34a1055e32a75b30d2b4e3ca323dc99cb53f437"
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
