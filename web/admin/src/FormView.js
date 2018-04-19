@@ -21,6 +21,12 @@ import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
 
 export default class FormView extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      video: false
+    }
+  }
 
   handleInputChange = (event) => {
     const {value, name, type, checked} = event.target
@@ -33,6 +39,39 @@ export default class FormView extends Component {
     }
     this.setState({newCell})
   }
+
+  validateYouTubeUrl = (link) => {
+    // var url = $('#youTubeUrl').val();
+    var url = link
+        if (url != undefined || url != '') {
+            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+            var match = url.match(regExp);
+            if (match && match[2].length == 11) {
+              return true
+                // Do anything for being valid
+                // if need to change the url to embed url then use below line
+                // $('#ytplayerSide').attr('src', 'https://www.youtube.com/embed/' + match[2] + '?autoplay=0');
+            }
+            else {
+              return false
+                // Do anything for not being valid
+            }
+        }
+}
+
+formInput = (title, name, value) => {
+  return (
+    <label className="boxTitle">
+    {title}:
+      <input
+      className="box"
+      name={name}
+      type="text"
+      value={value}
+      onChange={this.handleInputChange} />
+    </label>
+  ) 
+}
 
   
 

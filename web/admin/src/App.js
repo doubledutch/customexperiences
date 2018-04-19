@@ -184,11 +184,7 @@ export default class App extends Component {
   setHour = (event) => {
     var hour = event.target.value
     var date = this.state.publishDate
-    console.log(date)
-    console.log(hour)
-    console.log(date.getTimezoneOffset())
     if (hour < 25) {
-      console.log("here")
       date.setHours(hour)
       date.setMinutes('00')
       date.setSeconds('00')
