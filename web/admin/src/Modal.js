@@ -42,16 +42,16 @@ export class CustomModal extends Component {
         <p className="hourDropdownTitle">Select Release Time: </p>
         <form className="dropdownMenu" onChange={this.props.setHour}>
           <select className="dropdownText" value={this.props.publishDate.getHours()} name="hours">
-            <option value="00">12am</option>
-            <option value="01">1am</option>
-            <option value="02">2am</option>
-            <option value="03">3am</option>
-            <option value="04">4am</option>
-            <option value="05">5am</option>
-            <option value="06">6am</option>
-            <option value="07">7am</option>
-            <option value="08">8am</option>
-            <option value="09">9am</option>
+            <option value="0">12am</option>
+            <option value="1">1am</option>
+            <option value="2">2am</option>
+            <option value="3">3am</option>
+            <option value="4">4am</option>
+            <option value="5">5am</option>
+            <option value="6">6am</option>
+            <option value="7">7am</option>
+            <option value="8">8am</option>
+            <option value="9">9am</option>
             <option value="10">10am</option>
             <option value="11">11am</option>
             <option value="12">12pm</option>

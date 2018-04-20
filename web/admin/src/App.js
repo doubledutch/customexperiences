@@ -184,12 +184,10 @@ export default class App extends Component {
   setHour = (event) => {
     var hour = event.target.value
     var date = this.state.publishDate
-    if (hour < 25) {
-      date.setHours(hour)
-      date.setMinutes('00')
-      date.setSeconds('00')
-      this.setState({publishDate: date});
-    }
+    date.setHours(+hour)
+    date.setMinutes(0)
+    date.setSeconds(0)
+    this.setState({publishDate: date});
   }
 
   handleDate = (date) => {
@@ -371,6 +369,7 @@ const cellData = [
     type: "Text Squares Cell",
     header : false,
     footer: false,
+    intro: '',
     title : "",
     des : "",
     buttonURL : '',
@@ -388,6 +387,7 @@ const cellData = [
     type: "Squares Cell",
     header : false,
     footer: false,
+    intro: '',
     title : "",
     des : "",
     buttonURL : '',
@@ -401,6 +401,7 @@ const cellData = [
     type: "Speaker Highlight Cell",
     header: false,
     footer: false,
+    intro: "",
     title: "",
     des: "",
     buttonURL: '',
@@ -420,6 +421,7 @@ const cellData = [
     type: "Image Carousel",
     header: false,
     footer: false,
+    intro: '',
     title: "",
     des: "",
     buttonURL: '',
@@ -455,6 +457,7 @@ const cellData = [
     type: "Dual Details Cell",
     header: false,
     footer: false,
+    intro: '',
     title: "",
     des: "",
     buttonURL: '',
@@ -470,6 +473,7 @@ const cellData = [
     type: "Dual Details Cell",
     header: false,
     footer: false,
+    intro: '',
     title: "",
     des: "",
     buttonURL: '',
@@ -485,6 +489,7 @@ const cellData = [
     type: "Image Cell",
     header: false,
     footer: false,
+    intro: '',
     title: "",
     des: "",
     buttonURL: '',
@@ -497,6 +502,7 @@ const cellData = [
     type: "Dual Images Cell",
     header: false,
     footer: false,
+    intro: '',
     title: "",
     des: "",
     buttonURL: '',
@@ -514,6 +520,7 @@ const cellData = [
     type: "Text Cell",
     header: false,
     footer: false,
+    intro: '',
     title: "",
     des: "",
     buttonURL: '',
