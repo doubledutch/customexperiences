@@ -57,6 +57,10 @@ export default class HomeView extends Component {
         this.setState({templates: newArray})
         this.findConfig()
       })
+      templateRef.on('child_removed', data => {
+        this.setState({ templates: this.state.templates.filter(x => x.key !== data.key) })
+      })
+      
     })
   }
 
@@ -89,7 +93,7 @@ export default class HomeView extends Component {
         items = items.concat(template[i])
       }
     }
-    
+
     this.setState({componentConfigs: items})
   }
 
