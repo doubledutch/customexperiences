@@ -242,6 +242,16 @@ export default class App extends Component {
     this.setState({newCell})
   }
 
+  handleNewImage = () => {
+    const newImage =  [{
+      image: '',
+      URL: ''
+    }]
+    var newCell = this.state.newCell
+    newCell.imageInfo = newCell.imageInfo.concat(newImage)
+    this.setState({newCell})
+  }
+
   loadTemplate = (event) => {
     var name = event.target.value
     var items = []
@@ -314,6 +324,7 @@ export default class App extends Component {
           formBools = {this.state.formBools}
           handleSubmit = {this.handleSubmit}
           handleNewSpeaker={this.handleNewSpeaker}
+          handleNewImage={this.handleNewImage}
           updateCell = {this.updateCell}
           edits = {this.state.edits}
           />
@@ -430,14 +441,6 @@ const cellData = [
       {
         image: '',
         URL: '',
-      },
-      {
-        image: '',
-        URL: '',
-      },
-      {
-        image: '',
-        URL: '',
       }
     ]
   },
@@ -452,22 +455,6 @@ const cellData = [
     title: "",
     description: "",
     image: ''
-  },
-  {
-    type: "Dual Details Cell",
-    header: false,
-    footer: false,
-    intro: '',
-    title: "",
-    des: "",
-    buttonURL: '',
-    buttonText: "",
-    image1: '',
-    title1: "",
-    des1: "",
-    image2: '',
-    title2: "",
-    des2: ""
   },
   {
     type: "Dual Details Cell",

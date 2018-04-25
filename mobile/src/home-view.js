@@ -34,7 +34,6 @@ export default class HomeView extends Component {
     }
     this.signin = fbc.signin()
     .then(user => this.user = user)
-
     this.signin.catch(err => console.error(err))
   }
 
@@ -46,6 +45,7 @@ export default class HomeView extends Component {
         this.findConfig()
       })
       templateRef.on('child_changed', data => {
+        console.log(data.val())
         const name = data.key
         const newData = data.val()
         var newArray = this.state.templates
@@ -59,6 +59,7 @@ export default class HomeView extends Component {
       })
       templateRef.on('child_removed', data => {
         this.setState({ templates: this.state.templates.filter(x => x.key !== data.key) })
+        this.findConfig()
       })
       
     })

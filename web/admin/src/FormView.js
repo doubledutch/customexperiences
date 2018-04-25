@@ -29,7 +29,7 @@ export default class FormView extends Component {
   }
 
   handleInputChange = (event) => {
-    const {value, name, type, checked} = event.target
+    const {name, type, checked, value} = event.target
     const path = name.split('.')
     const {newCell} = this.props
     const obj = path.slice(0, path.length-1).reduce((obj, prop) => obj[isNaN(prop) ? prop : +prop], newCell)
@@ -110,6 +110,7 @@ formInput = (title, name, value) => {
               className="box"
               name="intro"
               type="text"
+              maxlength="100"
               value={this.props.newCell.intro}
               onChange={this.handleInputChange} />
           </label>
@@ -119,6 +120,7 @@ formInput = (title, name, value) => {
             className="box"
               name="title"
               type="text"
+              maxlength="100"
               value={this.props.newCell.title}
               onChange={this.handleInputChange} />
           </label>
@@ -129,6 +131,7 @@ formInput = (title, name, value) => {
               name="des"
               type="text"
               value={this.props.newCell.des}
+              maxlength="500"
               onChange={this.handleInputChange} />
           </label>
           </span> : <label className="boxTitle">
@@ -137,6 +140,7 @@ formInput = (title, name, value) => {
             className="box"
               name="title"
               type="text"
+              maxlength="100"
               value={this.props.newCell.title}
               onChange={this.handleInputChange} />
           </label> }
@@ -171,13 +175,13 @@ formInput = (title, name, value) => {
     )
   }
 
-  addNewSpeaker = () => {
-    this.props.newCell.speakerInfo.map((item, i) => {
-      return (
-        this.speakerInfo(i)
-      )
-    })
-  }
+  // addNewSpeaker = () => {
+  //   this.props.newCell.speakerInfo.map((item, i) => {
+  //     return (
+  //       this.speakerInfo(i)
+  //     )
+  //   })
+  // }
 
   speakerInfo = (i) => {
     var name = `speakerInfo.${i}.name`
@@ -230,6 +234,7 @@ formInput = (title, name, value) => {
             className="box"
             name = {des}
             type="text"
+            maxlength="500"
             value={this.props.newCell.speakerInfo[i].des}
             onChange={this.handleInputChange} />
         </label>
@@ -240,6 +245,33 @@ formInput = (title, name, value) => {
             name = {link}
             type="text"
             value={this.props.newCell.speakerInfo[i].URL}
+            onChange={this.handleInputChange} />
+        </label>
+      </div>
+    )
+  }
+
+  imageInfo = (i) => {
+    var image = `imageInfo.${i}.image`
+    var link = `imageInfo.${i}.URL`
+    return (
+      <div>
+        <label className="boxTitle">
+          Image {i+1} URL:
+          <input
+            className="box"
+            name={image}
+            type="text"
+            value={this.props.newCell.imageInfo[i].image}
+            onChange={this.handleInputChange} />
+        </label>
+        <label className="boxTitle">
+          Image {i+1} Link:
+          <input
+            className="box"
+            name={link}
+            type="text"
+            value={this.props.newCell.imageInfo[i].URL}
             onChange={this.handleInputChange} />
         </label>
       </div>
@@ -466,7 +498,13 @@ formInput = (title, name, value) => {
           {this.checkQuestions()}
           {this.headerInfo()}
           {this.footerInfo()}
-          <label className="boxTitle">
+          {this.props.newCell.imageInfo.map((item, i) => {
+                return (
+                  this.imageInfo(i)
+                )
+              })}
+              <input type="button" onClick={()=>this.props.handleNewImage()} value="Add New Image +" className="speakerButton"/>
+          {/* <label className="boxTitle">
             Image 1 URL:
             <input
               className="box"
@@ -519,7 +557,7 @@ formInput = (title, name, value) => {
               type="text"
               value={this.props.newCell.imageInfo[2].URL}
               onChange={this.handleInputChange} />
-          </label>
+          </label> */}
           <input className="formButton" type="submit" value="Submit Content" />
         </form>
       )
