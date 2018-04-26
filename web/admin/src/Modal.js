@@ -73,6 +73,7 @@ export class CustomModal extends Component {
   }
   
   showCalendar = () => {
+    console.log(this.props.publishDate)
     var today = this.props.publishDate
     var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
     return (

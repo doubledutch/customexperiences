@@ -68,9 +68,11 @@ export default class App extends Component {
     .catch(error => alert("Please try reloading page to connect to the database"))
   }
 
-  showCell = (name, object) => {
-    var origData = this.state.cellData.find(item => item.type === object.name)
-    var newCell = Object.assign({}, origData)
+  showCell = (object) => {
+    const origData = this.state.cellData.find(item => item.type === object.name)
+    console.log(origData)
+    console.log(object)
+    var newCell = Object.create(origData)
     if (newCell.type === "Landing Page Cell") {newCell.bold = object.boldBool}
     this.setState({showFormBool: true, newCell, edits: false, formBools: object})
   }
@@ -86,7 +88,7 @@ export default class App extends Component {
 
   handleEdit = (event) => {
     var item = event.target.name
-    var newCell = Object.assign({}, this.state.items[item])
+    var newCell = Object.create(this.state.items[item])
     this.setState({showFormBool: true, edits: true, newCell, editCell: item})
   }
 
@@ -145,14 +147,17 @@ export default class App extends Component {
 
   newItem = () => {
     const newArray = this.state.items.concat(this.state.newCell)
-    this.setState({items: newArray, showFormBool: false})
+    console.log(this.state.items)
+    console.log(this.state.newCell)
+    console.log(newArray)
+    this.setState({items: newArray, showFormBool: false, newCell: ''})
   }
 
   editItem = () => {
     const i = this.state.editCell
     var newArray = this.state.items
     newArray[i] = this.state.newCell
-    this.setState({items: newArray, showFormBool: false, edits: false})
+    this.setState({items: newArray, showFormBool: false, edits: false, newCell: ''})
   }
 
   removeItem = (name) => {
@@ -206,7 +211,7 @@ export default class App extends Component {
         items.shift()
       }
       var newItems = publishTime.concat(items)
-      this.setState({publishDate})
+      this.setState({publishDate, session: title})
       fbc.database.public.adminRef('templates').child(title).set(newItems).then(() => {
         this.closeModal()
       })
@@ -225,6 +230,7 @@ export default class App extends Component {
   deleteTemplate = (e) => {
     if (window.confirm("Are you sure you want to delete the template?")) {
       fbc.database.public.adminRef("templates").child(this.state.value).remove()
+      this.setState({session: "All"})
     } 
   }
 
@@ -242,6 +248,12 @@ export default class App extends Component {
     this.setState({newCell})
   }
 
+  deleteLastSpeaker = () => {
+    var newCell = this.state.newCell
+    newCell.speakerInfo.pop()
+    this.setState({newCell})
+  }
+
   handleNewImage = () => {
     const newImage =  [{
       image: '',
@@ -252,26 +264,30 @@ export default class App extends Component {
     this.setState({newCell})
   }
 
+  deleteLastImage = () => {
+    var newCell = this.state.newCell
+    newCell.imageInfo.pop()
+    this.setState({newCell})
+  }
+
   loadTemplate = (event) => {
-    var name = event.target.value
     var items = []
-    var title = ''
-      var publishDate = new Date().getTime()
-      title = name
-      var item = this.state.templates.find(item => {
-        return item.key === name
-      })
-      for (var i in item){
-        if (i !== "key") {
-          if (item[i].publishDate) {
-            publishDate = new Date(item[i].publishDate)
-          }
-          else {
-            items = items.concat(item[i])
-          }      
+    var title = event.target.value || ''
+    var publishDate = new Date()
+    var item = this.state.templates.find(item => {
+      return item.key === title
+    })
+    for (var i in item){
+      if (i !== "key") {
+        if (item[i].publishDate) {
+          publishDate = new Date(item[i].publishDate)
         }
+        else {
+          items = items.concat(item[i])
+        }      
       }
-    this.setState({items, value: title, publishDate});
+    }
+    this.setState({items, value: title, publishDate, newCell:''});
   }
   
  
@@ -317,6 +333,7 @@ export default class App extends Component {
           hideForm = {this.hideForm}
           showFormBool = {this.state.showFormBool}
           edits = {this.state.edits}
+          newCell = {this.state.newCell}
           />
           <FormView
           showFormBool = {this.state.showFormBool}
@@ -324,6 +341,8 @@ export default class App extends Component {
           formBools = {this.state.formBools}
           handleSubmit = {this.handleSubmit}
           handleNewSpeaker={this.handleNewSpeaker}
+          deleteLastSpeaker={this.deleteLastSpeaker}
+          deleteLastImage={this.deleteLastImage}
           handleNewImage={this.handleNewImage}
           updateCell = {this.updateCell}
           edits = {this.state.edits}
@@ -468,9 +487,11 @@ const cellData = [
     image1: '',
     title1: "",
     des1: "",
+    url1: '',
     image2: '',
     title2: "",
-    des2: ""
+    des2: "",
+    url2: ''
   },
   {
     type: "Image Cell",

@@ -30,6 +30,7 @@ export default class FormView extends Component {
 
   handleInputChange = (event) => {
     const {name, type, checked, value} = event.target
+    console.log(event.target)
     const path = name.split('.')
     const {newCell} = this.props
     const obj = path.slice(0, path.length-1).reduce((obj, prop) => obj[isNaN(prop) ? prop : +prop], newCell)
@@ -38,6 +39,8 @@ export default class FormView extends Component {
       obj[path[path.length-1]] = checked
     }
     this.setState({newCell})
+    console.log(this.state.newCell)
+   
   }
 
   validateYouTubeUrl = (link) => {
@@ -110,7 +113,7 @@ formInput = (title, name, value) => {
               className="box"
               name="intro"
               type="text"
-              maxlength="100"
+              maxLength="50"
               value={this.props.newCell.intro}
               onChange={this.handleInputChange} />
           </label>
@@ -120,18 +123,19 @@ formInput = (title, name, value) => {
             className="box"
               name="title"
               type="text"
-              maxlength="100"
+              maxLength="50"
+              required
               value={this.props.newCell.title}
               onChange={this.handleInputChange} />
           </label>
           <label className="boxTitle">
             Description:
             <input
-            className="box"
+              className="box"
               name="des"
               type="text"
               value={this.props.newCell.des}
-              maxlength="500"
+              maxLength="500"
               onChange={this.handleInputChange} />
           </label>
           </span> : <label className="boxTitle">
@@ -140,7 +144,8 @@ formInput = (title, name, value) => {
             className="box"
               name="title"
               type="text"
-              maxlength="100"
+              maxLength="100"
+              required
               value={this.props.newCell.title}
               onChange={this.handleInputChange} />
           </label> }
@@ -158,6 +163,8 @@ formInput = (title, name, value) => {
             className="box"
             name="buttonText"
             type="text"
+            required
+            maxLength="30"
             value={this.props.newCell.buttonText}
             onChange={this.handleInputChange} />
           </label>
@@ -167,6 +174,7 @@ formInput = (title, name, value) => {
               className="box"
               name="buttonURL"
               type="text"
+              required
               value={this.props.newCell.buttonURL}
               onChange={this.handleInputChange} />
           </label>
@@ -198,6 +206,7 @@ formInput = (title, name, value) => {
           className="box"
             name = {name}
             type="text"
+            required
             value={this.props.newCell.speakerInfo[i].name}
             onChange={this.handleInputChange} />
         </label>
@@ -207,6 +216,7 @@ formInput = (title, name, value) => {
             className="box"
             name = {image}
             type="text"
+            required
             value={this.props.newCell.speakerInfo[i].image}
             onChange={this.handleInputChange} />
         </label>
@@ -216,6 +226,7 @@ formInput = (title, name, value) => {
             className="box"
             name = {title}
             type="text"
+            required
             value={this.props.newCell.speakerInfo[i].title}
             onChange={this.handleInputChange} />
         </label>
@@ -234,7 +245,7 @@ formInput = (title, name, value) => {
             className="box"
             name = {des}
             type="text"
-            maxlength="500"
+            maxLength="300"
             value={this.props.newCell.speakerInfo[i].des}
             onChange={this.handleInputChange} />
         </label>
@@ -262,6 +273,7 @@ formInput = (title, name, value) => {
             className="box"
             name={image}
             type="text"
+            required
             value={this.props.newCell.imageInfo[i].image}
             onChange={this.handleInputChange} />
         </label>
@@ -299,6 +311,8 @@ formInput = (title, name, value) => {
                 className="box"
                 name="headline"
                 type="text"
+                required
+                maxLength="20"
                 value={this.props.newCell.headline}
                 onChange={this.handleInputChange} />
             </label> : null }
@@ -309,6 +323,7 @@ formInput = (title, name, value) => {
                 name="video"
                 type="text"
                 className="box"
+                required
                 value={this.props.newCell.video}
                 onChange={this.handleInputChange} />
             </label> : null }
@@ -318,6 +333,7 @@ formInput = (title, name, value) => {
                 name="image"
                 type="text"
                 className="box"
+                required
                 value={this.props.newCell.image}
                 onChange={this.handleInputChange} />
             </label> : null }
@@ -337,6 +353,7 @@ formInput = (title, name, value) => {
                 name="video"
                 type="text"
                 className="box"
+                required
                 value={this.props.newCell.video}
                 onChange={this.handleInputChange} />
             </label>
@@ -356,6 +373,7 @@ formInput = (title, name, value) => {
                   name="image1"
                   type="text"
                   className="box"
+                  required
                   value={this.props.newCell.image1}
                   onChange={this.handleInputChange} />
               </label>
@@ -365,6 +383,7 @@ formInput = (title, name, value) => {
                   name="text1"
                   type="text"
                   className="box"
+                  required
                   value={this.props.newCell.text1}
                   onChange={this.handleInputChange} />
               </label>
@@ -374,6 +393,7 @@ formInput = (title, name, value) => {
                   name="image2"
                   type="text"
                   className="box"
+                  required
                   value={this.props.newCell.image2}
                   onChange={this.handleInputChange} />
               </label>
@@ -383,6 +403,7 @@ formInput = (title, name, value) => {
                   name="text2"
                   type="text"
                   className="box"
+                  required
                   value={this.props.newCell.text2}
                   onChange={this.handleInputChange} />
               </label>
@@ -392,6 +413,7 @@ formInput = (title, name, value) => {
                   name="image3"
                   type="text"
                   className="box"
+                  required
                   value={this.props.newCell.image3}
                   onChange={this.handleInputChange} />
               </label>
@@ -401,6 +423,7 @@ formInput = (title, name, value) => {
                     name="text3"
                     type="text"
                     className="box"
+                    required
                     value={this.props.newCell.text3}
                     onChange={this.handleInputChange} />
               </label>
@@ -410,6 +433,7 @@ formInput = (title, name, value) => {
                   name="image4"
                   type="text"
                   className="box"
+                  required
                   value={this.props.newCell.image4}
                   onChange={this.handleInputChange} />
               </label>
@@ -419,6 +443,7 @@ formInput = (title, name, value) => {
                   className="box"
                   name="text4"
                   type="text"
+                  required
                   value={this.props.newCell.text4}
                   onChange={this.handleInputChange} />
               </label>
@@ -439,6 +464,7 @@ formInput = (title, name, value) => {
                   className="box"
                   name="image1"
                   type="text"
+                  required
                   value={this.props.newCell.image1}
                   onChange={this.handleInputChange} />
               </label>
@@ -448,6 +474,7 @@ formInput = (title, name, value) => {
                   className="box"
                   name="image2"
                   type="text"
+                  required
                   value={this.props.newCell.image2}
                   onChange={this.handleInputChange} />
               </label>
@@ -457,6 +484,7 @@ formInput = (title, name, value) => {
                   className="box"
                   name="image3"
                   type="text"
+                  required
                   value={this.props.newCell.image3}
                   onChange={this.handleInputChange} />
               </label>
@@ -466,6 +494,7 @@ formInput = (title, name, value) => {
                   className="box"
                   name="image4"
                   type="text"
+                  required
                   value={this.props.newCell.image4}
                   onChange={this.handleInputChange} />
               </label>
@@ -486,6 +515,7 @@ formInput = (title, name, value) => {
                 )
               })}
               <input type="button" onClick={()=>this.props.handleNewSpeaker()} value="Add New Speaker +" className="speakerButton"/>
+              <input type="button" onClick={()=>this.props.deleteLastSpeaker()} value="Delete Last Speaker" className="deleteSpeakerButton"/>
               {this.footerInfo()}
               <input type="submit" value="Submit Content" className="formButton"/>
             </form>
@@ -499,65 +529,12 @@ formInput = (title, name, value) => {
           {this.headerInfo()}
           {this.footerInfo()}
           {this.props.newCell.imageInfo.map((item, i) => {
-                return (
-                  this.imageInfo(i)
-                )
-              })}
-              <input type="button" onClick={()=>this.props.handleNewImage()} value="Add New Image +" className="speakerButton"/>
-          {/* <label className="boxTitle">
-            Image 1 URL:
-            <input
-              className="box"
-              name="imageInfo.0.image"
-              type="text"
-              value={this.props.newCell.imageInfo[0].image}
-              onChange={this.handleInputChange} />
-          </label>
-          <label className="boxTitle">
-            Image 1 Link:
-            <input
-              className="box"
-              name="imageInfo.0.URL"
-              type="text"
-              value={this.props.newCell.imageInfo[0].URL}
-              onChange={this.handleInputChange} />
-          </label>
-          <label className="boxTitle">
-            Image 2 URL:
-            <input
-              className="box"
-              name="imageInfo.1.image"
-              type="text"
-              value={this.props.newCell.imageInfo[1].image}
-              onChange={this.handleInputChange} />
-          </label>
-          <label className="boxTitle">
-            Image 2 Link:
-            <input
-              className="box"
-              name="imageInfo.1.URL"
-              type="text"
-              value={this.props.newCell.imageInfo[1].URL}
-              onChange={this.handleInputChange} />
-          </label>
-          <label className="boxTitle">
-            Image 3 URL:
-            <input
-              className="box"
-              name="imageInfo.2.image"
-              type="text"
-              value={this.props.newCell.imageInfo[2].image}
-              onChange={this.handleInputChange} />
-          </label>
-          <label className="boxTitle">
-            Image 3 Link:
-            <input
-              className="box"
-              name="imageInfo.2.URL"
-              type="text"
-              value={this.props.newCell.imageInfo[2].URL}
-              onChange={this.handleInputChange} />
-          </label> */}
+            return (
+              this.imageInfo(i)
+            )
+          })}
+          <input type="button" onClick={()=>this.props.handleNewImage()} value="Add New Image +" className="speakerButton"/>
+          <input type="button" onClick={()=>this.props.deleteLastImage()} value="Delete Last Image" className="deleteSpeakerButton"/>
           <input className="formButton" type="submit" value="Submit Content" />
         </form>
       )
@@ -575,15 +552,17 @@ formInput = (title, name, value) => {
               className="box"
               name="title1"
               type="text"
+              required
               value={this.props.newCell.title1}
               onChange={this.handleInputChange} />
           </label>
           <label className="boxTitle">
-            Image Link 1:
+            Image 1:
             <input
               className="box"
               name="image1"
               type="text"
+              required
               value={this.props.newCell.image1}
               onChange={this.handleInputChange} />
           </label>
@@ -593,7 +572,18 @@ formInput = (title, name, value) => {
               className="box"
               name="des1"
               type="text"
+              required
               value={this.props.newCell.des1}
+              onChange={this.handleInputChange} />
+          </label>
+          <label className="boxTitle">
+            Link 1:
+            <input
+              className="box"
+              name="url1"
+              type="text"
+              required
+              value={this.props.newCell.url1}
               onChange={this.handleInputChange} />
           </label>
           <label className="boxTitle">
@@ -602,16 +592,28 @@ formInput = (title, name, value) => {
               className="box"
               name="title2"
               type="text"
+              required
               value={this.props.newCell.title2}
               onChange={this.handleInputChange} />
           </label>
           <label className="boxTitle">
-            Image Link 2:
+            Image 2:
             <input
               className="box"
               name="image2"
               type="text"
+              required
               value={this.props.newCell.image2}
+              onChange={this.handleInputChange} />
+          </label>
+          <label className="boxTitle">
+            Link 2:
+            <input
+              className="box"
+              name="url2"
+              type="text"
+              required
+              value={this.props.newCell.url2}
               onChange={this.handleInputChange} />
           </label>
           <label className="boxTitle">
@@ -620,6 +622,7 @@ formInput = (title, name, value) => {
               className="box"
               name="des2"
               type="text"
+              required
               value={this.props.newCell.des2}
               onChange={this.handleInputChange} />
           </label>
@@ -637,6 +640,7 @@ formInput = (title, name, value) => {
               className="box"
               name="title"
               type="text"
+              required
               value={this.props.newCell.title}
               onChange={this.handleInputChange} />
           </label>
@@ -646,6 +650,7 @@ formInput = (title, name, value) => {
               className="box"
               name="image"
               type="text"
+              required
               value={this.props.newCell.image}
               onChange={this.handleInputChange} />
           </label>
@@ -655,7 +660,8 @@ formInput = (title, name, value) => {
               className="box"
               name="description"
               type="text"
-              value={this.props.newCell.des}
+              required
+              value={this.props.newCell.description}
               onChange={this.handleInputChange} />
           </label>
           <input type="submit" value="Submit Content" className="formButton"/>
@@ -674,6 +680,7 @@ formInput = (title, name, value) => {
               className="box"
               name="imageInfo.image"
               type="text"
+              required
               value={this.props.newCell.imageInfo.image}
               onChange={this.handleInputChange} />
           </label>
@@ -683,6 +690,8 @@ formInput = (title, name, value) => {
       )
     }
     if (this.props.newCell.type === "Dual Images Cell"){
+      const image1 = `imageInfo.${0}.image`
+      const image = `imageInfo.${0}.image`
       return(
         <form className="formBox" onSubmit={this.props.handleSubmit}>
           {this.checkQuestions()}
@@ -693,6 +702,7 @@ formInput = (title, name, value) => {
               className="box"
               name="imageInfo.0.image"
               type="text"
+              required
               value={this.props.newCell.imageInfo[0].image}
               onChange={this.handleInputChange} />
           </label>
@@ -702,6 +712,7 @@ formInput = (title, name, value) => {
               className="box"
               name="imageInfo.1.image"
               type="text"
+              required
               value={this.props.newCell.imageInfo[1].image}
               onChange={this.handleInputChange} />
           </label>
@@ -722,6 +733,7 @@ formInput = (title, name, value) => {
                 className="box"
                 name="content"
                 type="text"
+                required
                 value={this.props.newCell.content}
                 onChange={this.handleInputChange} />
             </label>
@@ -740,6 +752,8 @@ formInput = (title, name, value) => {
                 className="box"
                 name="buttons.0.buttonTitle"
                 type="text"
+                required
+                maxLength="30"
                 value={this.props.newCell.buttons[0].buttonTitle}
                 onChange={this.handleInputChange} />
             </label>
@@ -749,6 +763,7 @@ formInput = (title, name, value) => {
                 className="box"
                 name="buttons.0.buttonURL"
                 type="text"
+                required
                 value={this.props.newCell.buttons[0].buttonURL}
                 onChange={this.handleInputChange} />
             </label>
@@ -758,6 +773,8 @@ formInput = (title, name, value) => {
                 className="box"
                 name="buttons.1.buttonTitle"
                 type="text"
+                required
+                maxLength="30"
                 value={this.props.newCell.buttons[1].buttonTitle}
                 onChange={this.handleInputChange} />
             </label>
@@ -767,6 +784,7 @@ formInput = (title, name, value) => {
                 className="box"
                 name="buttons.1.buttonURL"
                 type="text"
+                required
                 value={this.props.newCell.buttons[1].buttonURL}
                 onChange={this.handleInputChange} />
             </label>
@@ -781,7 +799,7 @@ formInput = (title, name, value) => {
       <div className="outerContainer">
         <h2>Edit the Content</h2>
         <span className="leftContainer">
-            {this.showForm()}
+          {this.showForm()}
         </span>
       </div>
     )

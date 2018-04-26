@@ -30,14 +30,13 @@ class CellSelectView extends Component {
     handleInputChange = (event) => {
       const value = event.target.value;
       const items = this.state.items;
-      const name = items[value].name;
       const item = items[value];
       if (this.state.oldCell !== -1){
         items[this.state.oldCell].boolName = false
       }
       items[value].boolName = true
       this.setState({items, oldCell: value})
-      this.props.showCell(name, item)
+      this.props.showCell(item)
     }
     
     clearTable = () => {
@@ -54,7 +53,6 @@ class CellSelectView extends Component {
     }
 
     render() {
-      this.clearTable()
       return (
         <div className="outerContainer">
           <h2>Select a Content Block</h2>

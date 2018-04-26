@@ -417,6 +417,17 @@ text-align: center;
   border: 1px #009DCD solid;
 }
 
+.deleteSpeakerButton{
+  height: 50px;
+  border-radius: 5px;
+  width: 80%;
+  color: red;
+  background-color: white;
+  margin: 10px 30px;
+  font-size: 18px;
+  border: 1px red solid;
+}
+
 .calendarBox {
   padding: 10px;
   flex: 1;
