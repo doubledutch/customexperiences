@@ -41,7 +41,7 @@ export default class App extends Component {
     super(props)
     this.state = {
       shouldShow: null,
-      value: '', 
+      value: 'All', 
       newCell: '',
       formBools: '',
       showFormBool: false,
@@ -70,14 +70,18 @@ export default class App extends Component {
 
   showCell = (object) => {
     const origData = this.state.cellData.find(item => item.type === object.name)
-    console.log(origData)
-    console.log(object)
-    var newCell = Object.create(origData)
+    var newCell = JSON.parse(JSON.stringify(origData)) // Quick and dirty deep copy
     if (newCell.type === "Landing Page Cell") {newCell.bold = object.boldBool}
     this.setState({showFormBool: true, newCell, edits: false, formBools: object})
   }
 
   handleSubmit = (event) => {
+    const current = this.state.newCell
+    if (current.video) {
+      if (!current.video.match(/^(https?\:\/\/)(www\.)?(youtube\.com|youtu\.?be)\/.+$/)) {
+        alert('Video URL must be a youtube URL.')
+      }
+    }
     if (this.state.edits) {
       this.editItem()
     }
@@ -88,7 +92,7 @@ export default class App extends Component {
 
   handleEdit = (event) => {
     var item = event.target.name
-    var newCell = Object.create(this.state.items[item])
+    var newCell = Object.assign({}, this.state.items[item])
     this.setState({showFormBool: true, edits: true, newCell, editCell: item})
   }
 
@@ -96,7 +100,7 @@ export default class App extends Component {
     var items = this.state.items
     var item = event.target.name
     items.splice(item, 1)
-    this.setState({items});  
+    this.setState({items, newCell: '', showFormBool: false});  
   }
 
   onDragEnd = (result) =>{
@@ -147,9 +151,6 @@ export default class App extends Component {
 
   newItem = () => {
     const newArray = this.state.items.concat(this.state.newCell)
-    console.log(this.state.items)
-    console.log(this.state.newCell)
-    console.log(newArray)
     this.setState({items: newArray, showFormBool: false, newCell: ''})
   }
 
@@ -224,14 +225,13 @@ export default class App extends Component {
 
   closeModal = () => {
     this.setState({showModal: false})
-    
   }
 
   deleteTemplate = (e) => {
     if (window.confirm("Are you sure you want to delete the template?")) {
       fbc.database.public.adminRef("templates").child(this.state.value).remove()
       this.setState({session: "All"})
-    } 
+    }
   }
 
   handleNewSpeaker = () => {
@@ -250,8 +250,10 @@ export default class App extends Component {
 
   deleteLastSpeaker = () => {
     var newCell = this.state.newCell
-    newCell.speakerInfo.pop()
-    this.setState({newCell})
+    if (newCell.speakerInfo.length > 1) {
+      newCell.speakerInfo.pop()
+      this.setState({newCell})
+    }
   }
 
   handleNewImage = () => {
@@ -266,8 +268,10 @@ export default class App extends Component {
 
   deleteLastImage = () => {
     var newCell = this.state.newCell
-    newCell.imageInfo.pop()
-    this.setState({newCell})
+    if (newCell.imageInfo.length > 1) {
+      newCell.imageInfo.pop()
+      this.setState({newCell})
+    }
   }
 
   loadTemplate = (event) => {
@@ -312,14 +316,14 @@ export default class App extends Component {
         />
         <h2>Select a Template (optional)</h2>
         <div className="submitBox">
-          <form className="dropdownMenu" onSubmit={this.handleSubmit}>
-            <select className="dropdownText" value={this.state.session} name="session" onChange={this.loadTemplate}>
-              <option style={{textAlign: "center"}} value="All">{'\xa0\xa0'}View Templates</option>
+          <form className="dropdownMenu">
+            <select className="dropdownText" value={this.state.value} name="session" onChange={this.loadTemplate}>
+              <option className="dropdownTitle" value="All">{'\xa0\xa0'}View Templates</option>
               { allTemplates.map((task, i) => {
                 var title = task.key
                 var data = task
                 return (
-                <option style={{textAlign: "center"}} key={i} value={task.key}>{'\xa0\xa0' + title}</option>  
+                <option className="dropdownTitle" key={i} value={task.key}>{'\xa0\xa0' + title}</option>  
                 )      
               })
               }
@@ -346,6 +350,7 @@ export default class App extends Component {
           handleNewImage={this.handleNewImage}
           updateCell = {this.updateCell}
           edits = {this.state.edits}
+          cellData={this.state.cellData}
           />
           <AppView
           items = {this.state.items}
@@ -355,8 +360,8 @@ export default class App extends Component {
           />
         </div>
         <div className="buttonsContainer">
-          <button className="modalButton" style={{marginRight: 10, fontSize: 18}} onClick={this.openModal} value="false">Publish to App</button>
-          <button className="modalButton" style={{marginRight: 40, fontSize: 18, backgroundColor: "red"}} onClick={this.deleteTemplate} value="false">Delete & Unpublish</button>
+          <button className="modalButton" style={{marginRight: 10, fontSize: 18}} onClick={this.openModal} disabled={(this.state.value === "All")} value="false">Publish to App</button>
+          <button className="modalButton" style={{marginRight: 40, fontSize: 18, backgroundColor: "red"}} disabled={(this.state.value === "All")} onClick={this.deleteTemplate} value="false">Delete & Unpublish</button>
         </div>
         <div className="expoContainer"> 
           <h2>Preview Custom Experience</h2>

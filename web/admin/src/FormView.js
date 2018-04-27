@@ -30,17 +30,14 @@ export default class FormView extends Component {
 
   handleInputChange = (event) => {
     const {name, type, checked, value} = event.target
-    console.log(event.target)
     const path = name.split('.')
     const {newCell} = this.props
     const obj = path.slice(0, path.length-1).reduce((obj, prop) => obj[isNaN(prop) ? prop : +prop], newCell)
     obj[path[path.length-1]] = value
     if (type === "checkbox"){
       obj[path[path.length-1]] = checked
-    }
-    this.setState({newCell})
-    console.log(this.state.newCell)
-   
+    }  
+    this.setState({newCell})   
   }
 
   validateYouTubeUrl = (link) => {
@@ -290,6 +287,10 @@ formInput = (title, name, value) => {
     )
   }
 
+  videoValidation = (link) => {
+  return !link.match(/^(https?\:\/\/)(www\.)?(youtube\.com|youtu\.?be)\/.+$/)
+  }
+
   showForm = () => {
     if (this.props.showFormBool === true){
       if (this.props.newCell.type === "Landing Page Cell"){
@@ -325,6 +326,7 @@ formInput = (title, name, value) => {
                 className="box"
                 required
                 value={this.props.newCell.video}
+                // pattern="^(https?\:\/\/)(www\.)?(youtube\.com|youtu\.?be)\/.+$"
                 onChange={this.handleInputChange} />
             </label> : null }
             { this.props.formBools.imageBool ? <label className="boxTitle">
@@ -338,7 +340,7 @@ formInput = (title, name, value) => {
                 onChange={this.handleInputChange} />
             </label> : null }
             {this.footerInfo()}
-            <input type="submit" value="Submit Content" className="formButton"/>
+            <input type="submit" value="Submit Content" className="formButton" disabled={this.videoValidation(this.props.newCell.video)}/>
           </form>
         )
       }
@@ -358,7 +360,7 @@ formInput = (title, name, value) => {
                 onChange={this.handleInputChange} />
             </label>
             {this.footerInfo()}
-            <input type="submit" value="Submit Content" className="formButton"/>
+            <input type="submit" value="Submit Content" className="formButton" disabled={this.videoValidation(this.props.newCell.video)}/>
           </form>
         )
       }

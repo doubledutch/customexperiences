@@ -38,6 +38,10 @@ class CellSelectView extends Component {
       this.setState({items, oldCell: value})
       this.props.showCell(item)
     }
+
+    // componentWillReceiveProps(nextProps){
+    //   this.clearTable()
+    // }
     
     clearTable = () => {
       const items = this.state.items
