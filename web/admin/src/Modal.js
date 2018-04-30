@@ -5,6 +5,12 @@ import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
 
 export class CustomModal extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      error: false
+    }
+  }
 
   render() {
     return(
@@ -21,7 +27,7 @@ export class CustomModal extends Component {
           <span className="submitBox2">
             <label className="boxTitle">
               Name your template:
-              <input className="eventName" name="value" maxLength="250" type="value" style={{}} value={this.props.title} onChange={this.props.handleChange}/>
+              <input className={(this.state.error) ? "eventNameRed" : "eventName"} name="value" maxLength="250" type="value" value={this.props.title} onChange={this.props.handleChange}/>
             </label>
           </span>
           <div className="modalTextBox">
@@ -110,6 +116,10 @@ export class CustomModal extends Component {
   publish = content => () => {
     if (this.props.title){
       this.props.publish(content, this.props.title)
+      this.setState({error: false})
+    }
+    else {
+      this.setState({error: true})
     }
   }
 

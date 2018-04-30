@@ -41,7 +41,7 @@ export default class App extends Component {
     super(props)
     this.state = {
       shouldShow: null,
-      value: 'All', 
+      value: '', 
       newCell: '',
       formBools: '',
       showFormBool: false,
@@ -230,7 +230,7 @@ export default class App extends Component {
   deleteTemplate = (e) => {
     if (window.confirm("Are you sure you want to delete the template?")) {
       fbc.database.public.adminRef("templates").child(this.state.value).remove()
-      this.setState({session: "All"})
+      this.setState({value: ""})
     }
   }
 
@@ -318,7 +318,7 @@ export default class App extends Component {
         <div className="submitBox">
           <form className="dropdownMenu">
             <select className="dropdownText" value={this.state.value} name="session" onChange={this.loadTemplate}>
-              <option className="dropdownTitle" value="All">{'\xa0\xa0'}View Templates</option>
+              <option className="dropdownTitle" value="">{'\xa0\xa0'}View Templates</option>
               { allTemplates.map((task, i) => {
                 var title = task.key
                 var data = task
@@ -360,8 +360,8 @@ export default class App extends Component {
           />
         </div>
         <div className="buttonsContainer">
-          <button className="modalButton" style={{marginRight: 10, fontSize: 18}} onClick={this.openModal} disabled={(this.state.value === "All")} value="false">Publish to App</button>
-          <button className="modalButton" style={{marginRight: 40, fontSize: 18, backgroundColor: "red"}} disabled={(this.state.value === "All")} onClick={this.deleteTemplate} value="false">Delete & Unpublish</button>
+          <button className="modalButton" style={{marginRight: 10, fontSize: 18}} onClick={this.openModal} disabled={(this.state.items === [])} value="false">Publish to App</button>
+          <button className="modalButton" style={{marginRight: 40, fontSize: 18, backgroundColor: "red"}} disabled={(this.state.value === "")} onClick={this.deleteTemplate} value="false">Delete & Unpublish</button>
         </div>
         <div className="expoContainer"> 
           <h2>Preview Custom Experience</h2>
