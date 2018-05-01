@@ -26,6 +26,8 @@ import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
 import Modal  from 'react-modal'
 import CustomModal from './Modal.js'
+import ContentPreview from './ContentPreview.js'
+
 const fbc = FirebaseConnector(client, 'customexperiences')
 fbc.initializeAppWithSimpleBackend()
 const { currentEvent, currentUser, primaryColor } = client
@@ -96,11 +98,17 @@ export default class App extends Component {
     this.setState({showFormBool: true, edits: true, newCell, editCell: item})
   }
 
+  closeForm = () => {
+    this.setState({showFormBool: false, newCell: ''})
+  }
+
   handleDelete = (event) => {
-    var items = this.state.items
-    var item = event.target.name
-    items.splice(item, 1)
-    this.setState({items, newCell: '', showFormBool: false});  
+    if (window.confirm("Are you sure you want to delete the cell?")) {
+      var items = this.state.items
+      var item = event.target.name
+      items.splice(item, 1)
+      this.setState({items, newCell: '', showFormBool: false});  
+    }
   }
 
   onDragEnd = (result) =>{
@@ -178,9 +186,8 @@ export default class App extends Component {
   }
 
   updateCell = (testCell) => {
-    this.setState({
-      newCell : testCell
-    });
+    var newCell = Object.assign({}, testCell)
+    this.setState({ newCell });
   }
 
   handleChange = (event) => {
@@ -291,8 +298,18 @@ export default class App extends Component {
         }      
       }
     }
-    this.setState({items, value: title, publishDate, newCell:''});
+    this.setState({items, value: title, publishDate, newCell:'', showFormBool: false});
   }
+
+  showPreview = () => {
+    return (
+      <div>
+        <h2 style={{marginBottom: "50px"}}>Preview</h2>
+        <ContentPreview content={this.state.newCell}/>
+      </div>
+    )
+  }
+
   
  
   render() {
@@ -351,17 +368,22 @@ export default class App extends Component {
           updateCell = {this.updateCell}
           edits = {this.state.edits}
           cellData={this.state.cellData}
+          closeForm={this.closeForm}
           />
+          {/* {this.state.showFormBool ? this.showPreview() :  */}
           <AppView
           items = {this.state.items}
           onDragEnd = {this.onDragEnd}
           handleDelete = {this.handleDelete}
           handleEdit = {this.handleEdit}
+          showFormBool = {this.state.showFormBool}
+          newCell={this.state.newCell}
           />
+       
         </div>
         <div className="buttonsContainer">
-          <button className="modalButton" style={{marginRight: 10, fontSize: 18}} onClick={this.openModal} disabled={(this.state.items === [])} value="false">Publish to App</button>
-          <button className="modalButton" style={{marginRight: 40, fontSize: 18, backgroundColor: "red"}} disabled={(this.state.value === "")} onClick={this.deleteTemplate} value="false">Delete & Unpublish</button>
+          <button className="modalButton" style={{marginRight: 10, fontSize: 18}} onClick={this.openModal} disabled={(!this.state.items.length || this.state.showFormBool)} value="false">Publish to App</button>
+          <button className="modalButton" style={{marginRight: 40, fontSize: 18, backgroundColor: "red"}} disabled={(!this.state.value || this.state.showFormBool)} onClick={this.deleteTemplate} value="false">Delete & Unpublish</button>
         </div>
         <div className="expoContainer"> 
           <h2>Preview Custom Experience</h2>

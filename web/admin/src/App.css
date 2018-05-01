@@ -104,6 +104,19 @@ text-align: center;
   background-color: #ffffff;
 }
 
+.textCell {
+  display:flex;
+  flex-flow: column wrap;
+  border: 1px solid #AEAEAE;
+  border-radius: 4px;
+  background-color: white;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  min-height: 40px;
+  margin-top: 5px;
+}
+
 .modalExport{
   background-color: #009DCD;
   border: none;
@@ -275,6 +288,45 @@ text-align: center;
   margin-top: 1px;
   font-size: 18px;
   padding: 5px 20px;
+}
+
+.formCloseButton{
+  border: none;
+  color: #009DCD;
+  font-size: 13px;
+  float: right;
+  align-self: flex-end;
+  margin: 0px 0px 10px 0px;
+  font-size: 18px;
+  padding: 5px 20px;
+}
+
+.content-preview {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.phoneBox {
+  margin: 0px 20px 20px 20px;
+  width: 318px;
+  height: 350px;
+  background-color: white;
+}
+
+.staticText {
+  text-align: center;
+  font-weight: "normal";
+  margin-top: 35px;
+}
+
+.phoneScroll {
+  margin-top:62px;
+  margin-left: 16px;
+  margin-right: 16px;
+  height: 275px;
+  overflow-y: auto;
+  background-color: #D8D8D8;
 }
 
 .eventName {

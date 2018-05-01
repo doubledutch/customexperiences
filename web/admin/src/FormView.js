@@ -37,27 +37,9 @@ export default class FormView extends Component {
     if (type === "checkbox"){
       obj[path[path.length-1]] = checked
     }  
-    this.setState({newCell})   
+    // this.setState({newCell})
+    this.props.updateCell(newCell)   
   }
-
-  validateYouTubeUrl = (link) => {
-    // var url = $('#youTubeUrl').val();
-    var url = link
-        if (url != undefined || url != '') {
-            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
-            var match = url.match(regExp);
-            if (match && match[2].length == 11) {
-              return true
-                // Do anything for being valid
-                // if need to change the url to embed url then use below line
-                // $('#ytplayerSide').attr('src', 'https://www.youtube.com/embed/' + match[2] + '?autoplay=0');
-            }
-            else {
-              return false
-                // Do anything for not being valid
-            }
-        }
-}
 
 formInput = (title, name, value) => {
   return (
@@ -180,14 +162,6 @@ formInput = (title, name, value) => {
     )
   }
 
-  // addNewSpeaker = () => {
-  //   this.props.newCell.speakerInfo.map((item, i) => {
-  //     return (
-  //       this.speakerInfo(i)
-  //     )
-  //   })
-  // }
-
   speakerInfo = (i) => {
     var name = `speakerInfo.${i}.name`
     var image = `speakerInfo.${i}.image`
@@ -288,7 +262,8 @@ formInput = (title, name, value) => {
   }
 
   videoValidation = (link) => {
-  return !link.match(/^(https?\:\/\/)(www\.)?(youtube\.com|youtu\.?be)\/.+$/)
+    if (link.length) return !link.match(/^(https?\:\/\/)(www\.)?(youtube\.com|youtu\.?be)\/.+$/)
+    else return false
   }
 
   showForm = () => {
@@ -326,7 +301,6 @@ formInput = (title, name, value) => {
                 className="box"
                 required
                 value={this.props.newCell.video}
-                // pattern="^(https?\:\/\/)(www\.)?(youtube\.com|youtu\.?be)\/.+$"
                 onChange={this.handleInputChange} />
             </label> : null }
             { this.props.formBools.imageBool ? <label className="boxTitle">
@@ -511,6 +485,7 @@ formInput = (title, name, value) => {
             <form className="formBox" onSubmit={this.props.handleSubmit}>
               {this.checkQuestions()}
               {this.headerInfo()}
+              {this.footerInfo()}
               {this.props.newCell.speakerInfo.map((item, i) => {
                 return (
                   this.speakerInfo(i)
@@ -518,7 +493,6 @@ formInput = (title, name, value) => {
               })}
               <input type="button" onClick={()=>this.props.handleNewSpeaker()} value="Add New Speaker +" className="speakerButton"/>
               <input type="button" onClick={()=>this.props.deleteLastSpeaker()} value="Delete Last Speaker" className="deleteSpeakerButton"/>
-              {this.footerInfo()}
               <input type="submit" value="Submit Content" className="formButton"/>
             </form>
           )
@@ -801,7 +775,8 @@ formInput = (title, name, value) => {
       <div className="outerContainer">
         <h2>Edit the Content</h2>
         <span className="leftContainer">
-          {this.showForm()}
+        {(this.props.showFormBool) ? <div style={{flex: 1, height: "20", alignItems: "flex-end"}}><button className="formCloseButton" onClick={this.props.closeForm}>X</button></div> : null }
+        {this.showForm()}
         </span>
       </div>
     )

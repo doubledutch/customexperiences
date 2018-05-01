@@ -8,10 +8,13 @@
     "@doubledutch/firebase-connector": "3.3.1",
     "react": "^16.0.0",
     "react-addons-css-transition-group": "^15.6.2",
+    "react-art": "^16.3.2",
     "react-beautiful-dnd": "^3.0.0",
     "react-dom": "^16.0.0",
     "react-infinite-calendar": "^2.3.1",
     "react-modal": "^3.3.1",
+    "react-native-carousel-view": "^0.5.1",
+    "react-native-web": "^0.6.1",
     "react-scripts": "1.0.14"
   },
   "scripts": {

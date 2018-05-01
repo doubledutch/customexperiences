@@ -20,6 +20,7 @@ import './App.css'
 import client from '@doubledutch/admin-client'
 import FirebaseConnector from '@doubledutch/firebase-connector'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import ContentPreview from './ContentPreview.js'
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -94,12 +95,11 @@ class AppView extends Component {
           )}
       </Draggable>
     )
-
   }
 
-  render(){
+  showOrder = () => {
     return (
-      <div className="outerContainer">
+      <div>
         <h2>Edit Order</h2>
         <span className="previewContainer">
           <DragDropContext onDragEnd={this.props.onDragEnd}>
@@ -123,6 +123,26 @@ class AppView extends Component {
             </Droppable>
           </DragDropContext>  
         </span>
+      </div>
+
+    )
+
+  }
+
+  showPreview = () => {
+    return (
+      <div>
+        <h2 style={{marginBottom: "50px"}}>Preview</h2>
+        <ContentPreview content={this.props.newCell}/>
+      </div>
+    )
+  }
+
+  render(){
+    return (
+      <div className="outerContainer">
+        {this.showOrder()}
+        {/* {(this.props.showFormBool) ? this.showPreview() : this.showOrder()} */}
       </div>
     )
   }

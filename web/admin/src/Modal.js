@@ -25,10 +25,10 @@ export class CustomModal extends Component {
       >
         <div className="modalBox">
           <span className="submitBox2">
-            <label className="boxTitle">
-              Name your template:
-              <input className={(this.state.error) ? "eventNameRed" : "eventName"} name="value" maxLength="250" type="value" value={this.props.title} onChange={this.props.handleChange}/>
-            </label>
+              <label className="boxTitle">
+                Name your template:
+                <input className={(this.state.error) ? "eventNameRed" : "eventName"} name="value" maxLength="250" type="value" value={this.props.title} onChange={this.props.handleChange}/>
+              </label>
           </span>
           <div className="modalTextBox">
             {this.showCalendar()}
@@ -79,7 +79,6 @@ export class CustomModal extends Component {
   }
   
   showCalendar = () => {
-    console.log(this.props.publishDate)
     var today = this.props.publishDate
     var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
     return (
