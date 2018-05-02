@@ -37,7 +37,6 @@ export default class FormView extends Component {
     if (type === "checkbox"){
       obj[path[path.length-1]] = checked
     }  
-    // this.setState({newCell})
     this.props.updateCell(newCell)   
   }
 
@@ -63,7 +62,7 @@ formInput = (title, name, value) => {
         <label className="boxTitle">
           Header:
           <input
-            className="box"
+            className="checkBox"
             name="header"
             type="checkbox"
             checked={this.props.newCell.header}
@@ -72,7 +71,7 @@ formInput = (title, name, value) => {
         <label className="boxTitle">
           Footer:
           <input
-            className="box"
+            className="checkBox"
             name="footer"
             type="checkbox"
             checked={this.props.newCell.footer}
@@ -775,8 +774,8 @@ formInput = (title, name, value) => {
       <div className="outerContainer">
         <h2>Edit the Content</h2>
         <span className="leftContainer">
-        {(this.props.showFormBool) ? <div style={{flex: 1, height: "20", alignItems: "flex-end"}}><button className="formCloseButton" onClick={this.props.closeForm}>X</button></div> : null }
-        {this.showForm()}
+          {(this.props.showFormBool) ? <div style={{flex: 1, height: "20", alignItems: "flex-end", backgroundColor: "#FFFFFF"}}><button className="formCloseButton" onClick={this.props.closeForm}>X</button></div> : null }
+          {this.showForm()}
         </span>
       </div>
     )

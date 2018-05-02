@@ -15,12 +15,20 @@
  */
 
 import React, { PureComponent } from 'react'
-import Background from './iPhone.png'
-import LandingPage from './PreviewCells.js'
-import SpeakerCarousel from './SpeakerCarousel.js'
+import Background from './icons/iPhone.png'
+import LandingPage from './preview/PreviewCells.js'
+import SpeakerCarousel from './preview/SpeakerCarousel.js'
+import SmallView from './preview/SmallView.js'
+import DualSmallViews from './preview/DualSmallViews.js'
+import ImageSquares from './preview/ImageSquares.js'
+import Squares from './preview/Squares.js'
+import ImageCarousel from './preview/ImageCarousel.js'
+import OneImage from './preview/OneImage.js'
+import TwoImage from './preview/TwoImage.js'
+import TextView from './preview/Text.js'
+import ButtonFooter from './preview/ButtonFooter.js'
 
 export default class ContentPreview extends PureComponent {
-
   render() {
     const { content, change } = this.props
     const sectionStyle = {
@@ -31,22 +39,59 @@ export default class ContentPreview extends PureComponent {
       <div className="content-preview">
         <div className="phoneBox" style={sectionStyle}>
           <div className="phoneScroll">
-            { this.editorFor(content) }
+            { this.getComponent(content) }
           </div>
         </div>
       </div>
     )
   }
 
-  editorFor = (details) => {
-    switch (details.type) {
-      case 'Landing Page Cell': return <div>
-        <LandingPage {...details} />
-      </div>
-      case 'Speaker Highlight Cell': return <div>
-        <SpeakerCarousel {...details} />
-    </div>
-      default: return <div/>
+  getComponent = (details) => {
+    switch(details.type) {
+      case "Landing Page Cell" :
+        return(
+          <LandingPage {...details}/>
+        )
+      case 'Details Cell':
+        return( 
+          <SmallView {...details}/>
+        )
+      case "Dual Details Cell" :
+        return(
+          <DualSmallViews {...details}/>
+      )
+      case "Squares Cell":
+        return(
+          <ImageSquares {...details}/>
+        )
+      case "Text Squares Cell":
+        return(
+          <Squares {...details}/>
+        )
+      case "Image Carousel":
+        return(
+          <ImageCarousel {...details}/>
+        )
+      case "Speaker Highlight Cell":
+        return(
+          <SpeakerCarousel {...details}/>
+        )
+      case "Image Cell":
+        return(
+          <OneImage {...details}/>
+        )
+      case "Dual Images Cell":
+        return(
+          <TwoImage {...details}/>
+        )
+      case "Text Cell":
+        return(
+          <TextView {...details}/>
+        )
+      case "Footer Cell":
+        return(
+          <ButtonFooter {...details}/>
+        )
     }
   }
 }

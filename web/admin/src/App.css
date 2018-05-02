@@ -324,7 +324,7 @@ text-align: center;
   margin-top:62px;
   margin-left: 16px;
   margin-right: 16px;
-  height: 275px;
+  height: 287px;
   overflow-y: auto;
   background-color: #D8D8D8;
 }
@@ -377,6 +377,7 @@ text-align: center;
   color: #737373;
   text-align: left;
   padding-top: 10px;
+  flex: 1;
 }
 
 .hourDropdownTitle{
@@ -394,7 +395,9 @@ text-align: center;
   text-align: center;
   flex: 1;
   display: flex;
+  margin: 10px 0px 10px 0px;
   border-bottom: 1px #D1D1D1 solid;
+  background-color: red;
 }
 
 .attendee-selector__attendee {

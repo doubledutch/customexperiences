@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactNative, { TouchableOpacity, Text, View, Image, Dimensions, Linking } from 'react-native'
-import Footer from "./PreviewFooter.js"
-import Header from "./PreviewHeader.js"
+import Footer from "./Footer.js"
+import Header from "./Header.js"
 
 
 export default class SpeakerCarousel extends Component {
@@ -63,7 +63,7 @@ const s = ReactNative.StyleSheet.create({
   border: {
     borderColor:'#D8D8D8',
     borderBottomWidth:1, 
-    height: 25, 
+    height: 10, 
     flex: 1, 
     backgroundColor:'#E8E8E8'
   },

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactNative, {Button, NativeEventEmitter, Platform} from 'react-native';
-import Footer from "./PreviewFooter.js"
+import Footer from "./Footer.js"
 const { TouchableOpacity, TouchableHighlight, Text, View, Image, WebView, Dimensions, Linking } = ReactNative
 
 export default class LandingPage extends Component {

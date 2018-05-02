@@ -43,7 +43,8 @@ export default class App extends Component {
     super(props)
     this.state = {
       shouldShow: null,
-      value: '', 
+      value: '',
+      currentEdit: '',
       newCell: '',
       formBools: '',
       showFormBool: false,
@@ -194,6 +195,10 @@ export default class App extends Component {
     this.setState({[event.target.name]: event.target.value});
   }
 
+  setKey = (event) => {
+    this.setState({[event.target.name]: event.target.value});
+  }
+
   setHour = (event) => {
     var hour = event.target.value
     var date = this.state.publishDate
@@ -211,9 +216,10 @@ export default class App extends Component {
     fbc.database.public.adminRef('templates').child(this.state.value).set(this.state.items)
   }
 
-  submitEventData = (publishDate, title) => {
+  submitEventData = (publishDate) => {
     var publishTime = [{publishDate: publishDate.getTime()}]
     var items = this.state.items
+    const title = (this.state.value ? this.state.value : this.state.currentEdit)
     if (items.length) {
       if (items[0].pendingDate){
         items.shift()
@@ -298,7 +304,7 @@ export default class App extends Component {
         }      
       }
     }
-    this.setState({items, value: title, publishDate, newCell:'', showFormBool: false});
+    this.setState({items, value: title, currentEdit: title, publishDate, newCell:'', showFormBool: false});
   }
 
   showPreview = () => {
@@ -326,10 +332,12 @@ export default class App extends Component {
         closeModal = {this.closeModal}
         publish={this.submitEventData}
         publishDate = {this.state.publishDate}
-        title = {this.state.value}
+        currentTitle = {this.state.value}
+        currentEdit = {this.state.currentEdit}
         handleChange = {this.handleChange}
         handleDate = {this.handleDate}
         setHour={this.setHour}
+        templates={this.state.templates}
         />
         <h2>Select a Template (optional)</h2>
         <div className="submitBox">
@@ -370,7 +378,7 @@ export default class App extends Component {
           cellData={this.state.cellData}
           closeForm={this.closeForm}
           />
-          {/* {this.state.showFormBool ? this.showPreview() :  */}
+          {this.state.showFormBool ? this.showPreview() :
           <AppView
           items = {this.state.items}
           onDragEnd = {this.onDragEnd}
@@ -378,8 +386,7 @@ export default class App extends Component {
           handleEdit = {this.handleEdit}
           showFormBool = {this.state.showFormBool}
           newCell={this.state.newCell}
-          />
-       
+          /> }
         </div>
         <div className="buttonsContainer">
           <button className="modalButton" style={{marginRight: 10, fontSize: 18}} onClick={this.openModal} disabled={(!this.state.items.length || this.state.showFormBool)} value="false">Publish to App</button>
