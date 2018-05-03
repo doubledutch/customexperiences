@@ -56,7 +56,8 @@ export default class App extends Component {
       templates : [],
       cellData,
       showModal: false,
-      publishDate: new Date()
+      publishDate: new Date(),
+      formItems
     }
 
     // Showing the builder UI is not a security issue.
@@ -101,6 +102,7 @@ export default class App extends Component {
 
   closeForm = () => {
     this.setState({showFormBool: false, newCell: ''})
+    if (!this.state.edits) this.clearTable()
   }
 
   handleDelete = (event) => {
@@ -111,6 +113,7 @@ export default class App extends Component {
       this.setState({items, newCell: '', showFormBool: false});  
     }
   }
+
 
   onDragEnd = (result) =>{
     var items = this.state.items
@@ -161,6 +164,7 @@ export default class App extends Component {
   newItem = () => {
     const newArray = this.state.items.concat(this.state.newCell)
     this.setState({items: newArray, showFormBool: false, newCell: ''})
+    this.clearTable()
   }
 
   editItem = () => {
@@ -318,6 +322,22 @@ export default class App extends Component {
     )
   }
 
+
+  handleForm = (formItems) => {
+    this.setState({formItems})
+  }
+
+  clearTable = () => {
+    const items = this.state.formItems
+    const index = items.findIndex((item) => item.boolName)
+    items[index].boolName = false
+    this.setState({formItems: items})
+  }
+
+  // setBool = () => {
+
+  // }
+
   
  
   render() {
@@ -330,16 +350,16 @@ export default class App extends Component {
     return (
       <div className="App">
         <CustomModal
-        showModal = {this.state.showModal}
-        closeModal = {this.closeModal}
-        publish={this.submitEventData}
-        publishDate = {this.state.publishDate}
-        currentTitle = {this.state.value}
-        currentEdit = {this.state.currentEdit}
-        handleChange = {this.handleChange}
-        handleDate = {this.handleDate}
-        setHour={this.setHour}
-        templates={this.state.templates}
+          showModal = {this.state.showModal}
+          closeModal = {this.closeModal}
+          publish={this.submitEventData}
+          publishDate = {this.state.publishDate}
+          currentTitle = {this.state.value}
+          currentEdit = {this.state.currentEdit}
+          handleChange = {this.handleChange}
+          handleDate = {this.handleDate}
+          setHour={this.setHour}
+          templates={this.state.templates}
         />
         <h2>Select a Template (optional)</h2>
         <div className="submitBox">
@@ -359,35 +379,37 @@ export default class App extends Component {
         </div>
         <div className="container">
           <CellSelectView
-          showCell = {this.showCell}
-          removeItem = {this.removeItem}
-          hideForm = {this.hideForm}
-          showFormBool = {this.state.showFormBool}
-          edits = {this.state.edits}
-          newCell = {this.state.newCell}
+            showCell = {this.showCell}
+            removeItem = {this.removeItem}
+            hideForm = {this.hideForm}
+            showFormBool = {this.state.showFormBool}
+            edits = {this.state.edits}
+            newCell = {this.state.newCell}
+            handleForm = {this.handleForm}
+            items={this.state.formItems}
           />
           <FormView
-          showFormBool = {this.state.showFormBool}
-          newCell = {this.state.newCell}
-          formBools = {this.state.formBools}
-          handleSubmit = {this.handleSubmit}
-          handleNewSpeaker={this.handleNewSpeaker}
-          deleteLastSpeaker={this.deleteLastSpeaker}
-          deleteLastImage={this.deleteLastImage}
-          handleNewImage={this.handleNewImage}
-          updateCell = {this.updateCell}
-          edits = {this.state.edits}
-          cellData={this.state.cellData}
-          closeForm={this.closeForm}
+            showFormBool = {this.state.showFormBool}
+            newCell = {this.state.newCell}
+            formBools = {this.state.formBools}
+            handleSubmit = {this.handleSubmit}
+            handleNewSpeaker={this.handleNewSpeaker}
+            deleteLastSpeaker={this.deleteLastSpeaker}
+            deleteLastImage={this.deleteLastImage}
+            handleNewImage={this.handleNewImage}
+            updateCell = {this.updateCell}
+            edits = {this.state.edits}
+            cellData={this.state.cellData}
+            closeForm={this.closeForm}
           />
           {this.state.showFormBool ? this.showPreview() :
           <AppView
-          items = {this.state.items}
-          onDragEnd = {this.onDragEnd}
-          handleDelete = {this.handleDelete}
-          handleEdit = {this.handleEdit}
-          showFormBool = {this.state.showFormBool}
-          newCell={this.state.newCell}
+            items = {this.state.items}
+            onDragEnd = {this.onDragEnd}
+            handleDelete = {this.handleDelete}
+            handleEdit = {this.handleEdit}
+            showFormBool = {this.state.showFormBool}
+            newCell={this.state.newCell}
           /> }
         </div>
         <div className="buttonsContainer">
@@ -405,6 +427,111 @@ export default class App extends Component {
     )
   }
 }
+
+const formItems = [
+  {
+    header: true,
+    type: "LANDING PAGE"
+  },
+  {
+    name: "Landing Page Cell",
+    type: "Landing Page with Video",
+    boolName: false,
+    videoBool: true,
+    boldBool: false
+  },
+  {
+    name: "Landing Page Cell",
+    type: "Landing Page with Video & Bold Header",
+    boolName: false,
+    videoBool: true,
+    boldBool: true
+  },
+  {
+    name: "Landing Page Cell",
+    type: "Landing Page with Image",
+    boolName: false,
+    imageBool: true,
+    boldBool: false
+  },
+  {
+    name: "Landing Page Cell",
+    type: "Landing Page with Image & Bold Header",
+    boolName: false,
+    imageBool: true,
+    boldBool: true
+  },
+  {
+    header: true,
+    type: "OFFER CELLS"
+  },
+  {
+    name: "Details Cell",
+    type: "Rectangle with Icon & Text", 
+    boolName: false,
+  },
+  { 
+    name: "Dual Details Cell", 
+    type: "Dual Cell Rectangles with Icon & Text Rectangle", 
+    boolName: false,
+  },
+  {
+    header: true,
+    type: "CAROUSEL CELLS"
+  },
+  {
+    name: "Speaker Highlight Cell",
+    type: "Speaker Biography Page w/ Profile Picture",
+    boolName: false,
+  },
+  {
+    name: "Image Carousel",
+    type: "Full Width Images Only", 
+    boolName: false,
+  },
+  {
+    header: true,
+    type: "IMAGE CELLS"
+  },
+  {
+    name: "Image Cell",
+    type: "1 Full Width Square Image",
+    boolName: false,
+  },
+  {
+    name: "Dual Images Cell",
+    type: "Dual Rectangles of Full Width Images only",
+    boolName: false,
+  },
+  {
+    name: "Squares Cell",
+    type: "4 Squares of Images only (2 per line)",
+    boolName: false,
+  },
+  {
+    header: true,
+    type: "TEXT CELLS"
+  },
+  {
+    name: "Text Squares Cell",
+    type: "4 Squares of Image & Text (2 per line)",
+    boolName: false,
+  },
+  {
+    name: "Text Cell",
+    type: "Text Only Square",
+    boolName: false,
+  },
+  {
+    header: true,
+    type: "BUTTON CELLS"
+  },
+  {
+    name: "Footer Cell",
+    type: "Dual Buttons Footer",
+    boolName: false,
+  },
+]
 
 const cellData = [
   {

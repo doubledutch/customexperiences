@@ -42,7 +42,7 @@ export default class ImageCarousel extends Component {
   }
   
   render() {
-    const width = 318
+    const width = 286
     const { footer, buttonURL, buttonText, header, title, des, intro } = this.props
     return (
       <View style={s.component}>

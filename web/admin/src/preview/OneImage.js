@@ -59,8 +59,8 @@ const s = ReactNative.StyleSheet.create({
   },
   dimensionStyle : {
     flexDirection: "row", 
-    width: 318,
-    height: 297,
+    width: 286,
+    height: 267,
     justifyContent: 'center',
     backgroundColor:'#FFFFFF',
     resizeMode: 'contain',

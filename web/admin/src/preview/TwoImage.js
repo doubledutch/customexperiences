@@ -66,15 +66,15 @@ const s = ReactNative.StyleSheet.create({
   },
   dimensionStyle : {
     flexDirection: "row", 
-    width: 318,
-    height: 158,
+    width: 286,
+    height: 142,
     justifyContent: 'center',
     resizeMode: 'contain'
   },
   dimensionStyle1 : {
     flexDirection: "row", 
-    width: 318,
-    height: 158,
+    width: 286,
+    height: 142,
     justifyContent: 'center',
     marginTop: 10,
     resizeMode: 'contain'

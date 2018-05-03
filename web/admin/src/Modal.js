@@ -27,7 +27,8 @@ export class CustomModal extends Component {
           <span className="submitBox2">
               <label className="boxTitle">
                 Name your template:
-                <input className={(this.state.error) ? "eventNameRed" : "eventName"} name="currentEdit" maxLength="250" type="value" value={(this.props.title ? "" : this.props.currentEdit)} onChange={this.props.handleChange}/>
+                <input className={(this.state.error) ? "eventNameRed" : "eventName"} name="currentEdit" maxLength="50" type="value" value={(this.props.title ? "" : this.props.currentEdit)} onChange={this.props.handleChange}/>
+                <p className={(this.state.error ? "errorTitleRed" : "errorTitle")}>*Please rename your template</p>
               </label>
           </span>
           <div className="modalTextBox">

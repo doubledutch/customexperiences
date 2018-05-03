@@ -22,39 +22,23 @@ class CellSelectView extends Component {
     constructor(props) {
       super()
       this.state = {
-        oldCell: -1, 
-        items
+        oldCell: -1
       }
     }
 
     handleInputChange = (event) => {
       const value = event.target.value;
-      const items = this.state.items;
+      const items = this.props.items;
       const item = items[value];
       if (this.state.oldCell !== -1){
         items[this.state.oldCell].boolName = false
       }
       items[value].boolName = true
-      this.setState({items, oldCell: value})
+      this.setState({oldCell: value})
       this.props.showCell(item)
+      this.props.handleForm(items)
     }
 
-    // componentWillReceiveProps(nextProps){
-    //   this.clearTable()
-    // }
-    
-    clearTable = () => {
-      const items = this.state.items
-      if (this.props.showFormBool === false || this.props.edits){
-        for (var i in items){
-          if (items[i].boolName){
-            items[i].boolName = false
-            this.setState({items})
-            break;
-          }
-        }
-      }
-    }
 
     render() {
       return (
@@ -71,119 +55,13 @@ class CellSelectView extends Component {
 
 
     renderTableRows = () => {
-      if (!this.state.items) return <tr key={0}><td></td><td>Loading...</td></tr>
-      return this.state.items.map((item, i) => {    
+      if (!this.props.items) return <tr key={0}><td></td><td>Loading...</td></tr>
+      return this.props.items.map((item, i) => {    
         return <tr key={i}> 
           { (item.header) ? <td><p>{item.type}</p></td> : <td><button className={'attendee-selector__name' + ((item.boolName===true) ? '--gray' : '')} value={i} onClick={this.handleInputChange}>{item.type}</button></td>     }
         </tr>
       })
     }
   }
-
-
-const items = [
-  {
-    header: true,
-    type: "LANDING PAGE"
-  },
-  {
-    name: "Landing Page Cell",
-    type: "Landing Page with Video",
-    boolName: false,
-    videoBool: true,
-    boldBool: false
-  },
-  {
-    name: "Landing Page Cell",
-    type: "Landing Page with Video & Bold Header",
-    boolName: false,
-    videoBool: true,
-    boldBool: true
-  },
-  {
-    name: "Landing Page Cell",
-    type: "Landing Page with Image",
-    boolName: false,
-    imageBool: true,
-    boldBool: false
-  },
-  {
-    name: "Landing Page Cell",
-    type: "Landing Page with Image & Bold Header",
-    boolName: false,
-    imageBool: true,
-    boldBool: true
-  },
-  {
-    header: true,
-    type: "OFFER CELLS"
-  },
-  {
-    name: "Details Cell",
-    type: "Rectangle with Icon & Text", 
-    boolName: false,
-  },
-  { 
-    name: "Dual Details Cell", 
-    type: "Dual Cell Rectangles with Icon & Text Rectangle", 
-    boolName: false,
-  },
-  {
-    header: true,
-    type: "CAROUSEL CELLS"
-  },
-  {
-    name: "Speaker Highlight Cell",
-    type: "Speaker Biography Page w/ Profile Picture",
-    boolName: false,
-  },
-  {
-    name: "Image Carousel",
-    type: "Full Width Images Only", 
-    boolName: false,
-  },
-  {
-    header: true,
-    type: "IMAGE CELLS"
-  },
-  {
-    name: "Image Cell",
-    type: "1 Full Width Square Image",
-    boolName: false,
-  },
-  {
-    name: "Dual Images Cell",
-    type: "Dual Rectangles of Full Width Images only",
-    boolName: false,
-  },
-  {
-    name: "Squares Cell",
-    type: "4 Squares of Images only (2 per line)",
-    boolName: false,
-  },
-  {
-    header: true,
-    type: "TEXT CELLS"
-  },
-  {
-    name: "Text Squares Cell",
-    type: "4 Squares of Image & Text (2 per line)",
-    boolName: false,
-  },
-  {
-    name: "Text Cell",
-    type: "Text Only Square",
-    boolName: false,
-  },
-  {
-    header: true,
-    type: "BUTTON CELLS"
-  },
-  {
-    name: "Footer Cell",
-    type: "Dual Buttons Footer",
-    boolName: false,
-  },
-]
 
 export default CellSelectView

@@ -26,7 +26,7 @@ export default class ImageSquares extends Component {
   }
 
   render(){
-    const width = 318 / 2 - 20
+    const width = 286 / 2 - 20
     const height = width
     const { footer, buttonURL, buttonText, header, title, des, image1, image2, image3, image4, intro } = this.props
       return (

@@ -68,7 +68,7 @@ const s = ReactNative.StyleSheet.create({
     backgroundColor:'#E8E8E8'
   },
   cell: {
-    width: 318,  
+    width: 286,  
     height: 240,
     backgroundColor:'#E8E8E8',
     flex: 1,

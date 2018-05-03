@@ -25,7 +25,7 @@ export default class Squares extends Component {
   }
 
   render() {
-    const width = 318 / 2 - 30
+    const width = 286 / 2 - 30
     const height = width * .6792
     const { footer, buttonURL, buttonText, header, title, des, image1, image2, image3, image4, text, intro } = this.props
     return (

@@ -280,7 +280,7 @@ formInput = (title, name, value) => {
                 checked={this.props.newCell.footer}
                 onChange={this.handleInputChange} />
             </label>
-            { this.props.formBools.boldBool ? <label className="boxTitle">
+            { this.props.formBools.boldBool || this.props.newCell.headline ? <label className="boxTitle">
               Bold Headline: 
               <input
                 className="box"
@@ -292,7 +292,7 @@ formInput = (title, name, value) => {
                 onChange={this.handleInputChange} />
             </label> : null }
             {this.headerInfo()}
-            { this.props.formBools.videoBool ? <label className="boxTitle">
+            { this.props.formBools.videoBool || this.props.newCell.video ? <label className="boxTitle">
               Video Link:
               <input
                 name="video"
@@ -302,7 +302,7 @@ formInput = (title, name, value) => {
                 value={this.props.newCell.video}
                 onChange={this.handleInputChange} />
             </label> : null }
-            { this.props.formBools.imageBool ? <label className="boxTitle">
+            { this.props.formBools.imageBool || this.props.newCell.image ? <label className="boxTitle">
               Image Link:
               <input
                 name="image"
