@@ -114,7 +114,9 @@ export class CustomModal extends Component {
 
   publish = content => () => {
     var currentTemplate = this.props.templates.find(item => item.key.toLowerCase() === this.props.currentEdit.toLowerCase())
-    currentTemplate = ((currentTemplate.key.toLowerCase() === this.props.currentTitle.toLowerCase()) ?  false : true)
+    if (currentTemplate) {currentTemplate = currentTemplate.key.toLowerCase()}
+    if (!currentTemplate) {currentTemplate = false}
+    currentTemplate = ((currentTemplate === this.props.currentTitle.toLowerCase()) ?  false : currentTemplate)
     if (this.props.currentEdit && !currentTemplate){
       this.props.publish(content, this.props.currentEdit)
       this.setState({error: false})

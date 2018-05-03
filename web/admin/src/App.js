@@ -219,13 +219,15 @@ export default class App extends Component {
   submitEventData = (publishDate) => {
     var publishTime = [{publishDate: publishDate.getTime()}]
     var items = this.state.items
-    const title = (this.state.value ? this.state.value : this.state.currentEdit)
+    var title = this.state.value
+    if (title) {title = this.state.value.toLowerCase()}
+    title = ((title === this.state.currentEdit.toLowerCase())? this.state.value : this.state.currentEdit)
     if (items.length) {
       if (items[0].pendingDate){
         items.shift()
       }
       var newItems = publishTime.concat(items)
-      this.setState({publishDate, session: title})
+      this.setState({publishDate, value : title})
       fbc.database.public.adminRef('templates').child(title).set(newItems).then(() => {
         this.closeModal()
       })
