@@ -59,24 +59,28 @@ formInput = (title, name, value) => {
   checkQuestions = () => {
     return (
       <span>
-        <label className="boxTitle">
-          Header:
-          <input
-            className="checkBox"
-            name="header"
-            type="checkbox"
-            checked={this.props.newCell.header}
-            onChange={this.handleInputChange} />
-        </label>
-        <label className="boxTitle">
-          Footer:
-          <input
-            className="checkBox"
-            name="footer"
-            type="checkbox"
-            checked={this.props.newCell.footer}
-            onChange={this.handleInputChange} />
-        </label>
+        <div>
+          <label className="boxTitle">
+            Header:
+            <input
+              className="checkBox"
+              name="header"
+              type="checkBox"
+              checked={this.props.newCell.header}
+              onChange={this.handleInputChange} />
+          </label>
+        </div>
+        <div>
+          <label className="boxTitle">
+            Footer:
+            <input
+              className="checkBox"
+              name="footer"
+              type="checkbox"
+              checked={this.props.newCell.footer}
+              onChange={this.handleInputChange} />
+          </label>
+        </div>
       </span>
     )
   }
@@ -177,6 +181,7 @@ formInput = (title, name, value) => {
             name = {name}
             type="text"
             required
+            maxlength="50"
             value={this.props.newCell.speakerInfo[i].name}
             onChange={this.handleInputChange} />
         </label>
@@ -197,6 +202,7 @@ formInput = (title, name, value) => {
             name = {title}
             type="text"
             required
+            maxlength="30"
             value={this.props.newCell.speakerInfo[i].title}
             onChange={this.handleInputChange} />
         </label>
@@ -206,6 +212,7 @@ formInput = (title, name, value) => {
             className="box"
             name = {company}
             type="text"
+            maxlength="30"
             value={this.props.newCell.speakerInfo[i].company}
             onChange={this.handleInputChange} />
         </label>
@@ -215,7 +222,7 @@ formInput = (title, name, value) => {
             className="box"
             name = {des}
             type="text"
-            maxLength="300"
+            maxLength="200"
             value={this.props.newCell.speakerInfo[i].des}
             onChange={this.handleInputChange} />
         </label>
@@ -270,16 +277,18 @@ formInput = (title, name, value) => {
       if (this.props.newCell.type === "Landing Page Cell"){
         return(
           <form className="formBox" onSubmit={this.props.handleSubmit}>
-            <label className="boxTitle">
-              Footer:
-              <input
-                className="box"
-                name="footer"
-                type="checkbox"
-                value = {this.props.newCell.footer}
-                checked={this.props.newCell.footer}
-                onChange={this.handleInputChange} />
-            </label>
+            <div>
+              <label className="boxTitle">
+                Footer:
+                <input
+                  className="checkBox"
+                  name="footer"
+                  type="checkbox"
+                  value = {this.props.newCell.footer}
+                  checked={this.props.newCell.footer}
+                  onChange={this.handleInputChange} />
+              </label>
+            </div>
             { this.props.formBools.boldBool || this.props.newCell.headline ? <label className="boxTitle">
               Bold Headline: 
               <input

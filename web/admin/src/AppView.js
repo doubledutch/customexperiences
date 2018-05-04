@@ -141,7 +141,6 @@ class AppView extends Component {
     return (
       <div className="outerContainer">
         {this.showOrder()}
-        {/* {(this.props.showFormBool) ? this.showPreview() : this.showOrder()} */}
       </div>
     )
   }

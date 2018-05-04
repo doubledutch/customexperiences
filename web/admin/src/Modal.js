@@ -27,7 +27,7 @@ export class CustomModal extends Component {
           <span className="submitBox2">
               <label className="boxTitle">
                 Name your template:
-                <input className={(this.state.error) ? "eventNameRed" : "eventName"} name="currentEdit" maxLength="50" type="value" value={(this.props.title ? "" : this.props.currentEdit)} onChange={this.props.handleChange}/>
+                <input className={(this.state.error) ? "eventNameRed" : "eventName"} name="currentEdit" maxLength="50" type="value" value={this.props.currentEdit} onChange={this.props.handleChange}/>
                 <p className={(this.state.error ? "errorTitleRed" : "errorTitle")}>*Please rename your template</p>
               </label>
           </span>
@@ -107,10 +107,15 @@ export class CustomModal extends Component {
     const c = this.props.selectedContent
     return (
       <div>
-        <button className="modalDone" onClick={this.props.closeModal}>Cancel</button>
+        <button className="modalDone" onClick={this.cancelClose}>Cancel</button>
         <button className="modalExport" onClick={this.publish(this.props.publishDate)}>Publish Content</button> 
       </div>
     )
+  }
+
+  cancelClose = () => {
+    this.setState({error: false})
+    this.props.closeModal()
   }
 
   publish = content => () => {
@@ -118,7 +123,7 @@ export class CustomModal extends Component {
     if (currentTemplate) {currentTemplate = currentTemplate.key.toLowerCase()}
     if (!currentTemplate) {currentTemplate = false}
     currentTemplate = ((currentTemplate === this.props.currentTitle.toLowerCase()) ?  false : currentTemplate)
-    if (this.props.currentEdit && !currentTemplate){
+    if (this.props.currentEdit && !currentTemplate && this.checker()){
       this.props.publish(content, this.props.currentEdit)
       this.setState({error: false})
     }
@@ -126,7 +131,16 @@ export class CustomModal extends Component {
       this.setState({error: true})
     }
   }
+checker = () => {
+  if (!/[~`!#$%\^*+=\()\[\]\\';,/{}|\\"<>\?]/g.test(this.props.currentEdit)) {
+    return true
+  }
+  else return false
+}
+  
 
 }
+
+//&:(),
 
 export default CustomModal

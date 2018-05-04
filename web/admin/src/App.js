@@ -243,7 +243,7 @@ export default class App extends Component {
   }
 
   closeModal = () => {
-    this.setState({showModal: false})
+    this.setState({showModal: false, currentEdit: this.state.value})
   }
 
   deleteTemplate = (e) => {
@@ -268,7 +268,7 @@ export default class App extends Component {
   }
 
   deleteLastSpeaker = () => {
-    var newCell = this.state.newCell
+    var newCell = Object.assign({}, this.state.newCell)
     if (newCell.speakerInfo.length > 1) {
       newCell.speakerInfo.pop()
       this.setState({newCell})
@@ -286,7 +286,7 @@ export default class App extends Component {
   }
 
   deleteLastImage = () => {
-    var newCell = this.state.newCell
+    var newCell = Object.assign({}, this.state.newCell)
     if (newCell.imageInfo.length > 1) {
       newCell.imageInfo.pop()
       this.setState({newCell})
@@ -333,12 +333,6 @@ export default class App extends Component {
     items[index].boolName = false
     this.setState({formItems: items})
   }
-
-  // setBool = () => {
-
-  // }
-
-  
  
   render() {
     const {shouldShow} = this.state

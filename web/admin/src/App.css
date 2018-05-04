@@ -383,7 +383,7 @@ text-align: center;
   border: solid;
   border-width: 1px;
   border-color: #D1D1D1;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .boxTitle{
@@ -392,7 +392,6 @@ text-align: center;
   color: #737373;
   text-align: left;
   padding-top: 10px;
-  flex: 1;
 }
 
 .hourDropdownTitle{
@@ -405,14 +404,7 @@ text-align: center;
 }
 
 .checkBox{
-  font-size: 18px;
-  padding: 15px 0px;
-  text-align: center;
-  flex: 1;
-  display: flex;
-  margin: 10px 0px 10px 0px;
-  border-bottom: 1px #D1D1D1 solid;
-  background-color: red;
+  margin: 0px 10px 20px
 }
 
 .attendee-selector__attendee {

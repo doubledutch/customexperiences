@@ -16,7 +16,7 @@ export default class SpeakerCarousel extends Component {
     return(
       this.props.speakerInfo.map(((item, i) =>
         <TouchableOpacity key={i} style={s.cell} activeOpacity={1.0}>
-          <View style={{flexDirection: 'row', paddingTop: 10}}>
+          <View style={{flexDirection: 'row', paddingTop: 10, width: 286}}>
             {item.image ? <Image source={{uri: item.image}} style={s.image}/> : <View style={s.image}/>}
             <View style={{flexDirection: 'column', marginRight: 15, flex: 1}}>
               <Text style={s.name}>{item.name}</Text>

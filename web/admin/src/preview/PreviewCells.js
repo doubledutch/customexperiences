@@ -25,7 +25,7 @@ export default class LandingPage extends Component {
         <View style={{backgroundColor:'#00B9C2'}}>
           <Text style={[s.headlineText, {color}]}>{headline}</Text>
         </View>
-        <View style={s.dimensionStyle}>{(this.props.image) ? <Image source={{uri: this.props.image}} style={{flex:1, resizeMode: 'contain'}}/> : null}</View>
+        <View style={s.dimensionStyle}>{(this.props.image) ? <Image source={{uri: this.props.image}} style={{flex:1, resizeMode: 'contain'}}/> : <Image style={s.dimensionStyle} source={require('../icons/videoplaceholder.jpg')} alt="video" />}</View>
         <View style={s.box}>
           {intro.length ? <Text style={{textAlign:'center',fontSize:25, color: '#364247'}}>{intro}</Text> : null}
           {title.length ? <Text style={{textAlign:'center',fontSize:25, color: '#364247'}}>{title}</Text> : null}
@@ -48,7 +48,7 @@ export default class LandingPage extends Component {
           {title.length ? <Text style={{textAlign:'center',fontSize:25, color: '#364247'}}>{title}</Text> : null}
           {des.length ? <Text style={{textAlign:'center',fontSize:16,padding:20, color: '#364247'}}>{des}</Text> : null}
         </View>
-        <View style={s.dimensionStyle}>{(this.props.image) ? <Image source={{uri: this.props.image}} style={{flex:1, resizeMode: 'contain'}}/> : null}</View>
+        <View style={s.dimensionStyle}>{(this.props.image) ? <Image source={{uri: this.props.image}} style={{flex:1, resizeMode: 'contain'}}/> : <Image style={s.dimensionStyle} source={require('../icons/videoplaceholder.jpg')} alt="video" />}</View>
         <Footer
         footer={footer}
         buttonURL={buttonURL}
@@ -122,6 +122,6 @@ const s = ReactNative.StyleSheet.create({
     justifyContent: 'center',
     borderColor: "#D8D8D8",
     borderWidth: 1,
-    backgroundColor: "#FFFFFF"
+    // backgroundColor: "#FFFFFF"
   }
 })
