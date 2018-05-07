@@ -219,7 +219,7 @@ formInput = (title, name, value) => {
             className="box"
             name = {des}
             type="text"
-            maxLength="200"
+          
             value={this.props.newCell.speakerInfo[i].des}
             onChange={this.handleInputChange} />
         </label>
