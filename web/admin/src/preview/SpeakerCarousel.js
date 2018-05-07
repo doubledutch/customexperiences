@@ -31,6 +31,30 @@ export default class SpeakerCarousel extends Component {
     )
   }
 
+  findHeight = () => {
+    const width = 286
+    var setHeight = 240
+    var string = 1
+    var speakerString = 1
+    const fontSize = 14
+    const fontConstant = 2
+    const CPL = width / (14 / fontConstant)
+    // const titlePL = (width - 75) / (14/fontConstant)
+    this.props.speakerInfo.forEach((item) => {
+      const totalSpeaker = item.title + item.company
+      if (item.des.length > string) {
+        string = item.des.length
+      }
+      // if (totalSpeaker.length > string) {
+      //   speakerString = item.title.length + item.company.length
+      // }
+    })
+    const lines = Math.round(string / CPL + 0.5)
+    // const titleLines = Math.round(speakerString/ titlePL + 0.5)
+    setHeight = (lines) * 18 + 160
+    return setHeight
+  }
+
   render() {
     const { footer, buttonURL, buttonText, header, title, des, intro } = this.props
     return (
@@ -68,8 +92,7 @@ const s = ReactNative.StyleSheet.create({
     backgroundColor:'#E8E8E8'
   },
   cell: {
-    width: 286,  
-    height: 240,
+    width: 286,
     backgroundColor:'#E8E8E8',
     flex: 1,
     display: 'flex',
