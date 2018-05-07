@@ -16,7 +16,6 @@
 
 import React, { Component } from 'react'
 import './App.css'
-import client from '@doubledutch/admin-client'
 
 class CellSelectView extends Component {
     constructor(props) {

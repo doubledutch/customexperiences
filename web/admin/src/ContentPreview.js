@@ -30,7 +30,7 @@ import ButtonFooter from './preview/ButtonFooter.js'
 
 export default class ContentPreview extends PureComponent {
   render() {
-    const { content, change } = this.props
+    const { content } = this.props
     const sectionStyle = {
       backgroundImage: `url(${Background})`
     }

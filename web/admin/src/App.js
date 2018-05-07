@@ -17,20 +17,15 @@
 import React, { Component } from 'react'
 import './App.css'
 import client from '@doubledutch/admin-client'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import FirebaseConnector from '@doubledutch/firebase-connector'
 import CellSelectView from './CellSelect.js'
 import FormView from './FormView.js'
 import AppView from './AppView.js'
-import InfiniteCalendar from 'react-infinite-calendar';
-import 'react-infinite-calendar/styles.css';
-import Modal  from 'react-modal'
 import CustomModal from './Modal.js'
 import ContentPreview from './ContentPreview.js'
-
 const fbc = FirebaseConnector(client, 'customexperiences')
 fbc.initializeAppWithSimpleBackend()
-const { currentEvent, currentUser, primaryColor } = client
+
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
@@ -69,8 +64,9 @@ export default class App extends Component {
 
     this.signin = fbc.signinAdmin()
     .then(user => this.user = user)
-    .catch(error => alert("Please try reloading page to connect to the database"))
+    .catch(err => console.error(err))
   }
+
 
   showCell = (object) => {
     const origData = this.state.cellData.find(item => item.type === object.name)
@@ -136,12 +132,9 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    fbc.signinAdmin()
-    .then(user => {
+    this.signin.then((user) => {
       const templateRef = fbc.database.public.adminRef('templates')
       templateRef.on('child_added', data => {
-        var items = data.val()
-        var publishDate = this.state.publishDate
         this.setState({ templates: [...this.state.templates, {...data.val(), key: data.key }] })   
       })
       templateRef.on('child_changed', data => {
@@ -362,7 +355,6 @@ export default class App extends Component {
               <option className="dropdownTitle" value="">{'\xa0\xa0'}View Templates</option>
               { allTemplates.map((task, i) => {
                 var title = task.key
-                var data = task
                 return (
                 <option className="dropdownTitle" key={i} value={task.key}>{'\xa0\xa0' + title}</option>  
                 )      

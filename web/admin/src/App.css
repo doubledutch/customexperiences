@@ -148,7 +148,7 @@ text-align: center;
   border: solid;
   border-width: 1px;
   border-color:#D1D1D1;
-  overflow: scroll;
+  overflow: auto;
   padding: 20px;
 }
 
@@ -191,7 +191,7 @@ text-align: center;
   border: solid;
   border-width: 1px;
   border-color: #D1D1D1;;
-  overflow: scroll;
+  overflow: auto;
   border-collapse: collapse;
 }
 

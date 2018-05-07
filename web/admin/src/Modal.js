@@ -27,7 +27,7 @@ export class CustomModal extends Component {
           <span className="submitBox2">
               <label className="boxTitle">
                 Name your template:
-                <input className={(this.state.error) ? "eventNameRed" : "eventName"} name="currentEdit" maxLength="50" type="value" value={this.props.currentEdit} onChange={this.props.handleChange}/>
+                <input className={(this.state.error) ? "eventNameRed" : "eventName"} name="currentEdit" maxLength="50" type="value" value={this.props.currentEdit} onChange={this.handleChange}/>
                 <p className={(this.state.error ? "errorTitleRed" : "errorTitle")}>*Please rename your template</p>
               </label>
           </span>
@@ -41,6 +41,13 @@ export class CustomModal extends Component {
         </div>
       </Modal>
     )
+  }
+
+  handleChange = (event) => {
+    if (this.state.error) {
+      this.setState({error: false})
+    }
+    this.props.handleChange(event)
   }
 
   selectHour = () => {
@@ -81,7 +88,7 @@ export class CustomModal extends Component {
   
   showCalendar = () => {
     var today = this.props.publishDate
-    var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+    var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 90);
     return (
       <label className="boxTitle">
         Select a Publish Date:
@@ -90,7 +97,7 @@ export class CustomModal extends Component {
           width={300}
           height={240}
           selected={today}
-          minDate = {new Date(1980, 0, 1)}
+          minDate = {lastWeek}
           displayOptions={{
             showHeader: false
           }}
@@ -104,7 +111,6 @@ export class CustomModal extends Component {
 
 
   modalButtons = () => {
-    const c = this.props.selectedContent
     return (
       <div>
         <button className="modalDone" onClick={this.cancelClose}>Cancel</button>
@@ -132,12 +138,11 @@ export class CustomModal extends Component {
     }
   }
 checker = () => {
-  if (!/[~`!#$%\^*+=\()\[\]\\';,/{}|\\"<>\?]/g.test(this.props.currentEdit)) {
+  if (!/[~`!#$%\^*+=\\[\]\\';./{}|\\"<>\?]/g.test(this.props.currentEdit)) {
     return true
   }
   else return false
 }
-  
 
 }
 

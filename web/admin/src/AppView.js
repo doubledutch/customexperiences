@@ -16,8 +16,6 @@
 
 import React, { Component } from 'react'
 import './App.css'
-import client from '@doubledutch/admin-client'
-import FirebaseConnector from '@doubledutch/firebase-connector'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ContentPreview from './ContentPreview.js'
 
@@ -83,7 +81,7 @@ class AppView extends Component {
               {...provided.dragHandleProps}
             >
               <div className="preview-cell__container">
-              <img className="dragButton" name={i}  value="true" src={require('./icons/reordericon.png')} alt="move" />
+                <img className="dragButton" name={i}  value="true" src={require('./icons/reordericon.png')} alt="move" />
                 <p>{item.type}</p>
                 <img className="editButton" name={i}  value="true" onClick={this.props.handleEdit} src={require('./icons/pencil.png')} alt="edit" />
                 <img className="deleteButton" name={i}  value="true" onClick={this.props.handleDelete} src={require('./icons/trashcan.svg')} alt="delete" />

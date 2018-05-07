@@ -16,9 +16,6 @@
 
 import React, { Component } from 'react'
 import './App.css'
-import client from '@doubledutch/admin-client'
-import InfiniteCalendar from 'react-infinite-calendar';
-import 'react-infinite-calendar/styles.css';
 
 export default class FormView extends Component {
   constructor(props) {
@@ -272,11 +269,16 @@ formInput = (title, name, value) => {
     else return false
   }
 
+  handleSubmit = (event) => {
+    event.preventDefault()
+    this.props.handleSubmit(event)
+  }
+
   showForm = () => {
     if (this.props.showFormBool === true){
       if (this.props.newCell.type === "Landing Page Cell"){
         return(
-          <form className="formBox" onSubmit={this.props.handleSubmit}>
+          <form className="formBox" onSubmit={this.handleSubmit}>
             <div>
               <label className="boxTitle">
                 Footer:
@@ -328,7 +330,7 @@ formInput = (title, name, value) => {
       }
       if (this.props.newCell.type === "Video Cell"){
         return(
-          <form className="formBox" onSubmit={this.props.handleSubmit}>
+          <form className="formBox" onSubmit={this.handleSubmit}>
             {this.checkQuestions()}
             {this.headerInfo()}
             <label className="boxTitle">
@@ -439,7 +441,7 @@ formInput = (title, name, value) => {
 
         if (this.props.newCell.type === "Squares Cell"){
           return(
-            <form className="formBox" onSubmit={this.props.handleSubmit}>
+            <form className="formBox" onSubmit={this.handleSubmit}>
               {this.checkQuestions()}
               {this.headerInfo()}
               <label className="boxTitle">
@@ -490,7 +492,7 @@ formInput = (title, name, value) => {
 
         if (this.props.newCell.type === "Speaker Highlight Cell"){
           return(
-            <form className="formBox" onSubmit={this.props.handleSubmit}>
+            <form className="formBox" onSubmit={this.handleSubmit}>
               {this.checkQuestions()}
               {this.headerInfo()}
               {this.footerInfo()}
@@ -508,7 +510,7 @@ formInput = (title, name, value) => {
      
       if (this.props.newCell.type === "Image Carousel"){
         return(
-          <form className="formBox" onSubmit={this.props.handleSubmit}>
+          <form className="formBox" onSubmit={this.handleSubmit}>
           {this.checkQuestions()}
           {this.headerInfo()}
           {this.footerInfo()}
@@ -526,7 +528,7 @@ formInput = (title, name, value) => {
 
     if (this.props.newCell.type === "Dual Details Cell"){
       return(
-        <form className="formBox" onSubmit={this.props.handleSubmit}>
+        <form className="formBox" onSubmit={this.handleSubmit}>
           {this.checkQuestions()}
           {this.headerInfo()}
           {this.footerInfo()}
@@ -617,7 +619,7 @@ formInput = (title, name, value) => {
 
     if (this.props.newCell.type === "Details Cell"){
       return(
-        <form className="formBox" onSubmit={this.props.handleSubmit}>
+        <form className="formBox" onSubmit={this.handleSubmit}>
           <label className="boxTitle">
             Title
             <input
@@ -655,7 +657,7 @@ formInput = (title, name, value) => {
 
     if (this.props.newCell.type === "Image Cell"){
       return(
-        <form className="formBox" onSubmit={this.props.handleSubmit}>
+        <form className="formBox" onSubmit={this.handleSubmit}>
           {this.checkQuestions()}
           {this.headerInfo()}
           <label className="boxTitle">
@@ -674,10 +676,8 @@ formInput = (title, name, value) => {
       )
     }
     if (this.props.newCell.type === "Dual Images Cell"){
-      const image1 = `imageInfo.${0}.image`
-      const image = `imageInfo.${0}.image`
       return(
-        <form className="formBox" onSubmit={this.props.handleSubmit}>
+        <form className="formBox" onSubmit={this.handleSubmit}>
           {this.checkQuestions()}
           {this.headerInfo()}
           <label className="boxTitle">
@@ -708,7 +708,7 @@ formInput = (title, name, value) => {
 
       if (this.props.newCell.type === "Text Cell"){
         return(
-          <form className="formBox" onSubmit={this.props.handleSubmit}>
+          <form className="formBox" onSubmit={this.handleSubmit}>
             {this.checkQuestions()}
             {this.headerInfo()}
             <label className="boxTitle">
@@ -729,7 +729,7 @@ formInput = (title, name, value) => {
 
       if (this.props.newCell.type === "Footer Cell"){
         return(
-          <form className="formBox" onSubmit={this.props.handleSubmit}>
+          <form className="formBox" onSubmit={this.handleSubmit}>
             <label className="boxTitle">
               Footer Button 1 Text:
               <input
