@@ -310,7 +310,7 @@ export default class App extends Component {
     return (
       <div>
         <h2 style={{marginBottom: "50px"}}>Preview</h2>
-        <ContentPreview content={this.state.newCell}/>
+        <ContentPreview content={this.state.newCell} formBools = {this.state.formBools}/>
       </div>
     )
   }
@@ -424,19 +424,22 @@ const formItems = [
     type: "Landing Page with Video",
     boolName: false,
     videoBool: true,
-    boldBool: false
+    boldBool: false,
+    imageBool: false
   },
   {
     name: "Landing Page Cell",
     type: "Landing Page with Video & Bold Header",
     boolName: false,
     videoBool: true,
-    boldBool: true
+    boldBool: true,
+    imageBool: false
   },
   {
     name: "Landing Page Cell",
     type: "Landing Page with Image",
     boolName: false,
+    videoBool: false,
     imageBool: true,
     boldBool: false
   },
@@ -444,6 +447,7 @@ const formItems = [
     name: "Landing Page Cell",
     type: "Landing Page with Image & Bold Header",
     boolName: false,
+    videoBool: false,
     imageBool: true,
     boldBool: true
   },

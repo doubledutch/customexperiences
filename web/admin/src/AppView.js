@@ -84,7 +84,7 @@ class AppView extends Component {
                 <img className="dragButton" name={i}  value="true" src={require('./icons/reordericon.png')} alt="move" />
                 <p>{item.type}</p>
                 <img className="editButton" name={i}  value="true" onClick={this.props.handleEdit} src={require('./icons/pencil.png')} alt="edit" />
-                <img className="deleteButton" name={i}  value="true" onClick={this.props.handleDelete} src={require('./icons/trashcan.svg')} alt="delete" />
+                <img className="deleteButton" name={i}  value="true" onClick={this.props.handleDelete} src={require('./icons/trashcan.png')} alt="delete" />
               </div>
             </div>
               {provided.placeholder}

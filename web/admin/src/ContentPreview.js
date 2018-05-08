@@ -50,7 +50,7 @@ export default class ContentPreview extends PureComponent {
     switch(details.type) {
       case "Landing Page Cell" :
         return(
-          <LandingPage {...details}/>
+          <LandingPage {...details} formBools = {this.props.formBools}/>
         )
       case 'Details Cell':
         return( 
