@@ -20,7 +20,7 @@ export default class SpeakerCarousel extends Component {
             {item.image ? <Image source={{uri: item.image}} style={s.image}/> : <View style={s.image}/>}
             <View style={{flexDirection: 'column', marginRight: 15, flex: 1}}>
               <Text style={s.name}>{item.name}</Text>
-              <Text style={{fontSize: 16, marginLeft: 20, marginTop: 0, color: '#364247'}}>{item.title}{(item.company && item.title) ? "," : null} {item.company}</Text>
+              <Text numberOfLines={2} style={{fontSize: 16, marginLeft: 20, marginTop: 0, color: '#364247'}}>{item.title}{(item.company && item.title) ? "," : null} {item.company}</Text>
             </View>
           </View>
           <View style={{flex: 1, marginRight: 15}}>
@@ -51,7 +51,7 @@ export default class SpeakerCarousel extends Component {
     })
     const lines = Math.round(string / CPL + 0.5)
     // const titleLines = Math.round(speakerString/ titlePL + 0.5)
-    setHeight = (lines) * 18 + 160
+    setHeight = (lines) * 18 + 128
     return setHeight
   }
 

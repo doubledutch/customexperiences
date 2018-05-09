@@ -495,7 +495,6 @@ formInput = (title, name, value) => {
             <form className="formBox" onSubmit={this.handleSubmit}>
               {this.checkQuestions()}
               {this.headerInfo()}
-              {this.footerInfo()}
               {this.props.newCell.speakerInfo.map((item, i) => {
                 return (
                   this.speakerInfo(i)
@@ -503,6 +502,7 @@ formInput = (title, name, value) => {
               })}
               <input type="button" onClick={()=>this.props.handleNewSpeaker()} value="Add New Speaker +" className="speakerButton"/>
               <input type="button" onClick={()=>this.props.deleteLastSpeaker()} value="Delete Last Speaker" className="deleteSpeakerButton"/>
+              {this.footerInfo()}
               <input type="submit" value="Submit Content" className="formButton"/>
             </form>
           )
@@ -513,7 +513,6 @@ formInput = (title, name, value) => {
           <form className="formBox" onSubmit={this.handleSubmit}>
           {this.checkQuestions()}
           {this.headerInfo()}
-          {this.footerInfo()}
           {this.props.newCell.imageInfo.map((item, i) => {
             return (
               this.imageInfo(i)
@@ -521,6 +520,7 @@ formInput = (title, name, value) => {
           })}
           <input type="button" onClick={()=>this.props.handleNewImage()} value="Add New Image +" className="speakerButton"/>
           <input type="button" onClick={()=>this.props.deleteLastImage()} value="Delete Last Image" className="deleteSpeakerButton"/>
+          {this.footerInfo()}
           <input className="formButton" type="submit" value="Submit Content" />
         </form>
       )
@@ -531,7 +531,6 @@ formInput = (title, name, value) => {
         <form className="formBox" onSubmit={this.handleSubmit}>
           {this.checkQuestions()}
           {this.headerInfo()}
-          {this.footerInfo()}
           <label className="boxTitle">
             Title 1:
             <input
@@ -612,6 +611,7 @@ formInput = (title, name, value) => {
               value={this.props.newCell.des2}
               onChange={this.handleInputChange} />
           </label>
+          {this.footerInfo()}
           <input type="submit" value="Submit Content" className="formButton"/>
         </form>
       )
