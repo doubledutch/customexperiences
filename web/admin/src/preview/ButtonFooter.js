@@ -47,7 +47,8 @@ const s = ReactNative.StyleSheet.create({
   buttonBox: {
     backgroundColor: '#009DCD',
     borderRadius:4,
-    padding:10
+    height: 38,
+    padding: 10
   },
   button: {
     color: "#FFFFFF",

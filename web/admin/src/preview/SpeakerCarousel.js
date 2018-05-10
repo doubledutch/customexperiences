@@ -12,19 +12,19 @@ export default class SpeakerCarousel extends Component {
     }
   }
 
-  carouselCells = () => {
+  carouselCells = (maxLines) => {
     return(
       this.props.speakerInfo.map(((item, i) =>
         <TouchableOpacity key={i} style={s.cell} activeOpacity={1.0}>
           <View style={{flexDirection: 'row', paddingTop: 10, width: 286}}>
-            {item.image ? <Image source={{uri: item.image}} style={s.image}/> : <View style={s.image}/>}
+            {item.image ? <Image source={{uri: item.image}} style={s.image}/> : <Image style={s.image} source={require('../icons/imageplaceholdersquare.png')} alt=""/>}
             <View style={{flexDirection: 'column', marginRight: 15, flex: 1}}>
               <Text style={s.name}>{item.name}</Text>
               <Text numberOfLines={2} style={{fontSize: 16, marginLeft: 20, marginTop: 0, color: '#364247'}}>{item.title}{(item.company && item.title) ? "," : null} {item.company}</Text>
             </View>
           </View>
           <View style={{flex: 1, marginRight: 15}}>
-            <Text style={s.cellDes}>{item.des}</Text>
+            <Text numberOfLines={maxLines} style={s.cellDes}>{item.des}</Text>
           </View>
         </TouchableOpacity>     
       ))
@@ -39,24 +39,38 @@ export default class SpeakerCarousel extends Component {
     const fontSize = 14
     const fontConstant = 2
     const CPL = width / (14 / fontConstant)
-    // const titlePL = (width - 75) / (14/fontConstant)
     this.props.speakerInfo.forEach((item) => {
       const totalSpeaker = item.title + item.company
       if (item.des.length > string) {
         string = item.des.length
       }
-      // if (totalSpeaker.length > string) {
-      //   speakerString = item.title.length + item.company.length
-      // }
     })
     const lines = Math.round(string / CPL + 0.5)
-    // const titleLines = Math.round(speakerString/ titlePL + 0.5)
     setHeight = (lines) * 18 + 128
     return setHeight
   }
 
+  findLines = () => {
+    const width = 286
+    var setHeight = 240
+    var string = 1
+    var speakerString = 1
+    const fontSize = 14
+    const fontConstant = 2
+    const CPL = width / (14 / fontConstant)
+    this.props.speakerInfo.forEach((item) => {
+      const totalSpeaker = item.title + item.company
+      if (item.des.length > string) {
+        string = item.des.length
+      }
+    })
+    const lines = Math.round(string / CPL + 0.5)
+    return lines
+  }
+
   render() {
     const { footer, buttonURL, buttonText, header, title, des, intro } = this.props
+    const maxLines = this.findLines()
     return (
       <View style={s.container}>
         <View style={s.border}/>
@@ -66,7 +80,7 @@ export default class SpeakerCarousel extends Component {
         des = {des}
         intro = {intro}
         />
-        {this.carouselCells()}
+        {this.carouselCells(maxLines)}
         <Footer
         footer={footer}
         buttonURL={buttonURL}

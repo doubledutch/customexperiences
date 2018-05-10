@@ -242,7 +242,7 @@ export default class App extends Component {
   deleteTemplate = (e) => {
     if (window.confirm("Are you sure you want to delete the template?")) {
       fbc.database.public.adminRef("templates").child(this.state.value).remove()
-      this.setState({value: ""})
+      this.setState({value: "", currentEdit: ""})
     }
   }
 

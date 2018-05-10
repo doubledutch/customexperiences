@@ -34,7 +34,7 @@ export default class ImageCarousel extends Component {
       this.props.imageInfo.map(((item, i) =>    
         <View style={{height: width * .931 + 25 }}>            
           <TouchableOpacity key={i} style={[s.cell, dimensionStyle]} activeOpacity={1.0}>
-            {(item.image ? <Image style={{flex: 1, resizeMode: 'contain'}} source={{uri: item.image}} alt=""/> : <View style={{flex: 1, resizeMode: 'contain'}}/>)}
+            {(item.image ? <Image style={{flex: 1, resizeMode: 'contain'}} source={{uri: item.image}} alt=""/> : <Image style={{flex: 1, resizeMode: 'contain'}} source={require('../icons/imageplaceholdersquare.png')} alt=""/>)}
           </TouchableOpacity> 
         </View>
       ))

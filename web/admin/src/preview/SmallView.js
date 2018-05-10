@@ -24,7 +24,7 @@ export default class SmallView extends Component {
       <View>
         <View style={s.top} />
         <View style={s.main}>
-          {(image ? <Image style={s.image} source={{uri: image}} alt=""/> : <View style={s.image}/>)}
+          {(image ? <Image style={s.image} source={{uri: image}} alt=""/> : <Image style={s.image} source={require('../icons/imageplaceholdersquare.png')} alt=""/>)}
           <View style={s.info}>
             <Text style={s.title}>{title}</Text>
             <Text style={s.description}>{description}</Text>

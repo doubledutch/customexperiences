@@ -32,14 +32,14 @@ export default class DualSmallViews extends Component {
         intro = {intro}
         />
         <TouchableOpacity style={s.main}>
-          {(image1 ? <Image style={s.image} source={{uri: image1}} alt=""/> : <View style={s.image}/>)}
+          {(image1 ? <Image style={s.image} source={{uri: image1}} alt=""/> : <Image style={s.image} source={require('../icons/imageplaceholdersquare.png')} alt=""/>)}
           <View style={s.info}>
             <Text style={s.title}>{title1}</Text>
             <Text style={s.description}>{des1}</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={s.main2}>
-          {(image2 ? <Image style={s.image} source={{uri: image2}} alt=""/> : <View style={s.image}/>)}
+          {(image2 ? <Image style={s.image} source={{uri: image2}} alt=""/> : <Image style={s.image} source={require('../icons/imageplaceholdersquare.png')} alt=""/>)}
           <View style={s.info}>
             <Text style={s.title}>{title2}</Text>
             <Text style={s.description}>{des2}</Text>

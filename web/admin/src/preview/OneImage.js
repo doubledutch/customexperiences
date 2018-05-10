@@ -32,7 +32,7 @@ export default class OneImage extends Component {
         des = {des}
         intro = {intro}
         />
-        {(this.props.imageInfo.image ? <Image style={s.dimensionStyle} source={{uri: this.props.imageInfo.image}} alt=""/> : <View style={s.dimensionStyle}/>)}
+        {(this.props.imageInfo.image ? <Image style={s.dimensionStyle} source={{uri: this.props.imageInfo.image}} alt=""/> : <Image style={s.dimensionStyle} source={require('../icons/imageplaceholdersquare.png')} alt=""/>)}
         <Footer
         footer={footer}
         buttonURL={buttonURL}

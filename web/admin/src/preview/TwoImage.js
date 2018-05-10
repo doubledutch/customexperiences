@@ -35,8 +35,8 @@ export default class TwoImage extends Component {
         des = {des}
         intro = {intro}
         />
-        {(imageInfo[0].image ? <Image style={s.dimensionStyle} source={{uri: imageInfo[0].image}} alt=""/> : <View style={s.dimensionStyle}/>)}
-        {(imageInfo[1].image ? <Image style={s.dimensionStyle1} source={{uri: imageInfo[1].image}} alt=""/> : <View style={s.dimensionStyle1}/>)}
+        {(imageInfo[0].image ? <Image style={s.dimensionStyle} source={{uri: imageInfo[0].image}} alt=""/> : <Image style={s.dimensionStyle} source={require('../icons/imageplaceholder.png')} alt=""/>)}
+        {(imageInfo[1].image ? <Image style={s.dimensionStyle1} source={{uri: imageInfo[1].image}} alt=""/> : <Image style={s.dimensionStyle1} source={require('../icons/imageplaceholder.png')} alt=""/>)}
         <Footer
         footer={footer}
         buttonURL={buttonURL}

@@ -40,21 +40,21 @@ export default class Squares extends Component {
         <View style={s.squareContainer}>
           <View style={{flexDirection:'row'}}>
             <View style={s.cellLeft}>
-              {(image1 ? <Image style={{width, height}} source={{uri: image1}} alt=""/> : <View style={{width, height}}/>)}
+              {(image1 ? <Image style={{width, height}} source={{uri: image1}} alt=""/> : <Image style={{width, height}} source={require('../icons/imageplaceholdersquare.png')} alt=""/>)}
               <Text style={{textAlign:'center', color: '#364247'}}>{this.props.text1}</Text>
             </View>
             <View style={s.cellRight}>
-              {(image2 ? <Image style={{width, height}} source={{uri: image2}} alt=""/> : <View style={{width, height}}/>)}
+              {(image2 ? <Image style={{width, height}} source={{uri: image2}} alt=""/> : <Image style={{width, height}} source={require('../icons/imageplaceholdersquare.png')} alt=""/>)}
               <Text style={{textAlign:'center', color: '#364247'}}>{this.props.text2}</Text>
             </View>   
           </View>
           <View style={{flexDirection:'row',borderTopWidth:1,borderColor:'#D8D8D8'}}>
             <View style={s.cellLeft}>
-              {(image3 ? <Image style={{width, height}} source={{uri: image3}} alt=""/> : <View style={{width, height}}/>)}
+              {(image3 ? <Image style={{width, height}} source={{uri: image3}} alt=""/> : <Image style={{width, height}} source={require('../icons/imageplaceholdersquare.png')} alt=""/>)}
               <Text style={{textAlign:'center', color: '#364247'}}>{this.props.text3}</Text>
             </View>
             <View style={s.cellRight}>
-              {(image4 ? <Image style={{width, height}} source={{uri: image4}} alt=""/> : <View style={{width, height}}/>)}
+              {(image4 ? <Image style={{width, height}} source={{uri: image4}} alt=""/> : <Image style={{width, height}} source={require('../icons/imageplaceholdersquare.png')} alt=""/>)}
               <Text style={{textAlign:'center', color: '#364247'}}>{this.props.text4}</Text>
             </View>
           </View>

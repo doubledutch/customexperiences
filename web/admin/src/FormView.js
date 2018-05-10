@@ -500,9 +500,9 @@ formInput = (title, name, value) => {
                   this.speakerInfo(i)
                 )
               })}
+              {this.footerInfo()}
               <input type="button" onClick={()=>this.props.handleNewSpeaker()} value="Add New Speaker +" className="speakerButton"/>
               <input type="button" onClick={()=>this.props.deleteLastSpeaker()} value="Delete Last Speaker" className="deleteSpeakerButton"/>
-              {this.footerInfo()}
               <input type="submit" value="Submit Content" className="formButton"/>
             </form>
           )
@@ -518,9 +518,9 @@ formInput = (title, name, value) => {
               this.imageInfo(i)
             )
           })}
+          {this.footerInfo()}
           <input type="button" onClick={()=>this.props.handleNewImage()} value="Add New Image +" className="speakerButton"/>
           <input type="button" onClick={()=>this.props.deleteLastImage()} value="Delete Last Image" className="deleteSpeakerButton"/>
-          {this.footerInfo()}
           <input className="formButton" type="submit" value="Submit Content" />
         </form>
       )

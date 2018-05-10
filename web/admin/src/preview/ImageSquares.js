@@ -41,18 +41,18 @@ export default class ImageSquares extends Component {
           <View style={s.box}>
             <View style={{flexDirection:'row'}}>
               <View style={s.imageBoxLeft}>
-                {(image1 ? <Image style={{width, height}} source={{uri: image1}} alt=""/> : <View style={{width, height}}/>)}
+                {(image1 ? <Image style={{width, height}} source={{uri: image1}} alt=""/> : <Image style={{width, height}} source={require('../icons/imageplaceholdersquare.png')} alt=""/>)}
               </View>
               <View style={s.imageBoxRight}>
-                {(image2 ? <Image style={{width, height}} source={{uri: image2}} alt=""/> : <View style={{width, height}}/>)}
+                {(image2 ? <Image style={{width, height}} source={{uri: image2}} alt=""/> : <Image style={{width, height}} source={require('../icons/imageplaceholdersquare.png')} alt=""/>)}
               </View>   
             </View>
             <View style={s.lowerRow}>
               <View style={s.imageBoxLeft}>
-                {(image3 ? <Image style={{width, height}} source={{uri: image3}} alt=""/> : <View style={{width, height}}/>)}
+                {(image3 ? <Image style={{width, height}} source={{uri: image3}} alt=""/> : <Image style={{width, height}} source={require('../icons/imageplaceholdersquare.png')} alt=""/>)}
               </View>
               <View style={s.imageBoxRight}>
-                {(image4 ? <Image style={{width, height}} source={{uri: image4}} alt=""/> : <View style={{width, height}}/>)}
+                {(image4 ? <Image style={{width, height}} source={{uri: image4}} alt=""/> : <Image style={{width, height}} source={require('../icons/imageplaceholdersquare.png')} alt=""/>)}
               </View>
             </View>
           </View>
