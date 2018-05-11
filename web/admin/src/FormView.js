@@ -350,7 +350,7 @@ formInput = (title, name, value) => {
       }
         if (this.props.newCell.type === "Text Squares Cell"){
           return(
-            <form onSubmit={this.props.handleSubmit} className="formBox">
+            <form onSubmit={this.handleSubmit} className="formBox">
               {this.checkQuestions()}
               {this.headerInfo()}
               <label className="boxTitle">
