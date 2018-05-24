@@ -18,7 +18,9 @@ export default class LandingPage extends Component {
 
   viewPage = () => {
     const color = '#009DCD'
-    const { headline, title, des, excludeNativeComponents, video, bold, footer, buttonURL, buttonText, intro } = this.props
+    const { headline, title, des, excludeNativeComponents, video, image, bold, footer, buttonURL, buttonText, intro } = this.props
+    console.log(this.props.formBools)
+    console.log(this.props.content)
     if (bold){
       return(
       <View style={{borderBottomWidth:1, borderColor:'#D8D8D8'}}>
@@ -26,9 +28,9 @@ export default class LandingPage extends Component {
         <View style={{backgroundColor:'#00B9C2'}}>
           <Text style={[s.headlineText, {color}]}>{headline}</Text>
         </View>
-        <View style={s.dimensionStyle}>
-          {(this.props.formBools.imageBool) ? <Image source={this.props.image ? {uri: this.props.image} : require('../icons/imageplaceholder.png')} style={{flex:1, resizeMode: 'contain'}}/> : null}
+        <View>
           {(this.props.formBools.videoBool) ? <Image style={s.dimensionStyle} source={require('../icons/videoplaceholder.png')} alt="video" /> : null }
+          {(this.props.formBools.imageBool) ? <Image source={image ? {uri: image} : require('../icons/imageplaceholder.png')} style={s.dimensionStyle} alt="image"/> : null}
         </View>
         <View style={s.box}>
           {intro.length ? <Text style={{textAlign:'center',fontSize:25, color: '#364247'}}>{intro}</Text> : null}
@@ -52,8 +54,8 @@ export default class LandingPage extends Component {
           {title.length ? <Text style={{textAlign:'center',fontSize:25, color: '#364247'}}>{title}</Text> : null}
           {des.length ? <Text style={{textAlign:'center',fontSize:16,padding:20, color: '#364247'}}>{des}</Text> : null}
         </View>
-        <View style={s.dimensionStyle}>
-          {(this.props.formBools.imageBool) ? <Image source={this.props.image ? {uri: this.props.image} : require('../icons/imageplaceholder.png')} style={{flex:1, resizeMode: 'contain'}}/> : null}
+        <View>
+          {(this.props.formBools.imageBool) ? <Image source={image ? {uri: image} : require('../icons/imageplaceholder.png')} style={s.dimensionStyle} alt="image"/> : null}
           {(this.props.formBools.videoBool) ? <Image style={s.dimensionStyle} source={require('../icons/videoplaceholder.png')} alt="video" /> : null }
         </View>
         <Footer

@@ -104,6 +104,17 @@ text-align: center;
   background-color: #ffffff;
 }
 
+.releaseTimeBox{
+  flex: 1;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+.releaseTimeBox p{
+  margin: 0px 10px;
+}
+
 .textCell {
   display:flex;
   flex-flow: column wrap;

@@ -303,7 +303,7 @@ formInput = (title, name, value) => {
                 onChange={this.handleInputChange} />
             </label> : null }
             {this.headerInfo()}
-            { this.props.formBools.videoBool || this.props.newCell.video ? <label className="boxTitle">
+            { this.props.formBools.videoBool || this.props.newCell.video && !this.props.newCell.image ? <label className="boxTitle">
               Video Link:
               <input
                 name="video"
@@ -313,7 +313,7 @@ formInput = (title, name, value) => {
                 value={this.props.newCell.video}
                 onChange={this.handleInputChange} />
             </label> : null }
-            { this.props.formBools.imageBool || this.props.newCell.image ? <label className="boxTitle">
+            { this.props.formBools.imageBool || this.props.newCell.image && !this.props.newCell.video ? <label className="boxTitle">
               Image Link:
               <input
                 name="image"

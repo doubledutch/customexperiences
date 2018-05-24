@@ -18,6 +18,8 @@ import React, { Component } from 'react'
 import './App.css'
 import client from '@doubledutch/admin-client'
 import FirebaseConnector from '@doubledutch/firebase-connector'
+import 'moment-timezone';
+import moment from 'moment' 
 import CellSelectView from './CellSelect.js'
 import FormView from './FormView.js'
 import AppView from './AppView.js'
@@ -52,7 +54,8 @@ export default class App extends Component {
       cellData,
       showModal: false,
       publishDate: new Date(),
-      formItems
+      formItems,
+      eventData: {}
     }
 
     // Showing the builder UI is not a security issue.
@@ -65,6 +68,7 @@ export default class App extends Component {
     this.signin = fbc.signinAdmin()
     .then(user => this.user = user)
     .catch(err => console.error(err))
+
   }
 
 
@@ -151,6 +155,11 @@ export default class App extends Component {
       templateRef.on('child_removed', data => {
         this.setState({ templates: this.state.templates.filter(x => x.key !== data.key), items: [] })
       })
+      client.getCurrentEvent().then(evt => {
+        this.setState({eventData: evt})
+        var current = moment.tz(evt.timeZone.id).format("Z")
+        current = parseInt(current)
+      })
     })
   }
 
@@ -196,24 +205,17 @@ export default class App extends Component {
     this.setState({[event.target.name]: event.target.value});
   }
 
-  setHour = (event) => {
-    var hour = event.target.value
-    var date = this.state.publishDate
-    date.setHours(+hour)
-    date.setMinutes(0)
-    date.setSeconds(0)
-    this.setState({publishDate: date});
-  }
-
-  handleDate = (date) => {
-    this.setState({publishDate: date});
-  }
-
   submitTemplate = () => {
     fbc.database.public.adminRef('templates').child(this.state.value).set(this.state.items)
   }
 
   submitEventData = (publishDate) => {
+    var publishDate = publishDate
+    var hourOffset = moment.tz(this.state.eventData.timeZone.id).format("Z")
+    const currentHour = publishDate.getHours()
+    hourOffset = parseInt(hourOffset)
+    hourOffset = hourOffset * -1
+    publishDate.setHours(currentHour + hourOffset)
     var publishTime = [{publishDate: publishDate.getTime()}]
     var items = this.state.items
     var title = this.state.value
@@ -344,9 +346,8 @@ export default class App extends Component {
           currentTitle = {this.state.value}
           currentEdit = {this.state.currentEdit}
           handleChange = {this.handleChange}
-          handleDate = {this.handleDate}
-          setHour={this.setHour}
           templates={this.state.templates}
+          eventData={this.state.eventData}
         />
         <h2>Select a Template (optional)</h2>
         <div className="submitBox">
@@ -388,7 +389,7 @@ export default class App extends Component {
             cellData={this.state.cellData}
             closeForm={this.closeForm}
           />
-          {this.state.showFormBool ? this.showPreview() :
+          { this.state.showFormBool ? this.showPreview() :
           <AppView
             items = {this.state.items}
             onDragEnd = {this.onDragEnd}
