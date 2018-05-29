@@ -4,7 +4,7 @@
   "private": true,
   "homepage": ".",
   "dependencies": {
-    "@doubledutch/admin-client": "^1.4.2",
+    "@doubledutch/admin-client": "1.5.2",
     "@doubledutch/firebase-connector": "^3.4.3",
     "@doubledutch/rn-components": "^0.0.16",
     "moment-timezone": "^0.5.17",

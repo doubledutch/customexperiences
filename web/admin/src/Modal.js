@@ -24,13 +24,13 @@ export class CustomModal extends Component {
   render() {
     return(
       <Modal
-      ariaHideApp={false}
-      isOpen={this.props.showModal}
-      onAfterOpen={this.props.afterOpenModal}
-      onRequestClose={this.props.closeModal}
-      contentLabel="Modal"
-      className="Modal"
-      overlayClassName="Overlay"
+        ariaHideApp={false}
+        isOpen={this.props.showModal}
+        onAfterOpen={this.props.afterOpenModal}
+        onRequestClose={this.props.closeModal}
+        contentLabel="Modal"
+        className="Modal"
+        overlayClassName="Overlay"
       >
         <div className="modalBox">
           <span className="submitBox2">
@@ -92,7 +92,7 @@ export class CustomModal extends Component {
               <option value="23">11pm</option>
             </select>
           </form>
-          <p>{this.props.eventData.timeZone ? this.props.eventData.timeZone.displayName.slice(12) : null}</p>
+          <p>{this.props.eventData.timeZone ? this.props.eventData.timeZone : null}</p>
         </div>
       </div>
     )
@@ -101,7 +101,7 @@ export class CustomModal extends Component {
   saveHour = (publishDate) => {
     var publishDate = publishDate
     if (this.props.eventData.timeZone) {
-      var hourOffset = moment.tz(this.props.eventData.timeZone.id).format("Z")
+      var hourOffset = moment.tz(this.props.eventData.timeZone).format("Z")
       hourOffset = parseInt(hourOffset)
       const currentHour = publishDate.getHours()
       publishDate.setHours(currentHour + hourOffset)
@@ -146,7 +146,7 @@ export class CustomModal extends Component {
 
   handleDate = (date) => {
     var publishDate = date
-    var hourOffset = moment.tz(this.props.eventData.timeZone.id).format("Z")
+    var hourOffset = moment.tz(this.props.eventData.timeZone).format("Z")
     const currentHour = publishDate.getHours()
     hourOffset = parseInt(hourOffset)
     hourOffset = hourOffset * -1

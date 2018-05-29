@@ -157,7 +157,8 @@ export default class App extends Component {
       })
       client.getCurrentEvent().then(evt => {
         this.setState({eventData: evt})
-        var current = moment.tz(evt.timeZone.id).format("Z")
+        console.log(evt)
+        var current = moment.tz(evt.timeZone).format("Z")
         current = parseInt(current)
       })
     })
@@ -211,7 +212,7 @@ export default class App extends Component {
 
   submitEventData = (publishDate) => {
     var publishDate = publishDate
-    var hourOffset = moment.tz(this.state.eventData.timeZone.id).format("Z")
+    var hourOffset = moment.tz(this.state.eventData.timeZone).format("Z")
     const currentHour = publishDate.getHours()
     hourOffset = parseInt(hourOffset)
     hourOffset = hourOffset * -1
