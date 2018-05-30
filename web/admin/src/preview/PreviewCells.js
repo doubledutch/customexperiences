@@ -10,7 +10,6 @@ export default class LandingPage extends Component {
   }
 
   render() {
-    console.log(this.props.formBools)
     return (
       this.viewPage()
     )
@@ -19,8 +18,6 @@ export default class LandingPage extends Component {
   viewPage = () => {
     const color = '#009DCD'
     const { headline, title, des, excludeNativeComponents, video, image, bold, footer, buttonURL, buttonText, intro } = this.props
-    console.log(this.props.formBools)
-    console.log(this.props.content)
     if (bold){
       return(
       <View style={{borderBottomWidth:1, borderColor:'#D8D8D8'}}>

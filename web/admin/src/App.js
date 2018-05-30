@@ -157,7 +157,6 @@ export default class App extends Component {
       })
       client.getCurrentEvent().then(evt => {
         this.setState({eventData: evt})
-        console.log(evt)
         var current = moment.tz(evt.timeZone).format("Z")
         current = parseInt(current)
       })
