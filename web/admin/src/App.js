@@ -214,9 +214,10 @@ export default class App extends Component {
     var hourOffset = moment.tz(this.state.eventData.timeZone).format("Z")
     const currentHour = publishDate.getHours()
     hourOffset = parseInt(hourOffset)
-    hourOffset = hourOffset * -1
+    hourOffset = hourOffset*-1
     publishDate.setHours(currentHour + hourOffset)
-    var publishTime = [{publishDate: publishDate.getTime()}]
+    const newDate = new Date(publishDate)
+    var publishTime = [{publishDate: newDate.getTime()}]
     var items = this.state.items
     var title = this.state.value
     if (title) {title = this.state.value.toLowerCase()}
@@ -226,7 +227,7 @@ export default class App extends Component {
         items.shift()
       }
       var newItems = publishTime.concat(items)
-      this.setState({publishDate, value : title})
+      this.setState({publishDate: newDate, value : title})
       fbc.database.public.adminRef('templates').child(title).set(newItems).then(() => {
         this.closeModal()
       })

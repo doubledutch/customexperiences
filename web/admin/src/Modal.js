@@ -11,13 +11,17 @@ export class CustomModal extends Component {
     super(props)
     this.state = {
       error: false,
-      currentTime: new Date()
+      currentTime: new Date(),
+      disabled: false
     }
   }
 
   componentWillReceiveProps(nextProps){
     if (this.props.publishDate !== nextProps.publishDate){
       this.saveHour(nextProps.publishDate)
+    }
+    if (this.props.showModal !== nextProps.showModal) {
+      this.setState({disabled: false})
     }
   }
 
@@ -159,7 +163,7 @@ export class CustomModal extends Component {
     return (
       <div>
         <button className="modalDone" onClick={this.cancelClose}>Cancel</button>
-        <button className="modalExport" onClick={this.publish(this.state.currentTime)}>Publish Content</button> 
+        <button className="modalExport" disabled={this.state.disabled} onClick={this.publish(this.state.currentTime)}>Publish Content</button> 
       </div>
     )
   }
@@ -169,18 +173,18 @@ export class CustomModal extends Component {
     this.props.closeModal()
   }
 
-  publish = content => () => {
+  publish = time => () => {
     const currentEdit = this.props.currentEdit.trim()
     var currentTemplate = this.props.templates.find(item => item.key.toLowerCase() === currentEdit.toLowerCase())
     if (currentTemplate) {currentTemplate = currentTemplate.key.toLowerCase()}
     if (!currentTemplate) {currentTemplate = false}
     currentTemplate = ((currentTemplate === this.props.currentTitle.toLowerCase()) ?  false : currentTemplate)
     if (currentEdit && !currentTemplate && this.checker()){
-      this.props.publish(content, currentEdit)
-      this.setState({error: false})
+      this.props.publish(time, currentEdit)
+      this.setState({error: false, disabled: true})
     }
     else {
-      this.setState({error: true})
+      this.setState({error: true, disabled: false})
     }
   }
 checker = () => {
