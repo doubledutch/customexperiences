@@ -141,21 +141,15 @@ export class CustomModal extends Component {
             showHeader: false
           }}
           name="publishDate"
-          onSelect={this.handleDate}
+          onSelect={this.handleNewDate}
         />
         </div>
       </label>
     )
   }
 
-  handleDate = (date) => {
-    var publishDate = date
-    var hourOffset = moment.tz(this.props.eventData.timeZone).format("Z")
-    const currentHour = publishDate.getHours()
-    hourOffset = parseInt(hourOffset)
-    hourOffset = hourOffset * -1
-    publishDate.setHours(currentHour + hourOffset)
-    this.setState({currentTime: publishDate});
+  handleNewDate = (date) => {
+    this.setState({currentTime: date});
   }
 
 
