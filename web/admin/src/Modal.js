@@ -18,7 +18,7 @@ export class CustomModal extends Component {
 
   componentWillReceiveProps(nextProps){
     if (this.props.publishDate !== nextProps.publishDate){
-      this.saveHour(nextProps.publishDate)
+      this.setState({currentTime: nextProps.publishDate})
     }
     if (this.props.showModal !== nextProps.showModal) {
       this.setState({disabled: false})
@@ -102,19 +102,6 @@ export class CustomModal extends Component {
     )
   }
 
-  saveHour = (publishDate) => {
-    var publishDate = publishDate
-    if (this.props.eventData.timeZone) {
-      var hourOffset = moment.tz(this.props.eventData.timeZone).format("Z")
-      hourOffset = parseInt(hourOffset)
-      const currentHour = publishDate.getHours()
-      publishDate.setHours(currentHour + hourOffset)
-      publishDate.setMinutes(0)
-      publishDate.setSeconds(0)
-    }
-    this.setState({currentTime: publishDate})
-  }
-
   setHour = (event) => {
     var hour = event.target.value
     var currentTime = this.state.currentTime
@@ -174,6 +161,7 @@ export class CustomModal extends Component {
     if (!currentTemplate) {currentTemplate = false}
     currentTemplate = ((currentTemplate === this.props.currentTitle.toLowerCase()) ?  false : currentTemplate)
     if (currentEdit && !currentTemplate && this.checker()){
+      this.props.saveLocalHour(time)
       this.props.publish(time, currentEdit)
       this.setState({error: false, disabled: true})
     }

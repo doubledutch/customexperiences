@@ -137,30 +137,42 @@ export default class App extends Component {
 
   componentDidMount() {
     this.signin.then((user) => {
-      const templateRef = fbc.database.public.adminRef('templates')
-      templateRef.on('child_added', data => {
-        this.setState({ templates: [...this.state.templates, {...data.val(), key: data.key }] })   
-      })
-      templateRef.on('child_changed', data => {
-        const name = data.key
-        const newData = data.val()
-        var newArray = this.state.templates
-        var i = newArray.findIndex(item => {
-          return item.key === name
-        })
-        newArray[i] = newData
-        newArray[i].key = data.key
-        this.setState({ templates: newArray})
-      })
-      templateRef.on('child_removed', data => {
-        this.setState({ templates: this.state.templates.filter(x => x.key !== data.key), items: [] })
-      })
       client.getCurrentEvent().then(evt => {
         this.setState({eventData: evt})
-        var current = moment.tz(evt.timeZone).format("Z")
-        current = parseInt(current)
+        const templateRef = fbc.database.public.adminRef('templates')
+        templateRef.on('child_added', data => {
+          let template = this.saveHour(data.val(), evt)
+          this.setState({ templates: [...this.state.templates, {...template, key: data.key }] })   
+        })
+        templateRef.on('child_changed', data => {
+          const name = data.key
+          const template = this.saveHour(data.val(), evt)
+          var newArray = this.state.templates
+          var i = newArray.findIndex(item => {
+            return item.key === name
+          })
+          newArray.splice(i, 1)
+          this.setState({ templates: [...this.state.templates, {...template, key: data.key }] })  
+        })
+        templateRef.on('child_removed', data => {
+          this.setState({ templates: this.state.templates.filter(x => x.key !== data.key), items: [] })
+        })
       })
     })
+  }
+
+  saveHour = (template, evt) => {
+    let currentTemplate = template
+    let publishDate = new Date(template[0].publishDate)
+    let hourOffset = moment.tz(evt.timeZone).format("Z")
+    hourOffset = parseInt(hourOffset)
+    const currentHour = publishDate.getHours()
+    publishDate.setHours(currentHour + hourOffset)
+    publishDate.setMinutes(0)
+    publishDate.setSeconds(0)
+    let newDateObj = {publishDate: publishDate.getTime()}
+    currentTemplate[0] = newDateObj
+    return currentTemplate
   }
 
   newItem = () => {
@@ -183,10 +195,9 @@ export default class App extends Component {
         if(this.state.items[i]["type"] === name) {
             index = i;
         }
+      }
     }
-  }
-
-  this.state.items.splice(index, 1)
+    this.state.items.splice(index, 1)
     if (index > -1) {
       this.setState({items: this.state.items, showFormBool: false})
     } 
@@ -209,8 +220,8 @@ export default class App extends Component {
     fbc.database.public.adminRef('templates').child(this.state.value).set(this.state.items)
   }
 
-  submitEventData = (publishDate) => {
-    var publishDate = publishDate
+  submitEventData = (origDate) => {
+    var publishDate = origDate
     var hourOffset = moment.tz(this.state.eventData.timeZone).format("Z")
     const currentHour = publishDate.getHours()
     hourOffset = parseInt(hourOffset)
@@ -227,11 +238,15 @@ export default class App extends Component {
         items.shift()
       }
       var newItems = publishTime.concat(items)
-      this.setState({publishDate: newDate, value : title})
+      this.setState({value : title})
       fbc.database.public.adminRef('templates').child(title).set(newItems).then(() => {
         this.closeModal()
       })
     }
+  }
+
+  saveLocalHour = (origDate) => {
+    this.setState({publishDate: new Date(origDate)})
   }
 
   openModal = () => {
@@ -334,9 +349,7 @@ export default class App extends Component {
     const {shouldShow} = this.state
     if (shouldShow === null) return <div>Loading...</div>
     if (shouldShow === false) return <div>Please contact your customer experience manager about configuring custom experiences.</div>
-    
     const allTemplates = this.state.templates
-
     return (
       <div className="App">
         <CustomModal
@@ -349,6 +362,7 @@ export default class App extends Component {
           handleChange = {this.handleChange}
           templates={this.state.templates}
           eventData={this.state.eventData}
+          saveLocalHour={this.saveLocalHour}
         />
         <h2>Select a Template (optional)</h2>
         <div className="submitBox">
