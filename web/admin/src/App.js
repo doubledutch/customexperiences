@@ -162,12 +162,13 @@ export default class App extends Component {
   }
 
   saveHour = (template, evt) => {
+    const localT = new Date().getTimezoneOffset() / 60
     let currentTemplate = template
     let publishDate = new Date(template[0].publishDate)
     let hourOffset = moment.tz(evt.timeZone).format("Z")
     hourOffset = parseInt(hourOffset)
     const currentHour = publishDate.getHours()
-    publishDate.setHours(currentHour + hourOffset)
+    publishDate.setHours(currentHour + hourOffset + localT)
     publishDate.setMinutes(0)
     publishDate.setSeconds(0)
     let newDateObj = {publishDate: publishDate.getTime()}
@@ -221,11 +222,12 @@ export default class App extends Component {
   }
 
   submitEventData = (origDate) => {
+    const localT = new Date().getTimezoneOffset() / 60
     var publishDate = origDate
     var hourOffset = moment.tz(this.state.eventData.timeZone).format("Z")
     const currentHour = publishDate.getHours()
     hourOffset = parseInt(hourOffset)
-    hourOffset = hourOffset*-1
+    hourOffset = (hourOffset + localT) * -1
     publishDate.setHours(currentHour + hourOffset)
     const newDate = new Date(publishDate)
     var publishTime = [{publishDate: newDate.getTime()}]
