@@ -28,7 +28,7 @@ export default class HomeView extends Component {
   constructor() {
     super()
     this.state = {
-      componentConfigs : [],
+      componentConfigs: [],
       templates: [],
       i: 0
     }
@@ -93,7 +93,6 @@ export default class HomeView extends Component {
         items = items.concat(template[i])
       }
     }
-
     this.setState({componentConfigs: items})
   }
 

@@ -25,6 +25,7 @@ import FormView from './FormView.js'
 import AppView from './AppView.js'
 import CustomModal from './Modal.js'
 import ContentPreview from './ContentPreview.js'
+import "@doubledutch/react-components/lib/base.css"
 const fbc = FirebaseConnector(client, 'customexperiences')
 fbc.initializeAppWithSimpleBackend()
 
@@ -141,12 +142,12 @@ export default class App extends Component {
         this.setState({eventData: evt})
         const templateRef = fbc.database.public.adminRef('templates')
         templateRef.on('child_added', data => {
-          let template = this.saveHour(data.val(), evt)
+          let template = this.saveHour(data.val())
           this.setState({ templates: [...this.state.templates, {...template, key: data.key }] })   
         })
         templateRef.on('child_changed', data => {
           const name = data.key
-          const template = this.saveHour(data.val(), evt)
+          const template = data.val()
           var newArray = this.state.templates
           var i = newArray.findIndex(item => {
             return item.key === name
@@ -161,16 +162,9 @@ export default class App extends Component {
     })
   }
 
-  saveHour = (template, evt) => {
-    const localT = new Date().getTimezoneOffset() / 60
+  saveHour = (template) => {
     let currentTemplate = template
     let publishDate = new Date(template[0].publishDate)
-    let hourOffset = moment.tz(evt.timeZone).format("Z")
-    hourOffset = parseInt(hourOffset)
-    const currentHour = publishDate.getHours()
-    publishDate.setHours(currentHour + hourOffset + localT)
-    publishDate.setMinutes(0)
-    publishDate.setSeconds(0)
     let newDateObj = {publishDate: publishDate.getTime()}
     currentTemplate[0] = newDateObj
     return currentTemplate
@@ -222,15 +216,7 @@ export default class App extends Component {
   }
 
   submitEventData = (origDate) => {
-    const localT = new Date().getTimezoneOffset() / 60
-    var publishDate = origDate
-    var hourOffset = moment.tz(this.state.eventData.timeZone).format("Z")
-    const currentHour = publishDate.getHours()
-    hourOffset = parseInt(hourOffset)
-    hourOffset = (hourOffset + localT) * -1
-    publishDate.setHours(currentHour + hourOffset)
-    const newDate = new Date(publishDate)
-    var publishTime = [{publishDate: newDate.getTime()}]
+    var publishTime = [{publishDate: origDate.getTime()}]
     var items = this.state.items
     var title = this.state.value
     if (title) {title = this.state.value.toLowerCase()}

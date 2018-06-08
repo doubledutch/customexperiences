@@ -56,13 +56,9 @@ text-align: center;
 }
 
 .modalTextBox {
-  padding-top: 15px;
-  padding-right: 30px;
-  padding-left: 30px;
-  padding-bottom: 0px;
+  padding: 0px 30px 40px 30px;
   display: flex;
   flex: 1;
-  height: 329px;
   flex-flow: column wrap;
 }
 
