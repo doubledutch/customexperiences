@@ -67,7 +67,6 @@ export class CustomModal extends Component {
     this.setState({currentTime: date});
   }
 
-
   modalButtons = () => {
     return (
       <div>

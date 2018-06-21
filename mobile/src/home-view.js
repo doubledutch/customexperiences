@@ -60,7 +60,6 @@ export default class HomeView extends Component {
         this.setState({ templates: this.state.templates.filter(x => x.key !== data.key) })
         this.findConfig()
       })
-      
     })
   }
 
@@ -71,13 +70,13 @@ export default class HomeView extends Component {
   // This is all possible by using UTC as we know anything less then today is potentially presentable to a user and yet anything greater then the currentTime variable must be the most recent.
   
   findConfig = () => {
-    var templates = this.state.templates
+    let templates = this.state.templates
     const today = new Date().getTime()
-    var currentI = 0
-    var currentTime = 0
+    let currentI = null
+    let currentTime = 0
 
     for (var i in templates) {
-      var template = templates[i]
+      let template = templates[i]
       if (template[0].publishDate) {
         if (template[0].publishDate < today && template[0].publishDate > currentTime) {
           currentTime = template[0].publishDate
@@ -86,11 +85,12 @@ export default class HomeView extends Component {
       }
     }
 
-    var items = []
-    var template = this.state.templates[currentI]
-    for (var i in template){
+    let items = []
+    let currentTemplate = []
+    if (currentI !== null) { currentTemplate = this.state.templates[currentI]}
+    for (var i in currentTemplate){
       if (i !== 0) {
-        items = items.concat(template[i])
+        items = items.concat(currentTemplate[i])
       }
     }
     this.setState({componentConfigs: items})
