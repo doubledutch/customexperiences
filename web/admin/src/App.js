@@ -215,12 +215,12 @@ export default class App extends Component {
     fbc.database.public.adminRef('templates').child(this.state.value).set(this.state.items)
   }
 
-  submitEventData = (origDate) => {
+  submitEventData = (origDate, currentEdit) => {
     var publishTime = [{publishDate: origDate.getTime()}]
     var items = this.state.items
     var title = this.state.value
     if (title) {title = this.state.value.toLowerCase()}
-    title = ((title === this.state.currentEdit.toLowerCase())? this.state.value : this.state.currentEdit)
+    title = ((title === currentEdit.toLowerCase()) ? this.state.value : currentEdit)
     if (items.length) {
       if (items[0].pendingDate){
         items.shift()

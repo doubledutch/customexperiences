@@ -38,6 +38,9 @@ export class CustomModal extends Component {
         overlayClassName="Overlay"
       >
         <div className="modalBox">
+          <div className="modalTop">
+          <button className="closeXButton" onClick={this.cancelClose}>X</button>
+          </div>
           <span className="submitBox2">
               <label className="boxTitle">
                 Name your template:

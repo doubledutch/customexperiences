@@ -57,7 +57,7 @@ formInput = (title, name, value) => {
     return (
       <span>
         <div>
-          <label className="boxTitle">
+          <label className="checkBoxTitle">
             Header:
             <input
               className="checkBox"
@@ -68,7 +68,7 @@ formInput = (title, name, value) => {
           </label>
         </div>
         <div>
-          <label className="boxTitle">
+          <label className="checkBoxTitle">
             Footer:
             <input
               className="checkBox"
@@ -280,7 +280,7 @@ formInput = (title, name, value) => {
         return(
           <form className="formBox" onSubmit={this.handleSubmit}>
             <div>
-              <label className="boxTitle">
+              <label className="checkBoxTitle">
                 Footer:
                 <input
                   className="checkBox"

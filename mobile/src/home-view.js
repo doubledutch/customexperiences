@@ -15,8 +15,7 @@
  */
 
 import React, { Component } from 'react'
-import ReactNative, {
-  Platform, Text, TextInput, View, ScrollView
+import ReactNative, { Text, View, ScrollView, TouchableOpacity, StyleSheet
 } from 'react-native'
 import client, { TitleBar } from '@doubledutch/rn-client'
 import FirebaseConnector from '@doubledutch/firebase-connector'
@@ -45,6 +44,7 @@ export default class HomeView extends Component {
         this.findConfig()
       })
       templateRef.on('child_changed', data => {
+        console.log("hello")
         const name = data.key
         const newData = data.val()
         var newArray = this.state.templates
@@ -101,8 +101,22 @@ export default class HomeView extends Component {
       <View style={{flex: 1}}>
         <TitleBar title={client.currentEvent.name} client={client} signin={this.signin} />
         <ConfigurableScroll componentConfigs={this.state.componentConfigs} />
+        {/* <TouchableOpacity style={s.launchButton}><Text style={s.launchButtonText}>TAKE ME TO THE APP</Text></TouchableOpacity> */}
       </View>
     )
   }
 }
+
+const s = StyleSheet.create({
+  launchButton: {
+    height: 60,
+    backgroundColor: client.primaryColor,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  launchButtonText: {
+    color: "#FFFFFF",
+    fontSize: 22
+  }
+})
 
