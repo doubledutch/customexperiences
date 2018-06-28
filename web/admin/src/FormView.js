@@ -236,6 +236,24 @@ formInput = (title, name, value) => {
     )
   }
 
+  videoInfo = (i) => {
+    var video = `videoInfo.${i}.video`
+    return (
+      <div>
+        <label className="boxTitle">
+          Video {i+1} URL:
+          <input
+            className="box"
+            name={video}
+            type="text"
+            required
+            value={this.props.newCell.videoInfo[i].video}
+            onChange={this.handleInputChange} />
+        </label>
+      </div>
+    )
+  }
+
   imageInfo = (i) => {
     var image = `imageInfo.${i}.image`
     var link = `imageInfo.${i}.URL`
@@ -525,6 +543,24 @@ formInput = (title, name, value) => {
         </form>
       )
     }
+
+    if (this.props.newCell.type === "Video Carousel"){
+      return(
+        <form className="formBox" onSubmit={this.handleSubmit}>
+        {this.checkQuestions()}
+        {this.headerInfo()}
+        {this.props.newCell.videoInfo.map((item, i) => {
+          return (
+            this.videoInfo(i)
+          )
+        })}
+        {this.footerInfo()}
+        <input type="button" onClick={()=>this.props.handleNewVideo()} value="Add New Video +" className="speakerButton"/>
+        <input type="button" onClick={()=>this.props.deleteLastVideo()} value="Delete Last Video" className="deleteSpeakerButton"/>
+        <input className="formButton" type="submit" value="Submit Content" />
+      </form>
+    )
+  }
 
     if (this.props.newCell.type === "Dual Details Cell"){
       return(

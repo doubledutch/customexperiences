@@ -284,10 +284,26 @@ export default class App extends Component {
     this.setState({newCell})
   }
 
+  handleNewVideo = () => {
+    const newVideo =  [{
+      video: ''
+    }]
+    var newCell = this.state.newCell
+    newCell.videoInfo = newCell.videoInfo.concat(newVideo)
+    this.setState({newCell})
+  }
+
   deleteLastImage = () => {
     var newCell = Object.assign({}, this.state.newCell)
     if (newCell.imageInfo.length > 1) {
       newCell.imageInfo.pop()
+      this.setState({newCell})
+    }
+  }
+  deleteLastVideo = () => {
+    var newCell = Object.assign({}, this.state.newCell)
+    if (newCell.videoInfo.length > 1) {
+      newCell.videoInfo.pop()
       this.setState({newCell})
     }
   }
@@ -352,22 +368,26 @@ export default class App extends Component {
           eventData={this.state.eventData}
           saveLocalHour={this.saveLocalHour}
         />
-        <h2>Select a Template (optional)</h2>
-        <div className="submitBox">
-          <form className="dropdownMenu">
-            <select className="dropdownText" value={this.state.value} name="session" onChange={this.loadTemplate}>
-              <option className="dropdownTitle" value="">{'\xa0\xa0'}View Templates</option>
-              { allTemplates.map((task, i) => {
-                var title = task.key
-                return (
-                <option className="dropdownTitle" key={i} value={task.key}>{'\xa0\xa0' + title}</option>  
-                )      
-              })
-              }
-            </select>
-          </form> 
+        <div className="container">
+          <h2>Select a Template (optional)</h2>
+          <div className="submitBox">
+            <form className="dropdownMenu">
+              <select className="dropdownText" value={this.state.value} name="session" onChange={this.loadTemplate}>
+                <option className="dropdownTitle" value="">{'\xa0\xa0'}View Templates</option>
+                { allTemplates.map((task, i) => {
+                  var title = task.key
+                  return (
+                  <option className="dropdownTitle" key={i} value={task.key}>{'\xa0\xa0' + title}</option>  
+                  )      
+                })
+                }
+              </select>
+            </form> 
+          </div>
         </div>
         <div className="container">
+          <h2 className="containerName">Build a Template</h2>
+          <div className="innerContainer">
           <CellSelectView
             showCell = {this.showCell}
             removeItem = {this.removeItem}
@@ -386,7 +406,9 @@ export default class App extends Component {
             handleNewSpeaker={this.handleNewSpeaker}
             deleteLastSpeaker={this.deleteLastSpeaker}
             deleteLastImage={this.deleteLastImage}
+            deleteLastVideo={this.deleteLastVideo}
             handleNewImage={this.handleNewImage}
+            handleNewVideo={this.handleNewVideo}
             updateCell = {this.updateCell}
             edits = {this.state.edits}
             cellData={this.state.cellData}
@@ -401,6 +423,7 @@ export default class App extends Component {
             showFormBool = {this.state.showFormBool}
             newCell={this.state.newCell}
           /> }
+          </div>
         </div>
         <div className="buttonsContainer">
           <button className="modalButton" style={{marginRight: 10, fontSize: 18}} onClick={this.openModal} disabled={(!this.state.items.length || this.state.showFormBool)} value="false">Publish to App</button>
@@ -481,6 +504,11 @@ const formItems = [
   {
     name: "Image Carousel",
     type: "Full Width Images Only", 
+    boolName: false,
+  },
+  {
+    name: "Video Carousel",
+    type: "Youtube Videos Only", 
     boolName: false,
   },
   {
@@ -617,6 +645,21 @@ const cellData = [
       {
         image: '',
         URL: '',
+      }
+    ]
+  },
+  {
+    type: "Video Carousel",
+    header: false,
+    footer: false,
+    intro: '',
+    title: "",
+    des: "",
+    buttonURL: '',
+    buttonText: "",
+    videoInfo: [
+      {
+        video: ''
       }
     ]
   },

@@ -44,7 +44,6 @@ export default class HomeView extends Component {
         this.findConfig()
       })
       templateRef.on('child_changed', data => {
-        console.log("hello")
         const name = data.key
         const newData = data.val()
         var newArray = this.state.templates
