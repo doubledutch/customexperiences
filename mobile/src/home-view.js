@@ -15,7 +15,7 @@
  */
 
 import React, { Component } from 'react'
-import ReactNative, { Text, View, ScrollView, TouchableOpacity, StyleSheet
+import ReactNative, { Text, View, ScrollView, TouchableOpacity, StyleSheet, Dimensions
 } from 'react-native'
 import client, { TitleBar } from '@doubledutch/rn-client'
 import FirebaseConnector from '@doubledutch/firebase-connector'
@@ -29,7 +29,8 @@ export default class HomeView extends Component {
     this.state = {
       componentConfigs: [],
       templates: [],
-      i: 0
+      i: 0,
+      isDisabled: true
     }
     this.signin = fbc.signin()
     .then(user => this.user = user)
@@ -95,12 +96,22 @@ export default class HomeView extends Component {
     this.setState({componentConfigs: items})
   }
 
+  handleScroll = (e) => {
+    var windowHeight = Dimensions.get('window').height,
+          height = e.nativeEvent.contentSize.height,
+          offset = e.nativeEvent.contentOffset.y;
+if( windowHeight + offset >= height ){
+    console.log('End Scroll')
+    this.setState({isDisabled: false})
+}
+  }
+
   render() {
     return (
       <View style={{flex: 1}}>
         <TitleBar title={client.currentEvent.name} client={client} signin={this.signin} />
-        <ConfigurableScroll componentConfigs={this.state.componentConfigs} />
-        {/* <TouchableOpacity style={s.launchButton}><Text style={s.launchButtonText}>TAKE ME TO THE APP</Text></TouchableOpacity> */}
+        <ConfigurableScroll componentConfigs={this.state.componentConfigs} handleScroll={this.handleScroll}/>
+        <TouchableOpacity style={this.state.isDisabled ? s.launchButtonGray : s.launchButton}><Text style={s.launchButtonText}>TAKE ME TO THE APP</Text></TouchableOpacity>
       </View>
     )
   }
@@ -110,6 +121,12 @@ const s = StyleSheet.create({
   launchButton: {
     height: 60,
     backgroundColor: client.primaryColor,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  launchButtonGray: {
+    height: 60,
+    backgroundColor: "gray",
     alignItems: "center",
     justifyContent: "center"
   },
