@@ -97,13 +97,12 @@ export default class HomeView extends Component {
   }
 
   handleScroll = (e) => {
-    var windowHeight = Dimensions.get('window').height,
-          height = e.nativeEvent.contentSize.height,
-          offset = e.nativeEvent.contentOffset.y;
-if( windowHeight + offset >= height ){
-    console.log('End Scroll')
-    this.setState({isDisabled: false})
-}
+    const windowHeight = Dimensions.get('window').height,
+    height = e.nativeEvent.contentSize.height,
+    offset = e.nativeEvent.contentOffset.y;
+    if( windowHeight + offset >= height ){
+      this.setState({isDisabled: false})
+    }
   }
 
   render() {
@@ -111,7 +110,7 @@ if( windowHeight + offset >= height ){
       <View style={{flex: 1}}>
         <TitleBar title={client.currentEvent.name} client={client} signin={this.signin} />
         <ConfigurableScroll componentConfigs={this.state.componentConfigs} handleScroll={this.handleScroll}/>
-        <TouchableOpacity style={this.state.isDisabled ? s.launchButtonGray : s.launchButton}><Text style={s.launchButtonText}>TAKE ME TO THE APP</Text></TouchableOpacity>
+        <TouchableOpacity disabled={this.state.isDisabled} onPress={() => client.dismissLandingPage(false)} style={this.state.isDisabled ? s.launchButtonGray : s.launchButton}><Text style={s.launchButtonText}>{this.state.isDisabled ? "Scroll down to enter" : "Take me to the Event"}</Text></TouchableOpacity>
       </View>
     )
   }

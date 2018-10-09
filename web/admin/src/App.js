@@ -377,7 +377,7 @@ export default class App extends Component {
                 { allTemplates.map((task, i) => {
                   var title = task.key
                   return (
-                  <option className="dropdownTitle" key={i} value={task.key}>{'\xa0\xa0' + title}</option>  
+                    <option className="dropdownTitle" key={i} value={task.key}>{'\xa0\xa0' + title}</option>  
                   )      
                 })
                 }

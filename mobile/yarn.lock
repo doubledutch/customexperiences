@@ -6,9 +6,9 @@
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@doubledutch/base-client/-/base-client-2.1.2.tgz#0987ca878ad2d20265530c78373ff0bcc728ce77"
 
-"@doubledutch/base-client@^3.0.3":
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/@doubledutch/base-client/-/base-client-3.0.5.tgz#3b0cc61b59e488ed90ee8e712982c0a3903bfda2"
+"@doubledutch/base-client@^3.3.10":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@doubledutch/base-client/-/base-client-3.5.0.tgz#e20d682468ceda6f906d6f524fde8d7c0647d152"
 
 "@doubledutch/firebase-connector@3.3.1":
   version "3.3.1"
@@ -17,20 +17,21 @@
     babel-runtime "^6.26.0"
     firebase "^4.10.0"
 
+"@doubledutch/rn-client@3.3.10":
+  version "3.3.10"
+  resolved "https://registry.yarnpkg.com/@doubledutch/rn-client/-/rn-client-3.3.10.tgz#7b72ea4904d449c1316a078dd1cce072e923ff1d"
+  dependencies:
+    "@doubledutch/base-client" "^3.3.10"
+    react "16.0.0-alpha.12"
+    react-native "0.46.4"
+    react-native-fetch-blob "0.10.8"
+
 "@doubledutch/rn-client@^2.1.7":
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/@doubledutch/rn-client/-/rn-client-2.2.3.tgz#c0b78f5f36101f26c7b5e1fd63d1aa905bb4d955"
   dependencies:
     "@doubledutch/base-client" "^2.1.0"
     react "~16.0.0-alpha.12"
-    react-native "0.46.4"
-
-"@doubledutch/rn-client@^3.1.0":
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/@doubledutch/rn-client/-/rn-client-3.1.4.tgz#2281e214a26fbab0666c9e82412b6d0719137218"
-  dependencies:
-    "@doubledutch/base-client" "^3.0.3"
-    react "16.0.0-alpha.12"
     react-native "0.46.4"
 
 "@doubledutch/rn-components@^0.0.9":
