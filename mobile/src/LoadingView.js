@@ -48,15 +48,5 @@ const s = ReactNative.StyleSheet.create({
   errorText: {
     fontSize: 18,
     color: "#4B4B4B"
-  },
-  containerSmall: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#aaa',
-  },
-  text: {
-    color: 'white',
-    fontSize: 18,
-  },
+  }
 })
