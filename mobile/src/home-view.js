@@ -94,14 +94,20 @@ export default class HomeView extends Component {
         items = items.concat(currentTemplate[i])
       }
     }
-    this.setState({componentConfigs: items})
+    console.log(items)
+    let isDisabled = this.state.isDisabled
+    if (items[0].requireScroll === false || undefined){
+      isDisabled = false
+    }
+    this.setState({componentConfigs: items, isDisabled})
   }
 
   handleScroll = (e) => {
     const windowHeight = Dimensions.get('window').height,
     height = e.nativeEvent.contentSize.height,
     offset = e.nativeEvent.contentOffset.y;
-    if( windowHeight + offset >= height ){
+    console.log(windowHeight, height, offset)
+    if( windowHeight + offset + 75 >= height ){
       this.setState({isDisabled: false})
     }
   }
@@ -112,6 +118,7 @@ export default class HomeView extends Component {
         {this.props.version ? null : <TitleBar title={client.currentEvent.name} client={client} signin={this.signin} />}
         {this.state.templates.length ? null : <LoadingView logInFailed={this.state.logInFailed} isLaunch={this.props.version}/>}
         <ConfigurableScroll componentConfigs={this.state.componentConfigs} handleScroll={this.handleScroll}/>
+        {/* <TouchableOpacity disabled={this.state.isDisabled} onPress={() => client.dismissLandingPage(false)} style={this.state.isDisabled ? s.launchButtonGray : s.launchButton}><Text style={s.launchButtonText}>{this.state.isDisabled ? "Scroll down to enter" : "Take me to the Event"}</Text></TouchableOpacity>  */}
         {this.props.version ? <TouchableOpacity disabled={this.state.isDisabled} onPress={() => client.dismissLandingPage(false)} style={this.state.isDisabled ? s.launchButtonGray : s.launchButton}><Text style={s.launchButtonText}>{this.state.isDisabled ? "Scroll down to enter" : "Take me to the Event"}</Text></TouchableOpacity> : null}
       </View>
     )

@@ -55,6 +55,7 @@ export default class App extends Component {
       cellData,
       showModal: false,
       publishDate: new Date(),
+      requireScroll: true,
       formItems,
       eventData: {}
     }
@@ -163,10 +164,9 @@ export default class App extends Component {
   }
 
   saveHour = (template) => {
-    let currentTemplate = template
-    let publishDate = new Date(template[0].publishDate)
-    let newDateObj = {publishDate: publishDate.getTime()}
-    currentTemplate[0] = newDateObj
+    const currentTemplate = template
+    const newDateObj = new Date(template[0].publishDate).getTime()
+    currentTemplate[0].publishDate = newDateObj
     return currentTemplate
   }
 
@@ -206,6 +206,9 @@ export default class App extends Component {
   handleChange = (event) => {
     this.setState({[event.target.name]: event.target.value});
   }
+  handleChangeChecked = event => {
+    this.setState({[event.target.name]: event.target.checked});
+  }
 
   setKey = (event) => {
     this.setState({[event.target.name]: event.target.value});
@@ -216,7 +219,7 @@ export default class App extends Component {
   }
 
   submitEventData = (origDate, currentEdit) => {
-    var publishTime = [{publishDate: origDate.getTime()}]
+    var publishTime = [{publishDate: origDate.getTime(), requireScroll: this.state.requireScroll}]
     var items = this.state.items
     var title = this.state.value
     if (title) {title = this.state.value.toLowerCase()}
@@ -309,23 +312,27 @@ export default class App extends Component {
   }
 
   loadTemplate = (event) => {
-    var items = []
-    var title = event.target.value || ''
-    var publishDate = new Date()
-    var item = this.state.templates.find(item => {
+    let items = []
+    let title = event.target.value || ''
+    let publishDate = new Date()
+    let requireScroll = true
+    let item = this.state.templates.find(item => {
       return item.key === title
     })
     for (var i in item){
       if (i !== "key") {
         if (item[i].publishDate) {
           publishDate = new Date(item[i].publishDate)
+          if (item[i].requireScroll) {
+            requireScroll = item[i].requireScroll
+          }
         }
         else {
           items = items.concat(item[i])
         }      
       }
     }
-    this.setState({items, value: title, currentEdit: title, publishDate, newCell:'', showFormBool: false});
+    this.setState({items, value: title, currentEdit: title, publishDate, requireScroll, newCell:'', showFormBool: false});
   }
 
   showPreview = () => {
@@ -361,9 +368,11 @@ export default class App extends Component {
           closeModal = {this.closeModal}
           publish={this.submitEventData}
           publishDate = {this.state.publishDate}
+          requireScroll = {this.state.requireScroll}
           currentTitle = {this.state.value}
           currentEdit = {this.state.currentEdit}
           handleChange = {this.handleChange}
+          handleChangeChecked = {this.handleChangeChecked}
           templates={this.state.templates}
           eventData={this.state.eventData}
           saveLocalHour={this.saveLocalHour}
