@@ -24,10 +24,7 @@ export default class LoadingView extends Component {
     if (this.props.isLaunch){
       return (
         <View style={s.container}>
-          {!this.props.logInFailed 
-            ? <Spinner visible={!this.props.logInFailed} textContent={"Loading..."} textStyle={{color: '#FFF'}} size={"large"}/>
-            : <Text style={s.errorText}>{"Error Connecting"}</Text>
-          }
+          <Spinner visible={!this.props.logInFailed} textContent={"Loading..."} textStyle={{color: '#FFF'}} size={"large"}/>
         </View>
       );
     }
@@ -40,8 +37,7 @@ export default class LoadingView extends Component {
 }
 
 const s = ReactNative.StyleSheet.create({
-  container: {
-    flex: 1, 
+  container: { 
     alignItems: "center", 
     justifyContent: "center"
   },
