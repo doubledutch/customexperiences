@@ -49,13 +49,12 @@ export default class HomeView extends Component {
       templateRef.on('child_changed', data => {
         const name = data.key
         const newData = data.val()
-        var newArray = this.state.templates
-        var i = newArray.findIndex(item => {
+        let newArray = this.state.templates
+        let i = newArray.findIndex(item => {
           return item.key === name
         })
-        newArray[i] = newData
-        newArray[i].key = data.key
-        this.setState({templates: newArray})
+        newArray.splice(i, 1)
+        this.setState({ templates: [...this.state.newArray, {...data.val(), key: data.key }]})
         this.findConfig()
       })
       templateRef.on('child_removed', data => {
@@ -111,9 +110,9 @@ export default class HomeView extends Component {
     return (
       <View style={{flex: 1}}>
         {this.props.version ? null : <TitleBar title={client.currentEvent.name} client={client} signin={this.signin} />}
+        {this.state.templates.length ? null : <LoadingView logInFailed={this.state.logInFailed} isLaunch={this.props.version}/>}
         <ConfigurableScroll componentConfigs={this.state.componentConfigs} handleScroll={this.handleScroll}/>
         {this.props.version ? <TouchableOpacity disabled={this.state.isDisabled} onPress={() => client.dismissLandingPage(false)} style={this.state.isDisabled ? s.launchButtonGray : s.launchButton}><Text style={s.launchButtonText}>{this.state.isDisabled ? "Scroll down to enter" : "Take me to the Event"}</Text></TouchableOpacity> : null}
-        {this.props.templates.length ? null : <LoadingView logInFailed={this.state.logInFailed} isLaunch={this.props.version}/>}
       </View>
     )
   }

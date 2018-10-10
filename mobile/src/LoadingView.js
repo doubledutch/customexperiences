@@ -33,9 +33,7 @@ export default class LoadingView extends Component {
     }
     else {
       return (
-        <View style={s.containerSmall}>
-          <Text style={s.text}>Loading...</Text>
-        </View>
+        null
       )
     }
   }
