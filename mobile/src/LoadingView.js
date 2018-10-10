@@ -21,7 +21,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 export default class LoadingView extends Component {
 
   render() {
-    if (this.props.version){
+    if (this.props.isLaunch){
       return (
         <View style={s.container}>
           {!this.props.logInFailed 
