@@ -20,6 +20,7 @@ import ReactNative, { Text, View, ScrollView, TouchableOpacity, StyleSheet, Dime
 import client, { TitleBar } from '@doubledutch/rn-client'
 import FirebaseConnector from '@doubledutch/firebase-connector'
 import { ConfigurableScroll } from '@doubledutch/rn-components'
+import LoadingView from "./LoadingView"
 const fbc = FirebaseConnector(client, 'customexperiences')
 fbc.initializeAppWithSimpleBackend()
 
@@ -30,7 +31,8 @@ export default class HomeView extends Component {
       componentConfigs: [],
       templates: [],
       i: 0,
-      isDisabled: true
+      isDisabled: true,
+      logInFailed: false,
     }
     this.signin = fbc.signin()
     .then(user => this.user = user)
@@ -60,7 +62,7 @@ export default class HomeView extends Component {
         this.setState({ templates: this.state.templates.filter(x => x.key !== data.key) })
         this.findConfig()
       })
-    })
+    }).catch(()=> this.setState({logInFailed: true, isDisabled: false}))
   }
 
   //findConfig is our function to find the current Template to show after they have all been downloaded. 
@@ -109,7 +111,7 @@ export default class HomeView extends Component {
     return (
       <View style={{flex: 1}}>
         {this.props.version ? null : <TitleBar title={client.currentEvent.name} client={client} signin={this.signin} />}
-        <ConfigurableScroll componentConfigs={this.state.componentConfigs} handleScroll={this.handleScroll}/>
+        {this.state.templates.length ? <ConfigurableScroll componentConfigs={this.state.componentConfigs} handleScroll={this.handleScroll}/> : <LoadingView logInFailed={this.state.logInFailed} isLaunch={this.props.version}/>}
         {this.props.version ? <TouchableOpacity disabled={this.state.isDisabled} onPress={() => client.dismissLandingPage(false)} style={this.state.isDisabled ? s.launchButtonGray : s.launchButton}><Text style={s.launchButtonText}>{this.state.isDisabled ? "Scroll down to enter" : "Take me to the Event"}</Text></TouchableOpacity> : null}
       </View>
     )
