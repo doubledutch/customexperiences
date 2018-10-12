@@ -15,7 +15,7 @@
  */
 
 import React, { Component } from 'react'
-import ReactNative, { Text, View, ScrollView, TouchableOpacity, StyleSheet, Dimensions
+import ReactNative, { AsyncStorage, Text, View, ScrollView, TouchableOpacity, StyleSheet, Dimensions
 } from 'react-native'
 import client, { TitleBar } from '@doubledutch/rn-client'
 import FirebaseConnector from '@doubledutch/firebase-connector'
@@ -23,6 +23,8 @@ import { ConfigurableScroll } from '@doubledutch/rn-components'
 import LoadingView from "./LoadingView"
 const fbc = FirebaseConnector(client, 'customexperiences')
 fbc.initializeAppWithSimpleBackend()
+
+const { currentEvent, currentUser } = client
 
 export default class HomeView extends Component {
   constructor() {
@@ -40,28 +42,32 @@ export default class HomeView extends Component {
   }
 
   componentDidMount() {
-    this.signin.then(() => {
-      const templateRef = fbc.database.public.adminRef('templates')
-      templateRef.on('child_added', data => {
-        this.setState({ templates: [...this.state.templates, {...data.val(), key: data.key }]})
-        this.findConfig()
-      })
-      templateRef.on('child_changed', data => {
-        const name = data.key
-        const newData = data.val()
-        let newArray = this.state.templates
-        let i = newArray.findIndex(item => {
-          return item.key === name
+    this.loadLocalTemplates()
+    .then(localTemplates => {
+      this.signin.then(() => {
+        const templateRef = fbc.database.public.adminRef('templates')
+          templateRef.on('value', data => {
+            const templateData = data.val()
+            const templateKeys = Object.keys(data.val())
+            const templates = []
+            templateKeys.forEach(key => {
+              templates.push({...templateData[key], key})
+            })
+          //   var isEqual = templates.reduce(function(res, v1, idx) {
+          //     var v2 = localTemplates[idx]; // value from other array at same index
+          //     return res && v1 === v2; // if result is true so far AND also the current values are equal
+          // }, true)
+          // console.log(isEqual)
+            // if (templates != localTemplates) {
+              this.saveLocalTemplates({templates})
+              this.setState({templates})
+              // console.log(templates)
+              // console.log(localTemplates)
+              this.findConfig(templates)
+            // }
         })
-        newArray.splice(i, 1)
-        this.setState({ templates: [...this.state.newArray, {...data.val(), key: data.key }]})
-        this.findConfig()
-      })
-      templateRef.on('child_removed', data => {
-        this.setState({ templates: this.state.templates.filter(x => x.key !== data.key) })
-        this.findConfig()
-      })
-    }).catch(()=> this.setState({logInFailed: true, isDisabled: false}))
+      }).catch(()=> this.setState({logInFailed: true, isDisabled: false}))
+    })
   }
 
   //findConfig is our function to find the current Template to show after they have all been downloaded. 
@@ -70,12 +76,10 @@ export default class HomeView extends Component {
   // As we run our loop we are tracking the current template that matches our needs of being less then the current time but greater then the current tracked time.
   // This is all possible by using UTC as we know anything less then today is potentially presentable to a user and yet anything greater then the currentTime variable must be the most recent.
   
-  findConfig = () => {
-    let templates = this.state.templates
+  findConfig = (templates) => {
     const today = new Date().getTime()
     let currentI = null
     let currentTime = 0
-
     for (var i in templates) {
       let template = templates[i]
       if (template[0].publishDate) {
@@ -85,28 +89,38 @@ export default class HomeView extends Component {
         }
       }
     }
-
     let items = []
     let currentTemplate = []
-    if (currentI !== null) { currentTemplate = this.state.templates[currentI]}
+    if (currentI !== null) { currentTemplate = templates[currentI]}
     for (var i in currentTemplate){
       if (i !== 0) {
         items = items.concat(currentTemplate[i])
       }
     }
-    console.log(items)
     let isDisabled = this.state.isDisabled
-    if (items[0].requireScroll === false || undefined){
+    const isRequired = items[0].requireScroll ? items[0].requireScroll : false
+    if (isRequired){
       isDisabled = false
     }
     this.setState({componentConfigs: items, isDisabled})
   }
 
+
+  // if (currentTemplate) {
+  //   currentTemplate.splice(0, 1)
+  //   console.log(currentTemplate)
+  //   let isDisabled = this.state.isDisabled
+  //   const isRequired = currentTemplate[0].requireScroll ? currentTemplate[0].requireScroll : false
+  //   if (isRequired){
+  //     isDisabled = false
+  //   }
+  //   this.setState({componentConfigs: currentTemplate, isDisabled})
+  // }
+
   handleScroll = (e) => {
     const windowHeight = Dimensions.get('window').height,
     height = e.nativeEvent.contentSize.height,
     offset = e.nativeEvent.contentOffset.y;
-    console.log(windowHeight, height, offset)
     if( windowHeight + offset + 75 >= height ){
       this.setState({isDisabled: false})
     }
@@ -123,7 +137,26 @@ export default class HomeView extends Component {
       </View>
     )
   }
+
+  loadLocalTemplates() {
+    return AsyncStorage.getItem(leadStorageKey())
+    .then(value => {
+      if (value) {
+        const templates = JSON.parse(value)
+        this.findConfig(templates)
+        this.setState({templates})
+        return templates
+      }
+      return null
+    })
+  }
+
+  saveLocalTemplates({templates}) {
+    return AsyncStorage.setItem(leadStorageKey(), JSON.stringify(templates))
+  }
 }
+
+function leadStorageKey() { return `@DD:custom_experiences_${currentEvent.id}_${currentUser.id}` }
 
 const s = StyleSheet.create({
   launchButton: {
