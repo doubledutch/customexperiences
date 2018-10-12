@@ -53,11 +53,10 @@ export default class HomeView extends Component {
             templateKeys.forEach(key => {
               templates.push({...templateData[key], key})
             })
-          //   var isEqual = templates.reduce(function(res, v1, idx) {
-          //     var v2 = localTemplates[idx]; // value from other array at same index
+          //   var isEqual = localTemplates.reduce(function(res, v1, idx) {
+          //     var v2 = templates[idx]; // value from other array at same index
           //     return res && v1 === v2; // if result is true so far AND also the current values are equal
           // }, true)
-          // console.log(isEqual)
             // if (templates != localTemplates) {
               this.saveLocalTemplates({templates})
               this.setState({templates})
@@ -102,7 +101,13 @@ export default class HomeView extends Component {
     if (isRequired){
       isDisabled = false
     }
-    this.setState({componentConfigs: items, isDisabled})
+    let isEqual = this.state.componentConfigs.reduce(function(res, v1, idx) {
+      let v2 = items[idx]; // value from other array at same index
+      return res && v1 === v2; // if result is true so far AND also the current values are equal
+      }, true)
+    if (!isEqual || !this.state.componentConfigs.length){
+      this.setState({componentConfigs: items, isDisabled})
+    }
   }
 
 
