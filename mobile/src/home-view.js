@@ -146,10 +146,10 @@ export default class HomeView extends Component {
     .then(value => {
       if (value) {
         const templates = JSON.parse(value)
-        return []
-        // this.findConfig(templates)
-        // this.setState({templates})
-        // return [templates]
+        // return []
+        this.findConfig(templates)
+        this.setState({templates})
+        return templates
       }
       return null
     })
