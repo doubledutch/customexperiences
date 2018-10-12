@@ -46,18 +46,18 @@ export default class HomeView extends Component {
     .then(localTemplates => {
       this.signin.then(() => {
         const templateRef = fbc.database.public.adminRef('templates')
-          templateRef.on('value', data => {
-            const templateData = data.val()
-            console.log(data.val())
-            const templateKeys = Object.keys(data.val())
-            const templates = []
-            templateKeys.forEach(key => {
-              templates.push({...templateData[key], key})
-            })
-            this.saveLocalTemplates({templates})
-            this.setState({templates})
-            this.findConfig(templates)
-        })
+        //   templateRef.on('value', data => {
+        //     const templateData = data.val()
+        //     console.log(data.val())
+        //     const templateKeys = Object.keys(data.val())
+        //     const templates = []
+        //     templateKeys.forEach(key => {
+        //       templates.push({...templateData[key], key})
+        //     })
+        //     this.saveLocalTemplates({templates})
+        //     this.setState({templates})
+        //     this.findConfig(templates)
+        // })
       }).catch(()=> this.setState({logInFailed: true, isDisabled: false}))
     })
   }
