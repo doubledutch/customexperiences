@@ -48,22 +48,15 @@ export default class HomeView extends Component {
         const templateRef = fbc.database.public.adminRef('templates')
           templateRef.on('value', data => {
             const templateData = data.val()
+            console.log(data.val())
             const templateKeys = Object.keys(data.val())
             const templates = []
             templateKeys.forEach(key => {
               templates.push({...templateData[key], key})
             })
-          //   var isEqual = localTemplates.reduce(function(res, v1, idx) {
-          //     var v2 = templates[idx]; // value from other array at same index
-          //     return res && v1 === v2; // if result is true so far AND also the current values are equal
-          // }, true)
-            // if (templates != localTemplates) {
-              this.saveLocalTemplates({templates})
-              this.setState({templates})
-              // console.log(templates)
-              // console.log(localTemplates)
-              this.findConfig(templates)
-            // }
+            this.saveLocalTemplates({templates})
+            this.setState({templates})
+            this.findConfig(templates)
         })
       }).catch(()=> this.setState({logInFailed: true, isDisabled: false}))
     })
@@ -76,6 +69,7 @@ export default class HomeView extends Component {
   // This is all possible by using UTC as we know anything less then today is potentially presentable to a user and yet anything greater then the currentTime variable must be the most recent.
   
   findConfig = (templates) => {
+    console.log(templates)
     const today = new Date().getTime()
     let currentI = null
     let currentTime = 0
@@ -101,10 +95,13 @@ export default class HomeView extends Component {
     if (isRequired){
       isDisabled = false
     }
-    let isEqual = this.state.componentConfigs.reduce(function(res, v1, idx) {
+    let isEqual = false
+    if (this.state.componentConfigs && items) {
+    isEqual = this.state.componentConfigs.reduce(function(res, v1, idx) {
       let v2 = items[idx]; // value from other array at same index
       return res && v1 === v2; // if result is true so far AND also the current values are equal
       }, true)
+    }
     if (!isEqual || !this.state.componentConfigs.length){
       this.setState({componentConfigs: items, isDisabled})
     }
