@@ -123,6 +123,7 @@ export default class HomeView extends Component {
     const windowHeight = Dimensions.get('window').height,
     height = e.nativeEvent.contentSize.height,
     offset = e.nativeEvent.contentOffset.y;
+    console.log(windowHeight, height, offset)
     if( windowHeight + offset + 75 >= height ){
       this.setState({isDisabled: false})
     }
@@ -145,9 +146,10 @@ export default class HomeView extends Component {
     .then(value => {
       if (value) {
         const templates = JSON.parse(value)
-        this.findConfig(templates)
-        this.setState({templates})
-        return templates
+        return []
+        // this.findConfig(templates)
+        // this.setState({templates})
+        // return [templates]
       }
       return null
     })
