@@ -21,10 +21,10 @@ import Spinner from 'react-native-loading-spinner-overlay';
 export default class LoadingView extends Component {
 
   render() {
-    if (this.props.isLaunch){
+    if (this.props.isLaunch && !this.props.logInFailed){
       return (
         <View style={s.container}>
-          <Spinner visible={!this.props.logInFailed} textContent={"Loading..."} textStyle={{color: '#FFF'}} size={"large"}/>
+          <Spinner textContent={"Loading..."} textStyle={{color: '#FFF'}} size={"large"}/>
         </View>
       );
     }

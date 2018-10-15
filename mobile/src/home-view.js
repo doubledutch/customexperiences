@@ -52,7 +52,7 @@ export default class HomeView extends Component {
             let templates = localTemplates
             templateKeys.forEach(key => {
               const currentTemplate = templates.findIndex(template => template.key === key)
-              if (currentTemplate) {
+              if (currentTemplate > -1) {
                 templates.splice(currentTemplate, 1)
               }
               templates.push({...templateData[key], key})
