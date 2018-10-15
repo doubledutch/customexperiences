@@ -42,23 +42,27 @@ export default class HomeView extends Component {
   }
 
   componentDidMount() {
-    // this.loadLocalTemplates()
-    // .then(localTemplates => {
+    this.loadLocalTemplates()
+    .then(localTemplates => {
       this.signin.then(() => {
         const templateRef = fbc.database.public.adminRef('templates')
           templateRef.on('value', data => {
             const templateData = data.val()
             const templateKeys = Object.keys(data.val())
-            const templates = []
+            let templates = localTemplates
             templateKeys.forEach(key => {
+              const currentTemplate = templates.findIndex(template => template.key === key)
+              if (currentTemplate) {
+                templates.splice(currentTemplate, 1)
+              }
               templates.push({...templateData[key], key})
             })
-            // this.saveLocalTemplates({templates})
+            this.saveLocalTemplates({templates})
             this.setState({templates})
             this.findConfig(templates)
         })
       }).catch(()=> this.setState({logInFailed: true, isDisabled: false}))
-    // })
+    })
   }
 
   //findConfig is our function to find the current Template to show after they have all been downloaded. 
@@ -68,7 +72,6 @@ export default class HomeView extends Component {
   // This is all possible by using UTC as we know anything less then today is potentially presentable to a user and yet anything greater then the currentTime variable must be the most recent.
   
   findConfig = (templates) => {
-    console.log(templates)
     const today = new Date().getTime()
     let currentI = null
     let currentTime = 0
@@ -122,7 +125,6 @@ export default class HomeView extends Component {
     const windowHeight = Dimensions.get('window').height,
     height = e.nativeEvent.contentSize.height,
     offset = e.nativeEvent.contentOffset.y;
-    console.log(windowHeight, height, offset)
     if( windowHeight + offset + 75 >= height ){
       this.setState({isDisabled: false})
     }
@@ -145,9 +147,7 @@ export default class HomeView extends Component {
     .then(value => {
       if (value) {
         const templates = JSON.parse(value)
-        // return []
         this.findConfig(templates)
-        this.setState({templates})
         return templates
       }
       return null
