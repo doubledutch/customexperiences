@@ -137,7 +137,7 @@ export default class HomeView extends Component {
         this.findConfig(templates)
         return templates
       }
-      return null
+      else return []
     })
   }
 
@@ -146,7 +146,7 @@ export default class HomeView extends Component {
   }
 }
 
-function leadStorageKey() { return `@DD:custom_experiences_${currentEvent.id}_${currentUser.id}` }
+function leadStorageKey() { return `@DD:customExperiences_${currentEvent.id}_${currentUser.id}` }
 
 const s = StyleSheet.create({
   launchButton: {
