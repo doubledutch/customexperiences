@@ -34,7 +34,7 @@
     react "~16.0.0-alpha.12"
     react-native "0.46.4"
 
-"@doubledutch/rn-components@0.1.2":
+"@doubledutch/rn-components@^0.1.2":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@doubledutch/rn-components/-/rn-components-0.1.2.tgz#e50f090f0fc5b0b7d383af0ad51e65f8d14f1b9a"
   dependencies:

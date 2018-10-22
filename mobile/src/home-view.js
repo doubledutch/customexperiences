@@ -57,6 +57,12 @@ export default class HomeView extends Component {
               }
               templates.push({...templateData[key], key})
             })
+            templates.forEach((template, index) => {
+              const deletedTemplate = templateKeys.findIndex(key => template.key === key)
+              if (deletedTemplate === -1) {
+                templates.splice(index, 1)
+              }
+            })
             this.saveLocalTemplates({templates})
             this.setState({templates})
             this.findConfig(templates)
