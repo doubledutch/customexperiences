@@ -98,9 +98,9 @@ export default class HomeView extends Component {
         items = items.concat(currentTemplate[i])
       }
     }
-    let isDisabled = this.state.isDisabled
+    let isDisabled = false
     const isRequired = items[0].requireScroll ? items[0].requireScroll : false
-    if (isRequired){
+    if (isRequired && items.length > 3){
       isDisabled = true
     }
     let isEqual = false
