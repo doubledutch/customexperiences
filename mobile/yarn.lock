@@ -6,9 +6,9 @@
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@doubledutch/base-client/-/base-client-2.1.2.tgz#0987ca878ad2d20265530c78373ff0bcc728ce77"
 
-"@doubledutch/base-client@^3.0.3":
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/@doubledutch/base-client/-/base-client-3.0.5.tgz#3b0cc61b59e488ed90ee8e712982c0a3903bfda2"
+"@doubledutch/base-client@^3.3.10":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@doubledutch/base-client/-/base-client-3.5.0.tgz#e20d682468ceda6f906d6f524fde8d7c0647d152"
 
 "@doubledutch/firebase-connector@3.3.1":
   version "3.3.1"
@@ -16,6 +16,15 @@
   dependencies:
     babel-runtime "^6.26.0"
     firebase "^4.10.0"
+
+"@doubledutch/rn-client@3.3.10":
+  version "3.3.10"
+  resolved "https://registry.yarnpkg.com/@doubledutch/rn-client/-/rn-client-3.3.10.tgz#7b72ea4904d449c1316a078dd1cce072e923ff1d"
+  dependencies:
+    "@doubledutch/base-client" "^3.3.10"
+    react "16.0.0-alpha.12"
+    react-native "0.46.4"
+    react-native-fetch-blob "0.10.8"
 
 "@doubledutch/rn-client@^2.1.7":
   version "2.2.3"
@@ -25,22 +34,14 @@
     react "~16.0.0-alpha.12"
     react-native "0.46.4"
 
-"@doubledutch/rn-client@^3.1.0":
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/@doubledutch/rn-client/-/rn-client-3.1.4.tgz#2281e214a26fbab0666c9e82412b6d0719137218"
-  dependencies:
-    "@doubledutch/base-client" "^3.0.3"
-    react "16.0.0-alpha.12"
-    react-native "0.46.4"
-
-"@doubledutch/rn-components@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@doubledutch/rn-components/-/rn-components-0.0.9.tgz#cadec82312256f5b8355fc5935dd718553b389c8"
+"@doubledutch/rn-components@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@doubledutch/rn-components/-/rn-components-0.1.2.tgz#e50f090f0fc5b0b7d383af0ad51e65f8d14f1b9a"
   dependencies:
     "@doubledutch/rn-client" "^2.1.7"
     react "~16.0.0-alpha.12"
     react-native "0.46.4"
-    react-native-carousel "^0.11.0"
+    react-native-carousel-view "^0.5.1"
     react-native-video "^2.0.0"
     react-native-youtube "^1.0.1"
 
@@ -3892,12 +3893,6 @@ react-native-carousel-view@^0.5.1:
     react-mixin "^3.0.5"
     react-timer-mixin "^0.13.3"
 
-react-native-carousel@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/react-native-carousel/-/react-native-carousel-0.11.0.tgz#f1b63839fb2562d7a9e7bec915ef33ac1458fbed"
-  dependencies:
-    react-timer-mixin "^0.13.3"
-
 react-native-clcasher@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-clcasher/-/react-native-clcasher-1.0.0.tgz#1f77fb1a4abc6a0337ef19c991e04f19af6d2789"
@@ -3910,6 +3905,10 @@ react-native-fetch-blob@0.10.8, react-native-fetch-blob@^0.10.8:
   dependencies:
     base-64 "0.1.0"
     glob "7.0.6"
+
+react-native-loading-spinner-overlay@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/react-native-loading-spinner-overlay/-/react-native-loading-spinner-overlay-0.5.2.tgz#b7bcd277476d596615fd7feee601789f9bdc7acc"
 
 react-native-video@^2.0.0:
   version "2.0.0"

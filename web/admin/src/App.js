@@ -55,6 +55,7 @@ export default class App extends Component {
       cellData,
       showModal: false,
       publishDate: new Date(),
+      requireScroll: true,
       formItems,
       eventData: {}
     }
@@ -163,10 +164,9 @@ export default class App extends Component {
   }
 
   saveHour = (template) => {
-    let currentTemplate = template
-    let publishDate = new Date(template[0].publishDate)
-    let newDateObj = {publishDate: publishDate.getTime()}
-    currentTemplate[0] = newDateObj
+    const currentTemplate = template
+    const newDateObj = new Date(template[0].publishDate).getTime()
+    currentTemplate[0].publishDate = newDateObj
     return currentTemplate
   }
 
@@ -206,6 +206,9 @@ export default class App extends Component {
   handleChange = (event) => {
     this.setState({[event.target.name]: event.target.value});
   }
+  handleChangeChecked = event => {
+    this.setState({[event.target.name]: event.target.checked});
+  }
 
   setKey = (event) => {
     this.setState({[event.target.name]: event.target.value});
@@ -216,7 +219,7 @@ export default class App extends Component {
   }
 
   submitEventData = (origDate, currentEdit) => {
-    var publishTime = [{publishDate: origDate.getTime()}]
+    var publishTime = [{publishDate: origDate.getTime(), requireScroll: this.state.requireScroll}]
     var items = this.state.items
     var title = this.state.value
     if (title) {title = this.state.value.toLowerCase()}
@@ -284,6 +287,15 @@ export default class App extends Component {
     this.setState({newCell})
   }
 
+  handleNewVideo = () => {
+    const newVideo =  [{
+      video: ''
+    }]
+    var newCell = this.state.newCell
+    newCell.videoInfo = newCell.videoInfo.concat(newVideo)
+    this.setState({newCell})
+  }
+
   deleteLastImage = () => {
     var newCell = Object.assign({}, this.state.newCell)
     if (newCell.imageInfo.length > 1) {
@@ -291,25 +303,36 @@ export default class App extends Component {
       this.setState({newCell})
     }
   }
+  deleteLastVideo = () => {
+    var newCell = Object.assign({}, this.state.newCell)
+    if (newCell.videoInfo.length > 1) {
+      newCell.videoInfo.pop()
+      this.setState({newCell})
+    }
+  }
 
   loadTemplate = (event) => {
-    var items = []
-    var title = event.target.value || ''
-    var publishDate = new Date()
-    var item = this.state.templates.find(item => {
+    let items = []
+    let title = event.target.value || ''
+    let publishDate = new Date()
+    let requireScroll = true
+    let item = this.state.templates.find(item => {
       return item.key === title
     })
     for (var i in item){
       if (i !== "key") {
         if (item[i].publishDate) {
           publishDate = new Date(item[i].publishDate)
+          if (item[i].requireScroll) {
+            requireScroll = item[i].requireScroll
+          }
         }
         else {
           items = items.concat(item[i])
         }      
       }
     }
-    this.setState({items, value: title, currentEdit: title, publishDate, newCell:'', showFormBool: false});
+    this.setState({items, value: title, currentEdit: title, publishDate, requireScroll, newCell:'', showFormBool: false});
   }
 
   showPreview = () => {
@@ -345,29 +368,35 @@ export default class App extends Component {
           closeModal = {this.closeModal}
           publish={this.submitEventData}
           publishDate = {this.state.publishDate}
+          requireScroll = {this.state.requireScroll}
           currentTitle = {this.state.value}
           currentEdit = {this.state.currentEdit}
           handleChange = {this.handleChange}
+          handleChangeChecked = {this.handleChangeChecked}
           templates={this.state.templates}
           eventData={this.state.eventData}
           saveLocalHour={this.saveLocalHour}
         />
-        <h2>Select a Template (optional)</h2>
-        <div className="submitBox">
-          <form className="dropdownMenu">
-            <select className="dropdownText" value={this.state.value} name="session" onChange={this.loadTemplate}>
-              <option className="dropdownTitle" value="">{'\xa0\xa0'}View Templates</option>
-              { allTemplates.map((task, i) => {
-                var title = task.key
-                return (
-                <option className="dropdownTitle" key={i} value={task.key}>{'\xa0\xa0' + title}</option>  
-                )      
-              })
-              }
-            </select>
-          </form> 
+        <div className="container">
+          <h2>Select a Template (optional)</h2>
+          <div className="submitBox">
+            <form className="dropdownMenu">
+              <select className="dropdownText" value={this.state.value} name="session" onChange={this.loadTemplate}>
+                <option className="dropdownTitle" value="">{'\xa0\xa0'}View Templates</option>
+                { allTemplates.map((task, i) => {
+                  var title = task.key
+                  return (
+                    <option className="dropdownTitle" key={i} value={task.key}>{'\xa0\xa0' + title}</option>  
+                  )      
+                })
+                }
+              </select>
+            </form> 
+          </div>
         </div>
         <div className="container">
+          <h2 className="containerName">Build a Template</h2>
+          <div className="innerContainer">
           <CellSelectView
             showCell = {this.showCell}
             removeItem = {this.removeItem}
@@ -386,7 +415,9 @@ export default class App extends Component {
             handleNewSpeaker={this.handleNewSpeaker}
             deleteLastSpeaker={this.deleteLastSpeaker}
             deleteLastImage={this.deleteLastImage}
+            deleteLastVideo={this.deleteLastVideo}
             handleNewImage={this.handleNewImage}
+            handleNewVideo={this.handleNewVideo}
             updateCell = {this.updateCell}
             edits = {this.state.edits}
             cellData={this.state.cellData}
@@ -401,6 +432,7 @@ export default class App extends Component {
             showFormBool = {this.state.showFormBool}
             newCell={this.state.newCell}
           /> }
+          </div>
         </div>
         <div className="buttonsContainer">
           <button className="modalButton" style={{marginRight: 10, fontSize: 18}} onClick={this.openModal} disabled={(!this.state.items.length || this.state.showFormBool)} value="false">Publish to App</button>
@@ -481,6 +513,11 @@ const formItems = [
   {
     name: "Image Carousel",
     type: "Full Width Images Only", 
+    boolName: false,
+  },
+  {
+    name: "Video Carousel",
+    type: "Youtube Videos Only", 
     boolName: false,
   },
   {
@@ -617,6 +654,21 @@ const cellData = [
       {
         image: '',
         URL: '',
+      }
+    ]
+  },
+  {
+    type: "Video Carousel",
+    header: false,
+    footer: false,
+    intro: '',
+    title: "",
+    des: "",
+    buttonURL: '',
+    buttonText: "",
+    videoInfo: [
+      {
+        video: ''
       }
     ]
   },

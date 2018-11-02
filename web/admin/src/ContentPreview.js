@@ -25,6 +25,7 @@ import Squares from './preview/Squares.js'
 import ImageCarousel from './preview/ImageCarousel.js'
 import OneImage from './preview/OneImage.js'
 import TwoImage from './preview/TwoImage.js'
+import VideoCarousel from "./preview/VideoCarousel.js"
 import TextView from './preview/Text.js'
 import ButtonFooter from './preview/ButtonFooter.js'
 
@@ -71,6 +72,10 @@ export default class ContentPreview extends PureComponent {
       case "Image Carousel":
         return(
           <ImageCarousel {...details}/>
+        )
+        case "Video Carousel":
+        return(
+          <VideoCarousel {...details}/>
         )
       case "Speaker Highlight Cell":
         return(

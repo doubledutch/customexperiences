@@ -39,15 +39,26 @@ export class CustomModal extends Component {
       >
         <div className="modalBox">
           <div className="modalTop">
-          <button className="closeXButton" onClick={this.cancelClose}>X</button>
+            <button className="closeXButton" onClick={this.cancelClose}>X</button>
           </div>
-          <span className="submitBox2">
-              <label className="boxTitle">
-                Name your template:
-                <input className={(this.state.error) ? "eventNameRed" : "eventName"} name="currentEdit" maxLength="50" type="value" value={this.props.currentEdit} onChange={this.handleChange}/>
-                <p className={(this.state.error ? "errorTitleRed" : "errorTitle")}>*Please rename your template</p>
-              </label>
-          </span>
+          <div>
+            <span className="submitBox2">
+                <label className="boxTitle">
+                  Name your template:
+                  <input className={(this.state.error) ? "eventNameRed" : "eventName"} name="currentEdit" maxLength="50" type="value" value={this.props.currentEdit} onChange={this.handleChange}/>
+                  <p className={(this.state.error ? "errorTitleRed" : "errorTitle")}>*Please rename your template</p>
+                </label>
+            </span>
+          <label className="checkBoxTitle">
+            <input
+              className="checkBox"
+              name="requireScroll"
+              type="checkBox"
+              checked={this.props.requireScroll}
+              onChange={this.props.handleChangeChecked} />
+              Require Scroll to Transition from Page
+          </label>
+          </div>
           <div className="modalTextBox">
             <DateTimePicker value={this.state.currentTime} onChange={this.handleNewDate} timeZone={this.props.eventData.timeZone}/>
           </div>

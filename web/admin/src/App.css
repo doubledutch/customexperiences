@@ -21,7 +21,7 @@
 
 .App h2 {
   font-size: 18px;
-  margin-top: 20px;
+  margin-top: 0px;
   margin-left: 20px;
 }
 
@@ -158,20 +158,21 @@ text-align: center;
   margin-Left: 21px;
   margin-bottom: 10px;
   background-Color:white;
-  border: solid;
-  border-width: 1px;
-  border-color:#D1D1D1;
+  border: 1px solid #E3ECF8;
+  border-radius: 5px;
   overflow: auto;
   padding: 20px;
 }
 
 .outerContainer {
-  margin: 20px 0px;
+  margin: 0px 0px;
 }
 
 .expoContainer {
-  margin: 50px 35px 0px 20px;
-  padding: 0px;
+  border: 1px solid #E3ECF8;
+  border-radius: 5px;
+  margin: 100px 20px 0px 20px;
+  padding: 20px;
 }
 
 .buttonsContainer {
@@ -201,11 +202,10 @@ text-align: center;
   margin-Left: 21px;
   margin-bottom: 10px;
   background-Color:white;
-  border: solid;
-  border-width: 1px;
-  border-color: #D1D1D1;;
+  border: 1px solid #E3ECF8;
   overflow: auto;
   border-collapse: collapse;
+  border-radius: 5px;
 }
 
 .leftContainer1 tbody {
@@ -392,25 +392,23 @@ text-align: center;
   padding: 0px;
   margin-bottom: 10px;
   background-Color:white;
-  border: solid;
-  border-width: 1px;
-  border-color: #D1D1D1;
+  border: 1px solid #E3ECF8;
+  border-radius: 5px;
   overflow: auto;
 }
 
 .boxTitle{
   min-height: 20px; 
-  margin-bottom: 5px;
   color: #737373;
   text-align: left;
   padding-top: 10px;
+  padding-bottom: 0px;
 }
 
 .checkBoxTitle{
   min-height: 20px; 
-  margin-bottom: 0px;
+  margin: 0px 20px 10px 20px;
   color: #737373;
-  padding-top: 10px;
   display: flex;
   flex-flow: nowrap;
 }
@@ -553,7 +551,8 @@ text-align: center;
 }
 
 .printBox {
-  border: 1px solid #D1D1D1;
+  border: 1px solid #E3ECF8;
+  border-radius: 5px;
   padding: 10px;
   margin-top: 20px;
 }
@@ -567,10 +566,26 @@ text-align: center;
   margin: 0px;
 }
 
-.container {
+.innerContainer {
   display: flex;
   box-sizing: border-box;
-  margin-top: 40px;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.containerName{
+  padding: 0px;
+  margin: 0px;
+}
+
+.container {
+  box-sizing: border-box;
+  margin: 20px;
+  padding-right: 40px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 1px solid #E3ECF8;
+  border-radius: 5px;
 }
 
 .selectBox {
