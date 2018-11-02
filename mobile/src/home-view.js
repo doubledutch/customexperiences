@@ -128,7 +128,7 @@ export default class HomeView extends Component {
     return (
       <View style={{flex: 1}}>
         {this.props.version ? null : <TitleBar title={client.currentEvent.name} client={client} signin={this.signin} />}
-        {this.state.componentConfigs.length === 0 && <LoadingView logInFailed={this.state.logInFailed} isLaunch={this.props.version}/>}
+        {this.state.componentConfigs.length === 0 && <LoadingView logInFailed={this.state.logInFailed} isLaunch={this.props.version ? true : false}/>}
         <ConfigurableScroll componentConfigs={this.state.componentConfigs} handleScroll={this.handleScroll}/>
         {true ? <TouchableOpacity disabled={this.state.isDisabled} onPress={() => client.dismissLandingPage(false)} style={this.state.isDisabled ? s.launchButtonGray : s.launchButton}><Text style={s.launchButtonText}>{this.state.isDisabled ? "Scroll down to enter" : "Take me to the Event"}</Text></TouchableOpacity> : null}
       </View>
