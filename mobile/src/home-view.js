@@ -14,21 +14,16 @@
  * limitations under the License.
  */
 
-import React, { Component } from 'react'
-import ReactNative, { AsyncStorage, Text, View, ScrollView, TouchableOpacity, StyleSheet, Dimensions
-} from 'react-native'
+import React, { PureComponent } from 'react'
+import { AsyncStorage, Text, View, TouchableOpacity, StyleSheet, Dimensions} from 'react-native'
 import client, { TitleBar } from '@doubledutch/rn-client'
-import FirebaseConnector from '@doubledutch/firebase-connector'
+import { provideFirebaseConnectorToReactComponent } from '@doubledutch/firebase-connector'
 import { ConfigurableScroll } from '@doubledutch/rn-components'
 import LoadingView from "./LoadingView"
-const fbc = FirebaseConnector(client, 'customexperiences')
-fbc.initializeAppWithSimpleBackend()
 
-const { currentEvent, currentUser } = client
-
-export default class HomeView extends Component {
-  constructor() {
-    super()
+class HomeView extends PureComponent {
+  constructor(props) {
+    super(props)
     this.state = {
       componentConfigs: [],
       templates: [],
@@ -36,38 +31,45 @@ export default class HomeView extends Component {
       isDisabled: true,
       logInFailed: false,
     }
-    this.signin = fbc.signin()
+    this.signin = props.fbc.signin()
     .then(user => this.user = user)
     this.signin.catch(err => console.error(err))
   }
 
   componentDidMount() {
-    this.loadLocalTemplates()
-    .then(localTemplates => {
-      this.signin.then(() => {
-        const templateRef = fbc.database.public.adminRef('templates')
-          templateRef.on('value', data => {
-            const templateData = data.val()
-            const templateKeys = Object.keys(data.val())
-            let templates = localTemplates
-            templateKeys.forEach(key => {
-              const currentTemplate = templates.findIndex(template => template.key === key)
-              if (currentTemplate > -1) {
-                templates.splice(currentTemplate, 1)
-              }
-              templates.push({...templateData[key], key})
-            })
-            templates.forEach((template, index) => {
-              const deletedTemplate = templateKeys.findIndex(key => template.key === key)
-              if (deletedTemplate === -1) {
-                templates.splice(index, 1)
-              }
-            })
-            this.saveLocalTemplates({templates})
-            this.setState({templates})
-            this.findConfig(templates)
-        })
-      }).catch(()=> this.setState({logInFailed: true, isDisabled: false}))
+    client.getCurrentEvent().then(currentEvent => this.setState({currentEvent}))
+    client.getPrimaryColor().then(primaryColor => this.setState({primaryColor}))
+
+    client.getCurrentUser().then(currentUser => {
+      this.setState({currentUser})
+
+      this.loadLocalTemplates()
+      .then(localTemplates => {
+        this.signin.then(() => {
+          const templateRef = this.props.fbc.database.public.adminRef('templates')
+            templateRef.on('value', data => {
+              const templateData = data.val()
+              const templateKeys = Object.keys(data.val())
+              let templates = localTemplates
+              templateKeys.forEach(key => {
+                const currentTemplate = templates.findIndex(template => template.key === key)
+                if (currentTemplate > -1) {
+                  templates.splice(currentTemplate, 1)
+                }
+                templates.push({...templateData[key], key})
+              })
+              templates.forEach((template, index) => {
+                const deletedTemplate = templateKeys.findIndex(key => template.key === key)
+                if (deletedTemplate === -1) {
+                  templates.splice(index, 1)
+                }
+              })
+              this.saveLocalTemplates({templates})
+              this.setState({templates})
+              this.findConfig(templates)
+          })
+        }).catch(()=> this.setState({logInFailed: true, isDisabled: false}))
+      })
     })
   }
 
@@ -125,18 +127,20 @@ export default class HomeView extends Component {
   }
 
   render() {
+    const {currentEvent, currentUser, primaryColor} = this.state
+    if (!currentEvent || !currentUser || !primaryColor) return null
     return (
       <View style={{flex: 1}}>
-        {this.props.version ? null : <TitleBar title={client.currentEvent.name} client={client} signin={this.signin} />}
+        {this.props.version ? null : <TitleBar title={currentEvent.name} client={client} signin={this.signin} />}
         {this.state.componentConfigs.length === 0 && <LoadingView logInFailed={this.state.logInFailed} isLaunch={this.props.version ? true : false}/>}
         <ConfigurableScroll componentConfigs={this.state.componentConfigs} handleScroll={this.handleScroll}/>
-        {true ? <TouchableOpacity disabled={this.state.isDisabled} onPress={() => client.dismissLandingPage(false)} style={this.state.isDisabled ? s.launchButtonGray : s.launchButton}><Text style={s.launchButtonText}>{this.state.isDisabled ? "Scroll down to enter" : "Take me to the Event"}</Text></TouchableOpacity> : null}
+        {true ? <TouchableOpacity disabled={this.state.isDisabled} onPress={() => client.dismissLandingPage(false)} style={[s.launchButton, this.state.isDisabled ? null : {backgroundColor: primaryColor}]}><Text style={s.launchButtonText}>{this.state.isDisabled ? "Scroll down to enter" : "Take me to the Event"}</Text></TouchableOpacity> : null}
       </View>
     )
   }
 
   loadLocalTemplates() {
-    return AsyncStorage.getItem(leadStorageKey())
+    return AsyncStorage.getItem(this.leadStorageKey())
     .then(value => {
       if (value) {
         const templates = JSON.parse(value)
@@ -148,20 +152,16 @@ export default class HomeView extends Component {
   }
 
   saveLocalTemplates({templates}) {
-    return AsyncStorage.setItem(leadStorageKey(), JSON.stringify(templates))
+    return AsyncStorage.setItem(this.leadStorageKey(), JSON.stringify(templates))
   }
+
+  leadStorageKey() { return `@DD:customExperiences_${this.state.currentEvent.id}_${this.state.currentUser.id}` }
 }
 
-function leadStorageKey() { return `@DD:customExperiences_${currentEvent.id}_${currentUser.id}` }
+export default provideFirebaseConnectorToReactComponent(client, 'customexperiences', (props, fbc) => <HomeView {...props} fbc={fbc} />, PureComponent)
 
 const s = StyleSheet.create({
   launchButton: {
-    height: 60,
-    backgroundColor: client.primaryColor,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  launchButtonGray: {
     height: 60,
     backgroundColor: "gray",
     alignItems: "center",

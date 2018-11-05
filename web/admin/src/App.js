@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import './App.css'
 import client from '@doubledutch/admin-client'
-import FirebaseConnector from '@doubledutch/firebase-connector'
+import {provideFirebaseConnectorToReactComponent} from '@doubledutch/firebase-connector'
 import 'moment-timezone';
 import moment from 'moment' 
 import CellSelectView from './CellSelect.js'
@@ -26,8 +26,6 @@ import AppView from './AppView.js'
 import CustomModal from './Modal.js'
 import ContentPreview from './ContentPreview.js'
 import "@doubledutch/react-components/lib/base.css"
-const fbc = FirebaseConnector(client, 'customexperiences')
-fbc.initializeAppWithSimpleBackend()
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -36,7 +34,7 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-export default class App extends Component {
+class App extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -67,10 +65,9 @@ export default class App extends Component {
       this.setState({shouldShow})
     }).catch(() => this.setState({shouldShow: true}))
 
-    this.signin = fbc.signinAdmin()
-    .then(user => this.user = user)
-    .catch(err => console.error(err))
-
+    this.signin = props.fbc.signinAdmin()
+      .then(user => this.user = user)
+      .catch(err => console.error(err))
   }
 
 
@@ -141,7 +138,7 @@ export default class App extends Component {
     this.signin.then((user) => {
       client.getCurrentEvent().then(evt => {
         this.setState({eventData: evt})
-        const templateRef = fbc.database.public.adminRef('templates')
+        const templateRef = this.props.fbc.database.public.adminRef('templates')
         templateRef.on('child_added', data => {
           let template = this.saveHour(data.val())
           this.setState({ templates: [...this.state.templates, {...template, key: data.key }] })   
@@ -215,7 +212,7 @@ export default class App extends Component {
   }
 
   submitTemplate = () => {
-    fbc.database.public.adminRef('templates').child(this.state.value).set(this.state.items)
+    this.props.fbc.database.public.adminRef('templates').child(this.state.value).set(this.state.items)
   }
 
   submitEventData = (origDate, currentEdit) => {
@@ -230,7 +227,7 @@ export default class App extends Component {
       }
       var newItems = publishTime.concat(items)
       this.setState({value : title})
-      fbc.database.public.adminRef('templates').child(title).set(newItems).then(() => {
+      this.props.fbc.database.public.adminRef('templates').child(title).set(newItems).then(() => {
         this.closeModal()
       })
     }
@@ -250,7 +247,7 @@ export default class App extends Component {
 
   deleteTemplate = (e) => {
     if (window.confirm("Are you sure you want to delete the template?")) {
-      fbc.database.public.adminRef("templates").child(this.state.value).remove()
+      this.props.fbc.database.public.adminRef("templates").child(this.state.value).remove()
       this.setState({value: "", currentEdit: ""})
     }
   }
@@ -449,6 +446,8 @@ export default class App extends Component {
     )
   }
 }
+
+export default provideFirebaseConnectorToReactComponent(client, 'customexperiences', (props, fbc) => <App {...props} fbc={fbc} />, PureComponent)
 
 const formItems = [
   {
