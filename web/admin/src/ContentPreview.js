@@ -22,6 +22,7 @@ import SmallView from './preview/SmallView.js'
 import DualSmallViews from './preview/DualSmallViews.js'
 import ImageSquares from './preview/ImageSquares.js'
 import Squares from './preview/Squares.js'
+import SquaresRow from './preview/SquaresRow.js'
 import ImageCarousel from './preview/ImageCarousel.js'
 import OneImage from './preview/OneImage.js'
 import TwoImage from './preview/TwoImage.js'
@@ -64,6 +65,10 @@ export default class ContentPreview extends PureComponent {
       case "Squares Cell":
         return(
           <ImageSquares {...details}/>
+        )
+      case "Squares Row":
+        return(
+          <SquaresRow {...details}/>
         )
       case "Text Squares Cell":
         return(

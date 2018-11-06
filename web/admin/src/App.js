@@ -540,6 +540,11 @@ const formItems = [
     boolName: false,
   },
   {
+    name: "Squares Row",
+    type: "3 Squares Row of Images only",
+    boolName: false,
+  },
+  {
     header: true,
     type: "TEXT CELLS"
   },
@@ -605,7 +610,11 @@ const cellData = [
     text1: '',
     text2: '',
     text3: '',
-    text4: ''
+    text4: '',
+    url1: '',
+    url2: '',
+    url3: '',
+    url4: ''
   },
   {
     type: "Squares Cell",
@@ -620,6 +629,26 @@ const cellData = [
     image2: '',
     image3: '',
     image4: '',
+    url1: '',
+    url2: '',
+    url3: '',
+    url4: ''
+  },
+  {
+    type: "Squares Row",
+    header : false,
+    footer: false,
+    intro: '',
+    title : "",
+    des : "",
+    buttonURL : '',
+    buttonText : "",
+    image1: '',
+    image2: '',
+    image3: '',
+    url1: '',
+    url2: '',
+    url3: '',
   },
   {
     type: "Speaker Highlight Cell",

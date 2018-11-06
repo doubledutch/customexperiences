@@ -392,6 +392,16 @@ formInput = (title, name, value) => {
                   onChange={this.handleInputChange} />
               </label>
               <label className="boxTitle">
+                Image 1 Link URL:
+                <input
+                  name="url1"
+                  type="text"
+                  className="box"
+                  required
+                  value={this.props.newCell.url1}
+                  onChange={this.handleInputChange} />
+              </label>
+              <label className="boxTitle">
                 Image 2:
                 <input
                   name="image2"
@@ -409,6 +419,16 @@ formInput = (title, name, value) => {
                   className="box"
                   required
                   value={this.props.newCell.text2}
+                  onChange={this.handleInputChange} />
+              </label>
+              <label className="boxTitle">
+                Image 2 Link URL:
+                <input
+                  name="url2"
+                  type="text"
+                  className="box"
+                  required
+                  value={this.props.newCell.url2}
                   onChange={this.handleInputChange} />
               </label>
               <label className="boxTitle">
@@ -432,6 +452,16 @@ formInput = (title, name, value) => {
                     onChange={this.handleInputChange} />
               </label>
               <label className="boxTitle">
+                Image 3 Link URL:
+                <input
+                  name="url3"
+                  type="text"
+                  className="box"
+                  required
+                  value={this.props.newCell.url3}
+                  onChange={this.handleInputChange} />
+              </label>
+              <label className="boxTitle">
                 Image 4:
                 <input
                   name="image4"
@@ -449,6 +479,16 @@ formInput = (title, name, value) => {
                   type="text"
                   required
                   value={this.props.newCell.text4}
+                  onChange={this.handleInputChange} />
+              </label>
+              <label className="boxTitle">
+                Image 4 Link URL:
+                <input
+                  name="url4"
+                  type="text"
+                  className="box"
+                  required
+                  value={this.props.newCell.url4}
                   onChange={this.handleInputChange} />
               </label>
               {this.footerInfo()}
@@ -473,6 +513,16 @@ formInput = (title, name, value) => {
                   onChange={this.handleInputChange} />
               </label>
               <label className="boxTitle">
+                Image 1 Link URL:
+                <input
+                  name="url1"
+                  type="text"
+                  className="box"
+                  required
+                  value={this.props.newCell.url1}
+                  onChange={this.handleInputChange} />
+              </label>
+              <label className="boxTitle">
                 Image 2:
                 <input
                   className="box"
@@ -480,6 +530,16 @@ formInput = (title, name, value) => {
                   type="text"
                   required
                   value={this.props.newCell.image2}
+                  onChange={this.handleInputChange} />
+              </label>
+              <label className="boxTitle">
+                Image 2 Link URL:
+                <input
+                  name="url2"
+                  type="text"
+                  className="box"
+                  required
+                  value={this.props.newCell.url2}
                   onChange={this.handleInputChange} />
               </label>
               <label className="boxTitle">
@@ -493,6 +553,16 @@ formInput = (title, name, value) => {
                   onChange={this.handleInputChange} />
               </label>
               <label className="boxTitle">
+                Image 3 Link URL:
+                <input
+                  name="url3"
+                  type="text"
+                  className="box"
+                  required
+                  value={this.props.newCell.url3}
+                  onChange={this.handleInputChange} />
+              </label>
+              <label className="boxTitle">
                 Image 4:
                 <input
                   className="box"
@@ -500,6 +570,87 @@ formInput = (title, name, value) => {
                   type="text"
                   required
                   value={this.props.newCell.image4}
+                  onChange={this.handleInputChange} />
+              </label>
+              <label className="boxTitle">
+                Image 4 Link URL:
+                <input
+                  name="url4"
+                  type="text"
+                  className="box"
+                  required
+                  value={this.props.newCell.url4}
+                  onChange={this.handleInputChange} />
+              </label>
+              {this.footerInfo()}
+              <input type="submit" value="Submit Content" className="formButton" />
+            </form>
+          )
+        }
+
+        if (this.props.newCell.type === "Squares Row"){
+          return(
+            <form className="formBox" onSubmit={this.handleSubmit}>
+              {this.checkQuestions()}
+              {this.headerInfo()}
+              <label className="boxTitle">
+                Image 1:
+                <input
+                  className="box"
+                  name="image1"
+                  type="text"
+                  required
+                  value={this.props.newCell.image1}
+                  onChange={this.handleInputChange} />
+              </label>
+              <label className="boxTitle">
+                Image 1 Link URL:
+                <input
+                  name="url1"
+                  type="text"
+                  className="box"
+                  required
+                  value={this.props.newCell.url1}
+                  onChange={this.handleInputChange} />
+              </label>
+              <label className="boxTitle">
+                Image 2:
+                <input
+                  className="box"
+                  name="image2"
+                  type="text"
+                  required
+                  value={this.props.newCell.image2}
+                  onChange={this.handleInputChange} />
+              </label>
+              <label className="boxTitle">
+                Image 2 Link URL:
+                <input
+                  name="url2"
+                  type="text"
+                  className="box"
+                  required
+                  value={this.props.newCell.url2}
+                  onChange={this.handleInputChange} />
+              </label>
+              <label className="boxTitle">
+                Image 3:
+                <input
+                  className="box"
+                  name="image3"
+                  type="text"
+                  required
+                  value={this.props.newCell.image3}
+                  onChange={this.handleInputChange} />
+              </label>
+              <label className="boxTitle">
+                Image 3 Link URL:
+                <input
+                  name="url3"
+                  type="text"
+                  className="box"
+                  required
+                  value={this.props.newCell.url3}
                   onChange={this.handleInputChange} />
               </label>
               {this.footerInfo()}
