@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import './App.css'
-import Modal  from 'react-modal'
-import InfiniteCalendar from 'react-infinite-calendar';
-import 'react-infinite-calendar/styles.css';
-import 'moment-timezone';
+import Modal from 'react-modal'
+import InfiniteCalendar from 'react-infinite-calendar'
+import 'react-infinite-calendar/styles.css'
+import 'moment-timezone'
 import moment from 'moment'
-import DateTimePicker from "@doubledutch/react-components/lib/DateTimePicker"
+import DateTimePicker from '@doubledutch/react-components/lib/DateTimePicker'
 
 export class CustomModal extends Component {
   constructor(props) {
@@ -13,21 +13,21 @@ export class CustomModal extends Component {
     this.state = {
       error: false,
       currentTime: new Date(),
-      disabled: false
+      disabled: false,
     }
   }
 
-  componentWillReceiveProps(nextProps){
-    if (this.props.publishDate !== nextProps.publishDate){
-      this.setState({currentTime: nextProps.publishDate})
+  componentWillReceiveProps(nextProps) {
+    if (this.props.publishDate !== nextProps.publishDate) {
+      this.setState({ currentTime: nextProps.publishDate })
     }
     if (this.props.showModal !== nextProps.showModal) {
-      this.setState({disabled: false})
+      this.setState({ disabled: false })
     }
   }
 
   render() {
-    return(
+    return (
       <Modal
         ariaHideApp={false}
         isOpen={this.props.showModal}
@@ -39,84 +39,110 @@ export class CustomModal extends Component {
       >
         <div className="modalBox">
           <div className="modalTop">
-            <button className="closeXButton" onClick={this.cancelClose}>X</button>
+            <button className="closeXButton" onClick={this.cancelClose}>
+              X
+            </button>
           </div>
           <div>
             <span className="submitBox2">
-                <label className="boxTitle">
-                  Name your template:
-                  <input className={(this.state.error) ? "eventNameRed" : "eventName"} name="currentEdit" maxLength="50" type="value" value={this.props.currentEdit} onChange={this.handleChange}/>
-                  <p className={(this.state.error ? "errorTitleRed" : "errorTitle")}>*Please rename your template</p>
-                </label>
+              <label className="boxTitle">
+                Name your template:
+                <input
+                  className={this.state.error ? 'eventNameRed' : 'eventName'}
+                  name="currentEdit"
+                  maxLength="50"
+                  type="value"
+                  value={this.props.currentEdit}
+                  onChange={this.handleChange}
+                />
+                <p className={this.state.error ? 'errorTitleRed' : 'errorTitle'}>
+                  *Please rename your template
+                </p>
+              </label>
             </span>
-          <label className="checkBoxTitle">
-            <input
-              className="checkBox"
-              name="requireScroll"
-              type="checkBox"
-              checked={this.props.requireScroll}
-              onChange={this.props.handleChangeChecked} />
+            <label className="checkBoxTitle">
+              <input
+                className="checkBox"
+                name="requireScroll"
+                type="checkBox"
+                checked={this.props.requireScroll}
+                onChange={this.props.handleChangeChecked}
+              />
               Require Scroll to Transition from Page
-          </label>
+            </label>
           </div>
           <div className="modalTextBox">
-            <DateTimePicker value={this.state.currentTime} onChange={this.handleNewDate} timeZone={this.props.eventData.timeZone}/>
+            <DateTimePicker
+              value={this.state.currentTime}
+              onChange={this.handleNewDate}
+              timeZone={this.props.eventData.timeZone}
+            />
           </div>
-          <div className="modalButtonBox">
-            {this.modalButtons()}
-          </div >    
+          <div className="modalButtonBox">{this.modalButtons()}</div>
         </div>
       </Modal>
     )
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     if (this.state.error) {
-      this.setState({error: false})
+      this.setState({ error: false })
     }
     this.props.handleChange(event)
   }
 
-  handleNewDate = (date) => {
-    this.setState({currentTime: date});
+  handleNewDate = date => {
+    this.setState({ currentTime: date })
   }
 
-  modalButtons = () => {
-    return (
-      <div>
-        <button className="modalDone" onClick={this.cancelClose}>Cancel</button>
-        <button className="modalExport" disabled={this.state.disabled} onClick={this.publish(this.state.currentTime)}>Publish Content</button> 
-      </div>
-    )
-  }
+  modalButtons = () => (
+    <div>
+      <button className="modalDone" onClick={this.cancelClose}>
+        Cancel
+      </button>
+      <button
+        className="modalExport"
+        disabled={this.state.disabled}
+        onClick={this.publish(this.state.currentTime)}
+      >
+        Publish Content
+      </button>
+    </div>
+  )
 
   cancelClose = () => {
-    this.setState({error: false})
+    this.setState({ error: false })
     this.props.closeModal()
   }
 
   publish = time => () => {
     const currentEdit = this.props.currentEdit.trim()
-    var currentTemplate = this.props.templates.find(item => item.key.toLowerCase() === currentEdit.toLowerCase())
-    if (currentTemplate) {currentTemplate = currentTemplate.key.toLowerCase()}
-    if (!currentTemplate) {currentTemplate = false}
-    currentTemplate = ((currentTemplate === this.props.currentTitle.toLowerCase()) ?  false : currentTemplate)
-    if (currentEdit && !currentTemplate && this.checker()){
+    let currentTemplate = this.props.templates.find(
+      item => item.key.toLowerCase() === currentEdit.toLowerCase(),
+    )
+    if (currentTemplate) {
+      currentTemplate = currentTemplate.key.toLowerCase()
+    }
+    if (!currentTemplate) {
+      currentTemplate = false
+    }
+    currentTemplate =
+      currentTemplate === this.props.currentTitle.toLowerCase() ? false : currentTemplate
+    if (currentEdit && !currentTemplate && this.checker()) {
       this.props.saveLocalHour(time)
       this.props.publish(time, currentEdit)
-      this.setState({error: false, disabled: true})
-    }
-    else {
-      this.setState({error: true, disabled: false})
+      this.setState({ error: false, disabled: true })
+    } else {
+      this.setState({ error: true, disabled: false })
     }
   }
-checker = () => {
-  if (!/[~`!#$%\^*+=\\[\]\\';./{}|\\"<>\?]/g.test(this.props.currentEdit)) {
-    return true
-  }
-  else return false
-}
 
+  checker = () => {
+    if (!/[~`!#$%\^*+=\\[\]\\';./{}|\\"<>\?]/g.test(this.props.currentEdit)) {
+      return true
+    }
+    return false
+  }
 }
 
 export default CustomModal
