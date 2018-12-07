@@ -19,6 +19,7 @@ import { AsyncStorage, Text, View, TouchableOpacity, StyleSheet, Dimensions } fr
 import client, { TitleBar } from '@doubledutch/rn-client'
 import { provideFirebaseConnectorToReactComponent } from '@doubledutch/firebase-connector'
 import { ConfigurableScroll } from '@doubledutch/rn-components'
+import youTube from ''./secrets'
 import LoadingView from './LoadingView'
 
 class HomeView extends PureComponent {
@@ -30,6 +31,7 @@ class HomeView extends PureComponent {
       i: 0,
       isDisabled: true,
       logInFailed: false,
+      primaryColor: "#000000"
     }
     this.signin = props.fbc.signin().then(user => (this.user = user))
     this.signin.catch(err => console.error(err))
@@ -142,10 +144,12 @@ class HomeView extends PureComponent {
           <LoadingView logInFailed={this.state.logInFailed} isLaunch={!!this.props.version} />
         )}
         <ConfigurableScroll
+          youTubeApiKey={youTube.apiKey}
+          color={this.state.primaryColor}
           componentConfigs={this.state.componentConfigs}
           handleScroll={this.handleScroll}
         />
-        {true ? (
+        {this.props.version ? (
           <TouchableOpacity
             disabled={this.state.isDisabled}
             onPress={() => client.dismissLandingPage(false)}

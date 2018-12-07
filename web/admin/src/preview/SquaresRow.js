@@ -20,10 +20,6 @@ import Footer from './Footer'
 import Header from './Header'
 
 export default class SquaresRow extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     const width = 286 / 3 - 20
     const height = width

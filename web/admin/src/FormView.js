@@ -289,6 +289,15 @@ export default class FormView extends Component {
     else return false
   }
 
+  videoCarouselVal = (videos) => {
+    let status = false
+    videos.forEach(item => {
+      const currentVid = this.videoValidation(item.video)
+      if (currentVid) status = currentVid
+    })
+    return status
+  }
+
   handleSubmit = event => {
     event.preventDefault()
     this.props.handleSubmit(event)
@@ -636,79 +645,38 @@ export default class FormView extends Component {
       if (this.props.newCell.type === 'Squares Row') {
         return (
           <form className="formBox" onSubmit={this.handleSubmit}>
-            {this.checkQuestions()}
-            {this.headerInfo()}
-            <label className="boxTitle">
-              Image 1:
-              <input
-                className="box"
-                name="image1"
-                type="text"
-                required
-                value={this.props.newCell.image1}
-                onChange={this.handleInputChange}
-              />
-            </label>
-            <label className="boxTitle">
-              Image 1 Link URL:
-              <input
-                name="url1"
-                type="text"
-                className="box"
-                required
-                value={this.props.newCell.url1}
-                onChange={this.handleInputChange}
-              />
-            </label>
-            <label className="boxTitle">
-              Image 2:
-              <input
-                className="box"
-                name="image2"
-                type="text"
-                required
-                value={this.props.newCell.image2}
-                onChange={this.handleInputChange}
-              />
-            </label>
-            <label className="boxTitle">
-              Image 2 Link URL:
-              <input
-                name="url2"
-                type="text"
-                className="box"
-                required
-                value={this.props.newCell.url2}
-                onChange={this.handleInputChange}
-              />
-            </label>
-            <label className="boxTitle">
-              Image 3:
-              <input
-                className="box"
-                name="image3"
-                type="text"
-                required
-                value={this.props.newCell.image3}
-                onChange={this.handleInputChange}
-              />
-            </label>
-            <label className="boxTitle">
-              Image 3 Link URL:
-              <input
-                name="url3"
-                type="text"
-                className="box"
-                required
-                value={this.props.newCell.url3}
-                onChange={this.handleInputChange}
-              />
-            </label>
-            {this.footerInfo()}
-            <input type="submit" value="Submit Content" className="formButton" />
-          </form>
-        )
-      }
+          {this.checkQuestions()}
+          {this.headerInfo()}
+          {this.props.newCell.imageInfo.map((item, i) => {
+            return (
+              this.imageInfo(i)
+            )
+          })}
+          {this.footerInfo()}
+          <input type="button" onClick={()=>this.props.handleNewImage()} value="Add New Image +" className="speakerButton"/>
+          <input type="button" onClick={()=>this.props.deleteLastImage()} value="Delete Last Image" className="deleteSpeakerButton"/>
+          <input className="formButton" type="submit" value="Submit Content" />
+        </form>
+      )
+    }
+
+    if (this.props.newCell.type === "Video Carousel"){
+      return(
+        <form className="formBox" onSubmit={this.handleSubmit}>
+          {this.checkQuestions()}
+          {this.headerInfo()}
+          {this.props.newCell.videoInfo.map((item, i) => {
+            return (
+              this.videoInfo(i)
+            )
+          })}
+          {this.footerInfo()}
+          <input type="button" onClick={()=>this.props.handleNewVideo()} value="Add New Video +" className="speakerButton"/>
+          <input type="button" onClick={()=>this.props.deleteLastVideo()} value="Delete Last Video" className="deleteSpeakerButton"/>
+          <input className="formButton" type="submit" value="Submit Content" disabled={this.videoCarouselVal(this.props.newCell.videoInfo)}/>
+        </form>
+      )
+    }
 
       if (this.props.newCell.type === 'Speaker Highlight Cell') {
         return (
