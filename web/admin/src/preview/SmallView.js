@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,11 +20,15 @@ import ReactNative, { Text, View, Image } from 'react-native'
 export default class SmallView extends Component {
   render() {
     const { image, title, description } = this.props
-    return(
+    return (
       <View>
         <View style={s.top} />
         <View style={s.main}>
-          {(image ? <Image style={s.image} source={{uri: image}} alt=""/> : <Image style={s.image} source={require('../icons/imageplaceholdersquare.png')} alt=""/>)}
+          {image ? (
+            <Image style={s.image} source={{ uri: image }} alt="" />
+          ) : (
+            <Image style={s.image} source={require('../icons/imageplaceholdersquare.png')} alt="" />
+          )}
           <View style={s.info}>
             <Text style={s.title}>{title}</Text>
             <Text style={s.description}>{description}</Text>
@@ -34,25 +38,25 @@ export default class SmallView extends Component {
     )
   }
 }
-    
+
 const s = ReactNative.StyleSheet.create({
   top: {
-    borderColor:'#D8D8D8',
-    borderBottomWidth:1,
+    borderColor: '#D8D8D8',
+    borderBottomWidth: 1,
     height: 10,
     flex: 1,
-    backgroundColor: '#E8E8E8'
+    backgroundColor: '#E8E8E8',
   },
   main: {
     padding: 0,
-    borderColor:'#D8D8D8',
-    borderBottomWidth:1,
+    borderColor: '#D8D8D8',
+    borderBottomWidth: 1,
     backgroundColor: 'white',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   image: {
     height: 110,
-    width: 110
+    width: 110,
   },
   info: {
     marginTop: 15,
@@ -60,16 +64,15 @@ const s = ReactNative.StyleSheet.create({
     marginRight: 15,
     marginBottom: 15,
     flexDirection: 'column',
-    flex: 1
+    flex: 1,
   },
   title: {
     fontSize: 18,
     marginBottom: 5,
-    color: '#364247'
+    color: '#364247',
   },
   description: {
     fontSize: 14,
-    color: '#364247'
-  }
+    color: '#364247',
+  },
 })
-    
