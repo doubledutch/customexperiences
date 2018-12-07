@@ -430,16 +430,9 @@ class App extends PureComponent {
             newCell={this.state.newCell}
           /> }
           </div>
-        </div>
-        <div className="buttonsContainer">
-          <button className="modalButton" style={{marginRight: 10, fontSize: 18}} onClick={this.openModal} disabled={(!this.state.items.length || this.state.showFormBool)} value="false">Publish to App</button>
-          <button className="modalButton" style={{marginRight: 40, fontSize: 18, backgroundColor: "red"}} disabled={(!this.state.value || this.state.showFormBool)} onClick={this.deleteTemplate} value="false">Delete & Unpublish</button>
-        </div>
-        <div className="expoContainer"> 
-          <h2>Preview Custom Experience</h2>
-          <p>Copy & Paste the data below into the "dataInput" object to build your test app in Expo</p>
-          <div className="printBox">
-            <p>{JSON.stringify(this.state.items)}</p>
+          <div className="buttonsContainer">
+            <button className="modalButton" style={{fontSize: 18}} onClick={this.openModal} disabled={(!this.state.items.length || this.state.showFormBool)} value="false">Publish to App</button>
+            <button className="modalButton" style={{marginRight: 40, fontSize: 18, backgroundColor: "red"}} disabled={(!this.state.value || this.state.showFormBool)} onClick={this.deleteTemplate} value="false">Delete & Unpublish</button>
           </div>
         </div>
       </div>

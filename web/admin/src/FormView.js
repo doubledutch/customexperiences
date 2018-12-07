@@ -287,6 +287,15 @@ formInput = (title, name, value) => {
     else return false
   }
 
+  videoCarouselVal = (videos) => {
+    let status = false
+    videos.forEach(item => {
+      const currentVid = this.videoValidation(item.video)
+      if (currentVid) status = currentVid
+    })
+    return status
+  }
+
   handleSubmit = (event) => {
     event.preventDefault()
     this.props.handleSubmit(event)
@@ -708,7 +717,7 @@ formInput = (title, name, value) => {
         {this.footerInfo()}
         <input type="button" onClick={()=>this.props.handleNewVideo()} value="Add New Video +" className="speakerButton"/>
         <input type="button" onClick={()=>this.props.deleteLastVideo()} value="Delete Last Video" className="deleteSpeakerButton"/>
-        <input className="formButton" type="submit" value="Submit Content" />
+        <input className="formButton" type="submit" value="Submit Content" disabled={this.videoCarouselVal(this.props.newCell.videoInfo)}/>
       </form>
     )
   }
