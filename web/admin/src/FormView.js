@@ -51,8 +51,6 @@ export default class FormView extends Component {
     </label>
   )
 
-  }
-
   checkQuestions = () => (
       <span>
         <div>
