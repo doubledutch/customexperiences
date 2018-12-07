@@ -8,22 +8,44 @@
     "@doubledutch/firebase-connector": "^4.1.0",
     "@doubledutch/react-components": "^0.1.0",
     "moment-timezone": "^0.5.17",
+<<<<<<< HEAD
     "react": "^16.6.1",
+=======
+    "react": "^16.6.3",
+>>>>>>> 97c8623ae259b7c42671d9a9e3fe3d0e2323ca69
     "react-addons-css-transition-group": "^15.6.2",
     "react-art": "^16.3.2",
     "react-beautiful-dnd": "^3.0.0",
-    "react-dom": "^16.6.0",
+    "react-dom": "^16.6.3",
     "react-infinite-calendar": "^2.3.1",
     "react-modal": "^3.3.1",
     "react-moment": "^0.7.0",
     "react-native-carousel-view": "^0.5.1",
+<<<<<<< HEAD
     "react-native-web": "^0.9.6",
     "react-scripts": "1.0.14"
+=======
+    "react-native-web": "^0.6.1",
+    "react-scripts": "^2.1.1"
+>>>>>>> 97c8623ae259b7c42671d9a9e3fe3d0e2323ca69
   },
   "scripts": {
     "start": "node emulator",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-import-resolver-node": "^0.3.2",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-css-modules": "^2.10.0",
+    "eslint-plugin-flowtype": "^3.2.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-react": "^7.11.1",
+    "prettier": "^1.15.2"
   }
 }
