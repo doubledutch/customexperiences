@@ -19,8 +19,8 @@ import { AsyncStorage, Text, View, TouchableOpacity, StyleSheet, Dimensions} fro
 import client, { TitleBar } from '@doubledutch/rn-client'
 import { provideFirebaseConnectorToReactComponent } from '@doubledutch/firebase-connector'
 import { ConfigurableScroll } from '@doubledutch/rn-components'
-import youTube from "./secrets"
-import LoadingView from "./LoadingView"
+import youTube from './secrets'
+import LoadingView from './LoadingView'
 
 class HomeView extends PureComponent {
   constructor(props) {
@@ -31,7 +31,7 @@ class HomeView extends PureComponent {
       i: 0,
       isDisabled: true,
       logInFailed: false,
-      primaryColor: "#000000"
+      primaryColor: '#000000',
     }
     this.signin = props.fbc.signin()
     .then(user => this.user = user)
@@ -132,11 +132,32 @@ class HomeView extends PureComponent {
     const {currentEvent, currentUser, primaryColor} = this.state
     if (!currentEvent || !currentUser || !primaryColor) return null
     return (
-      <View style={{flex: 1}}>
-        {this.props.version ? null : <TitleBar title={currentEvent.name} client={client} signin={this.signin} />}
-        {this.state.componentConfigs.length === 0 && <LoadingView logInFailed={this.state.logInFailed} isLaunch={this.props.version ? true : false}/>}
-        <ConfigurableScroll youTubeApiKey={youTube.apiKey}  color={this.state.primaryColor} componentConfigs={this.state.componentConfigs} handleScroll={this.handleScroll} api/>
-        {this.props.version ? <TouchableOpacity disabled={this.state.isDisabled} onPress={() => client.dismissLandingPage(false)} style={[s.launchButton, this.state.isDisabled ? null : {backgroundColor: primaryColor}]}><Text style={s.launchButtonText}>{this.state.isDisabled ? "Scroll down to enter" : "Take me to the Event"}</Text></TouchableOpacity> : null}
+      <View style={{ flex: 1 }}>
+        {this.props.version ? null : (
+          <TitleBar title={currentEvent.name} client={client} signin={this.signin} />
+        )}
+        {this.state.componentConfigs.length === 0 && (
+          <LoadingView logInFailed={this.state.logInFailed} isLaunch={!!this.props.version} />
+        )}
+        <ConfigurableScroll
+          componentConfigs={this.state.componentConfigs}
+          handleScroll={this.handleScroll}
+          youTubeApiKey={youTube.apiKey}
+        />
+        {this.props.version ? (
+          <TouchableOpacity
+            disabled={this.state.isDisabled}
+            onPress={() => client.dismissLandingPage(false)}
+            style={[
+              s.launchButton,
+              this.state.isDisabled ? null : { backgroundColor: primaryColor },
+            ]}
+          >
+            <Text style={s.launchButtonText}>
+              {this.state.isDisabled ? 'Scroll down to enter' : 'Take me to the Event'}
+            </Text>
+          </TouchableOpacity>
+        ) : null}
       </View>
     )
   }
