@@ -19,7 +19,7 @@ import { AsyncStorage, Text, View, TouchableOpacity, StyleSheet, Dimensions } fr
 import client, { TitleBar } from '@doubledutch/rn-client'
 import { provideFirebaseConnectorToReactComponent } from '@doubledutch/firebase-connector'
 import { ConfigurableScroll } from '@doubledutch/rn-components'
-import youTube from './secrets'
+import secrets from './secrets'
 import LoadingView from './LoadingView'
 
 class HomeView extends PureComponent {
@@ -144,7 +144,7 @@ class HomeView extends PureComponent {
           <LoadingView logInFailed={this.state.logInFailed} isLaunch={!!this.props.version} />
         )}
         <ConfigurableScroll
-          youTubeApiKey={youTube.apiKey}
+          youTubeApiKey={secrets.youTube.apiKey}
           color={this.state.primaryColor}
           componentConfigs={this.state.componentConfigs}
           handleScroll={this.handleScroll}
