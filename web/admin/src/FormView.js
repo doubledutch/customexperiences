@@ -645,14 +645,73 @@ export default class FormView extends Component {
           <form className="formBox" onSubmit={this.handleSubmit}>
           {this.checkQuestions()}
           {this.headerInfo()}
-          {this.props.newCell.imageInfo.map((item, i) => {
-            return (
-              this.imageInfo(i)
-            )
-          })}
+          <label className="boxTitle">
+            Image 1:
+            <input
+              className="box"
+              name="image1"
+              type="text"
+              required
+              value={this.props.newCell.image1}
+              onChange={this.handleInputChange}
+            />
+          </label>
+          <label className="boxTitle">
+            Link 1:
+            <input
+              className="box"
+              name="url1"
+              type="text"
+              required
+              value={this.props.newCell.url1}
+              onChange={this.handleInputChange}
+            />
+          </label>
+          <label className="boxTitle">
+            Image 2:
+            <input
+              className="box"
+              name="image2"
+              type="text"
+              required
+              value={this.props.newCell.image1}
+              onChange={this.handleInputChange}
+            />
+          </label>
+          <label className="boxTitle">
+            Link 2:
+            <input
+              className="box"
+              name="url2"
+              type="text"
+              required
+              value={this.props.newCell.url1}
+              onChange={this.handleInputChange}
+            />
+          </label>
+          <label className="boxTitle">
+            Image 3:
+            <input
+              className="box"
+              name="image3"
+              type="text"
+              required
+              value={this.props.newCell.image1}
+              onChange={this.handleInputChange}
+            />
+          </label>
+          <label className="boxTitle">
+            Link 3:
+            <input
+              className="box"
+              name="url3"
+              type="text"
+              required
+              value={this.props.newCell.url1}
+              onChange={this.handleInputChange}
+            />
+          </label>
           {this.footerInfo()}
-          <input type="button" onClick={()=>this.props.handleNewImage()} value="Add New Image +" className="speakerButton"/>
-          <input type="button" onClick={()=>this.props.deleteLastImage()} value="Delete Last Image" className="deleteSpeakerButton"/>
           <input className="formButton" type="submit" value="Submit Content" />
         </form>
       )
