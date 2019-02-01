@@ -149,7 +149,7 @@ class HomeView extends PureComponent {
           componentConfigs={this.state.componentConfigs}
           handleScroll={this.handleScroll}
         />
-        {true ? (
+        {this.props.version ? (
           <TouchableOpacity
             disabled={this.state.isDisabled}
             onPress={() => client.dismissLandingPage(false)}
