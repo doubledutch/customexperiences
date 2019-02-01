@@ -41,66 +41,72 @@ export default class FormView extends Component {
 
   formInput = (title, name, value) => (
     <label className="boxTitle">
-    {title}:
+      {title}:
       <input
-      className="box"
-      name={name}
-      type="text"
-      value={value}
-      onChange={this.handleInputChange} />
+        className="box"
+        name={name}
+        type="text"
+        value={value}
+        onChange={this.handleInputChange}
+      />
     </label>
   )
 
   checkQuestions = () => (
-      <span>
-        <div>
-          <label className="checkBoxTitle">
-            Header:
-            <input
-              className="checkBox"
-              name="header"
-              type="checkBox"
-              checked={this.props.newCell.header}
-              onChange={this.handleInputChange} />
-          </label>
-        </div>
-        <div>
-          <label className="checkBoxTitle">
-            Footer:
-            <input
-              className="checkBox"
-              name="footer"
-              type="checkbox"
-              checked={this.props.newCell.footer}
-              onChange={this.handleInputChange} />
-          </label>
-        </div>
-      </span>
-    )
+    <span>
+      <div>
+        <label className="checkBoxTitle">
+          Header:
+          <input
+            className="checkBox"
+            name="header"
+            type="checkBox"
+            checked={this.props.newCell.header}
+            onChange={this.handleInputChange}
+          />
+        </label>
+      </div>
+      <div>
+        <label className="checkBoxTitle">
+          Footer:
+          <input
+            className="checkBox"
+            name="footer"
+            type="checkbox"
+            checked={this.props.newCell.footer}
+            onChange={this.handleInputChange}
+          />
+        </label>
+      </div>
+    </span>
+  )
 
   headerInfo = () => (
-      <span>
-        { (this.props.newCell.header) ? <span>
+    <span>
+      {this.props.newCell.header ? (
+        <span>
           <label className="boxTitle">
-            Intro: 
+            Intro:
             <input
               className="box"
               name="intro"
               type="text"
               maxLength="50"
               value={this.props.newCell.intro}
-              onChange={this.handleInputChange} />
+              onChange={this.handleInputChange}
+            />
           </label>
           <label className="boxTitle">
             Title:
             <input
-            className="box"
+              className="box"
               name="title"
               type="text"
               maxLength="50"
               required
               value={this.props.newCell.title}
-              onChange={this.handleInputChange} />
+              onChange={this.handleInputChange}
+            />
           </label>
           <label className="boxTitle">
             Description:
@@ -110,35 +116,42 @@ export default class FormView extends Component {
               type="text"
               value={this.props.newCell.des}
               maxLength="500"
-              onChange={this.handleInputChange} />
+              onChange={this.handleInputChange}
+            />
           </label>
-          </span> : <label className="boxTitle">
-            Title:
-            <input
-            className="box"
-              name="title"
-              type="text"
-              maxLength="100"
-              required
-              value={this.props.newCell.title}
-              onChange={this.handleInputChange} />
-          </label> }
-      </span>
-    )
-
-  footerInfo = () => (
-      <span>
-        { (this.props.newCell.footer) ? <span>
-          <label className="boxTitle">
-          Footer Button Text:
+        </span>
+      ) : (
+        <label className="boxTitle">
+          Title:
           <input
             className="box"
-            name="buttonText"
+            name="title"
             type="text"
+            maxLength="100"
             required
-            maxLength="30"
-            value={this.props.newCell.buttonText}
-            onChange={this.handleInputChange} />
+            value={this.props.newCell.title}
+            onChange={this.handleInputChange}
+          />
+        </label>
+      )}
+    </span>
+  )
+
+  footerInfo = () => (
+    <span>
+      {this.props.newCell.footer ? (
+        <span>
+          <label className="boxTitle">
+            Footer Button Text:
+            <input
+              className="box"
+              name="buttonText"
+              type="text"
+              required
+              maxLength="30"
+              value={this.props.newCell.buttonText}
+              onChange={this.handleInputChange}
+            />
           </label>
           <label className="boxTitle">
             Footer Button URL:
@@ -148,19 +161,21 @@ export default class FormView extends Component {
               type="text"
               required
               value={this.props.newCell.buttonURL}
-              onChange={this.handleInputChange} />
+              onChange={this.handleInputChange}
+            />
           </label>
-        </span> : null }
-      </span>
-    )
+        </span>
+      ) : null}
+    </span>
+  )
 
   speakerInfo = i => {
-    let name = `speakerInfo.${i}.name`
-    let image = `speakerInfo.${i}.image`
-    let title = `speakerInfo.${i}.title`
-    let company = `speakerInfo.${i}.company`
-    let des = `speakerInfo.${i}.des`
-    let link = `speakerInfo.${i}.URL`
+    const name = `speakerInfo.${i}.name`
+    const image = `speakerInfo.${i}.image`
+    const title = `speakerInfo.${i}.title`
+    const company = `speakerInfo.${i}.company`
+    const des = `speakerInfo.${i}.des`
+    const link = `speakerInfo.${i}.URL`
     return (
       <div>
         <label className="boxTitle">
@@ -234,7 +249,7 @@ export default class FormView extends Component {
   }
 
   videoInfo = i => {
-    let video = `videoInfo.${i}.video`
+    const video = `videoInfo.${i}.video`
     return (
       <div>
         <label className="boxTitle">
@@ -253,8 +268,8 @@ export default class FormView extends Component {
   }
 
   imageInfo = i => {
-    let image = `imageInfo.${i}.image`
-    let link = `imageInfo.${i}.URL`
+    const image = `imageInfo.${i}.image`
+    const link = `imageInfo.${i}.URL`
     return (
       <div>
         <label className="boxTitle">
@@ -284,10 +299,10 @@ export default class FormView extends Component {
 
   videoValidation = link => {
     if (link.length) return !link.match(/^(https?\:\/\/)(www\.)?(youtube\.com|youtu\.?be)\/.+$/)
-    else return false
+    return false
   }
 
-  videoCarouselVal = (videos) => {
+  videoCarouselVal = videos => {
     let status = false
     videos.forEach(item => {
       const currentVid = this.videoValidation(item.video)
@@ -643,106 +658,115 @@ export default class FormView extends Component {
       if (this.props.newCell.type === 'Squares Row') {
         return (
           <form className="formBox" onSubmit={this.handleSubmit}>
-          {this.checkQuestions()}
-          {this.headerInfo()}
-          <label className="boxTitle">
-            Image 1:
-            <input
-              className="box"
-              name="image1"
-              type="text"
-              required
-              value={this.props.newCell.image1}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <label className="boxTitle">
-            Link 1:
-            <input
-              className="box"
-              name="url1"
-              type="text"
-              required
-              value={this.props.newCell.url1}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <label className="boxTitle">
-            Image 2:
-            <input
-              className="box"
-              name="image2"
-              type="text"
-              required
-              value={this.props.newCell.image1}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <label className="boxTitle">
-            Link 2:
-            <input
-              className="box"
-              name="url2"
-              type="text"
-              required
-              value={this.props.newCell.url1}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <label className="boxTitle">
-            Image 3:
-            <input
-              className="box"
-              name="image3"
-              type="text"
-              required
-              value={this.props.newCell.image1}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <label className="boxTitle">
-            Link 3:
-            <input
-              className="box"
-              name="url3"
-              type="text"
-              required
-              value={this.props.newCell.url1}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          {this.footerInfo()}
-          <input className="formButton" type="submit" value="Submit Content" />
-        </form>
-      )
-    }
+            {this.checkQuestions()}
+            {this.headerInfo()}
+            <label className="boxTitle">
+              Image 1:
+              <input
+                className="box"
+                name="image1"
+                type="text"
+                required
+                value={this.props.newCell.image1}
+                onChange={this.handleInputChange}
+              />
+            </label>
+            <label className="boxTitle">
+              Link 1:
+              <input
+                className="box"
+                name="url1"
+                type="text"
+                required
+                value={this.props.newCell.url1}
+                onChange={this.handleInputChange}
+              />
+            </label>
+            <label className="boxTitle">
+              Image 2:
+              <input
+                className="box"
+                name="image2"
+                type="text"
+                required
+                value={this.props.newCell.image1}
+                onChange={this.handleInputChange}
+              />
+            </label>
+            <label className="boxTitle">
+              Link 2:
+              <input
+                className="box"
+                name="url2"
+                type="text"
+                required
+                value={this.props.newCell.url1}
+                onChange={this.handleInputChange}
+              />
+            </label>
+            <label className="boxTitle">
+              Image 3:
+              <input
+                className="box"
+                name="image3"
+                type="text"
+                required
+                value={this.props.newCell.image1}
+                onChange={this.handleInputChange}
+              />
+            </label>
+            <label className="boxTitle">
+              Link 3:
+              <input
+                className="box"
+                name="url3"
+                type="text"
+                required
+                value={this.props.newCell.url1}
+                onChange={this.handleInputChange}
+              />
+            </label>
+            {this.footerInfo()}
+            <input className="formButton" type="submit" value="Submit Content" />
+          </form>
+        )
+      }
 
-    if (this.props.newCell.type === "Video Carousel"){
-      return(
-        <form className="formBox" onSubmit={this.handleSubmit}>
-          {this.checkQuestions()}
-          {this.headerInfo()}
-          {this.props.newCell.videoInfo.map((item, i) => {
-            return (
-              this.videoInfo(i)
-            )
-          })}
-          {this.footerInfo()}
-          <input type="button" onClick={()=>this.props.handleNewVideo()} value="Add New Video +" className="speakerButton"/>
-          <input type="button" onClick={()=>this.props.deleteLastVideo()} value="Delete Last Video" className="deleteSpeakerButton"/>
-          <input className="formButton" type="submit" value="Submit Content" disabled={this.videoCarouselVal(this.props.newCell.videoInfo)}/>
-        </form>
-      )
-    }
+      if (this.props.newCell.type === 'Video Carousel') {
+        return (
+          <form className="formBox" onSubmit={this.handleSubmit}>
+            {this.checkQuestions()}
+            {this.headerInfo()}
+            {this.props.newCell.videoInfo.map((item, i) => this.videoInfo(i))}
+            {this.footerInfo()}
+            <input
+              type="button"
+              onClick={() => this.props.handleNewVideo()}
+              value="Add New Video +"
+              className="speakerButton"
+            />
+            <input
+              type="button"
+              onClick={() => this.props.deleteLastVideo()}
+              value="Delete Last Video"
+              className="deleteSpeakerButton"
+            />
+            <input
+              className="formButton"
+              type="submit"
+              value="Submit Content"
+              disabled={this.videoCarouselVal(this.props.newCell.videoInfo)}
+            />
+          </form>
+        )
+      }
 
       if (this.props.newCell.type === 'Speaker Highlight Cell') {
         return (
           <form className="formBox" onSubmit={this.handleSubmit}>
             {this.checkQuestions()}
             {this.headerInfo()}
-            {this.props.newCell.speakerInfo.map((item, i) => (
-                  this.speakerInfo(i)
-                ))}
+            {this.props.newCell.speakerInfo.map((item, i) => this.speakerInfo(i))}
             {this.footerInfo()}
             <input
               type="button"
@@ -766,9 +790,7 @@ export default class FormView extends Component {
           <form className="formBox" onSubmit={this.handleSubmit}>
             {this.checkQuestions()}
             {this.headerInfo()}
-            {this.props.newCell.imageInfo.map((item, i) => (
-              this.imageInfo(i)
-            ))}
+            {this.props.newCell.imageInfo.map((item, i) => this.imageInfo(i))}
             {this.footerInfo()}
             <input
               type="button"
@@ -792,9 +814,7 @@ export default class FormView extends Component {
           <form className="formBox" onSubmit={this.handleSubmit}>
             {this.checkQuestions()}
             {this.headerInfo()}
-            {this.props.newCell.videoInfo.map((item, i) => (
-            this.videoInfo(i)
-          ))}
+            {this.props.newCell.videoInfo.map((item, i) => this.videoInfo(i))}
             {this.footerInfo()}
             <input
               type="button"
