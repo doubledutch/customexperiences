@@ -697,7 +697,7 @@ export default class FormView extends Component {
                 name="image2"
                 type="text"
                 required
-                value={this.props.newCell.image1}
+                value={this.props.newCell.image2}
                 onChange={this.handleInputChange}
               />
             </label>
