@@ -263,6 +263,9 @@ export default class FormView extends Component {
             onChange={this.handleInputChange}
           />
         </label>
+        {this.videoValidation(this.props.newCell.videoInfo[i].video) && (
+          <p className="errorTitleRed">*Please enter a valid YouTube link</p>
+        )}
       </div>
     )
   }
@@ -351,17 +354,22 @@ export default class FormView extends Component {
             {this.headerInfo()}
             {this.props.formBools.videoBool ||
             (this.props.newCell.video && !this.props.newCell.image) ? (
-              <label className="boxTitle">
-                Video Link:
-                <input
-                  name="video"
-                  type="text"
-                  className="box"
-                  required
-                  value={this.props.newCell.video}
-                  onChange={this.handleInputChange}
-                />
-              </label>
+              <div>
+                <label className="boxTitle">
+                  Video Link:
+                  <input
+                    name="video"
+                    type="text"
+                    className="box"
+                    required
+                    value={this.props.newCell.video}
+                    onChange={this.handleInputChange}
+                  />
+                </label>
+                {this.videoValidation(this.props.newCell.video) && (
+                  <p className="errorTitleRed">*Please enter a valid YouTube link</p>
+                )}
+              </div>
             ) : null}
             {this.props.formBools.imageBool ||
             (this.props.newCell.image && !this.props.newCell.video) ? (
@@ -689,7 +697,7 @@ export default class FormView extends Component {
                 name="image2"
                 type="text"
                 required
-                value={this.props.newCell.image1}
+                value={this.props.newCell.image2}
                 onChange={this.handleInputChange}
               />
             </label>
@@ -700,7 +708,7 @@ export default class FormView extends Component {
                 name="url2"
                 type="text"
                 required
-                value={this.props.newCell.url1}
+                value={this.props.newCell.url2}
                 onChange={this.handleInputChange}
               />
             </label>
@@ -711,7 +719,7 @@ export default class FormView extends Component {
                 name="image3"
                 type="text"
                 required
-                value={this.props.newCell.image1}
+                value={this.props.newCell.image3}
                 onChange={this.handleInputChange}
               />
             </label>
@@ -722,7 +730,7 @@ export default class FormView extends Component {
                 name="url3"
                 type="text"
                 required
-                value={this.props.newCell.url1}
+                value={this.props.newCell.url3}
                 onChange={this.handleInputChange}
               />
             </label>
