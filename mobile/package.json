@@ -9,7 +9,7 @@
   "dependencies": {
     "@doubledutch/firebase-connector": "^4.1.0",
     "@doubledutch/rn-client": "5.0.1-alpha",
-    "@doubledutch/rn-components": "^0.3.5",
+    "@doubledutch/rn-components": "^0.3.6",
     "react": "16.6.1",
     "react-addons-update": "~15.6.0",
     "react-native": "0.57.5",

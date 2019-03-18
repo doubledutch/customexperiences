@@ -111,7 +111,7 @@ class AppView extends Component {
             {(provided, snapshot) => (
               <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
                 {this.props.items.map((item, i) => (
-                  <div>{this.renderCell(provided, snapshot, item, i)}</div>
+                  <div key={i}>{this.renderCell(provided, snapshot, item, i)}</div>
                 ))}
                 {provided.placeholder}
               </div>
