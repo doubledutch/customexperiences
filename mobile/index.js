@@ -15,19 +15,8 @@
  */
 
 import { AppRegistry } from 'react-native'
-import { install } from '@doubledutch/rn-client/webShim'
 import HomeView from './src/home-view'
 
-function runApp(DD) {
-  AppRegistry.registerComponent('customexperiences', () => HomeView)
-  AppRegistry.runApplication('customexperiences', {
-    rootTag: document.getElementById('react-root'),
-    initialProps: { ddOverride: DD },
-  })
-}
-
-if (window.DD && window.DD.Events) {
-  install(runApp)
-} else {
-  runApp(null)
-}
+console.ignoredYellowBox = ['Warning: View.propTypes has been deprecated']
+AppRegistry.registerComponent('customexperiences', () => HomeView)
+AppRegistry.registerComponent('section', () => HomeView)
