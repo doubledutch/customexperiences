@@ -53,6 +53,7 @@ text-align: center;
   display: flex;
   flex-flow: nowrap;
   align-items: center;
+  justify-content: center;
 }
 
 .modalTextBox {
@@ -222,6 +223,7 @@ text-align: center;
   text-align: left;
   padding: 0px;
   font-size: 18px;
+  margin: 0px;
 }
 
 .deleteButton{
