@@ -104,20 +104,22 @@ class HomeView extends PureComponent {
         items = items.concat(currentTemplate[i])
       }
     }
-    let isDisabled = false
-    const isRequired = items[0].requireScroll ? items[0].requireScroll : false
-    if (isRequired && items.length > 3) {
-      isDisabled = true
-    }
-    let isEqual = false
-    if (this.state.componentConfigs && items) {
-      isEqual = this.state.componentConfigs.reduce((res, v1, idx) => {
-        const v2 = items[idx] // value from other array at same index
-        return res && v1 === v2 // if result is true so far AND also the current values are equal
-      }, true)
-    }
-    if (!isEqual || !this.state.componentConfigs.length) {
-      this.setState({ componentConfigs: items, isDisabled })
+    if (items.length) {
+      let isDisabled = false
+      const isRequired = items[0].requireScroll ? items[0].requireScroll : false
+      if (isRequired && items.length > 3) {
+        isDisabled = true
+      }
+      let isEqual = false
+      if (this.state.componentConfigs && items) {
+        isEqual = this.state.componentConfigs.reduce((res, v1, idx) => {
+          const v2 = items[idx] // value from other array at same index
+          return res && v1 === v2 // if result is true so far AND also the current values are equal
+        }, true)
+      }
+      if (!isEqual || !this.state.componentConfigs.length) {
+        this.setState({ componentConfigs: items, isDisabled })
+      }
     }
   }
 
