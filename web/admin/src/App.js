@@ -112,7 +112,7 @@ class App extends PureComponent {
 
   handleDelete = event => {
     if (window.confirm('Are you sure you want to delete the cell?')) {
-      const items = this.state.items
+      const items = this.state.items.slice()
       const item = event.target.name
       this.state.items.splice(item, 1)
       this.setState({ items: items.slice(), newCell: '', showFormBool: false })
